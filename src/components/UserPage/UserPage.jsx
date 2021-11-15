@@ -1,16 +1,39 @@
-import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import React from "react";
+import LogOutButton from "../LogOutButton/LogOutButton";
+import { useSelector } from "react-redux";
+
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   return (
-    <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" />
-    </div>
+    <Container component="main" maxWidth="sm">
+      <Typography component="h2" variant="h4">
+        Welcome, {user.username}!
+      </Typography>
+      <Typography component="h3" variant="h5" mt={2}>
+        It doesn't look like you have any parks yet...
+      </Typography>
+      <Typography component="h4" variant="h6" mt={2} textAlign="center">
+        Use the Park Finder to get started!
+      </Typography>
+      <Box display="flex" justifyContent="center" mt={2}>
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ height: 80, width: 200 }}
+        >
+          Get Started
+        </Button>
+      </Box>
+      {/* <LogOutButton className="btn" /> */}
+    </Container>
   );
 }
 
