@@ -23,6 +23,7 @@ export default function ParkFinder() {
         Park Finder
       </Typography>
       <ParkFinderForm />
+      <ParkFinderList />
     </Container>
   );
 }

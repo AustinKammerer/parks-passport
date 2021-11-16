@@ -9,7 +9,7 @@ function* fetchSearchResults(action) {
     // GET request to /finder which then sends a GET to the NPS API with a state query
     // response is a list of parks in that state
     const searchResults = yield axios.get(
-      `/api/parks/finder?stateCode=${state}`
+      `/api/park/finder?stateCode=${state}`
     );
     console.log("search results:", searchResults.data);
     // send the response to the searchResults reducer
