@@ -20,6 +20,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
+import ParkInfo from "../ParkInfo/ParkInfo";
 
 import "./App.css";
 
@@ -64,18 +65,18 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/placeholder"
           >
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/finder"
-          >
+          <Route exact path="/finder">
             <ParkFinder />
-          </ProtectedRoute>
+          </Route>
+
+          <Route exact path="/info/:parkCode">
+            <ParkInfo />
+          </Route>
 
           <Route exact path="/login">
             {user.id ? (

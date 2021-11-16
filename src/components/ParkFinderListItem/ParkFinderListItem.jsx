@@ -1,11 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -18,6 +15,7 @@ export default function ParkFinderListItem({ result }) {
 
   const getParkInfo = () => {
     console.log(result.parkCode);
+    history.push(`/info/${result.parkCode}`);
   };
 
   return (
