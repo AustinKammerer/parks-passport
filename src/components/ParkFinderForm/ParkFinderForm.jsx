@@ -16,10 +16,13 @@ import Select from "@mui/material/Select";
 export default function ParkFinderForm() {
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    dispatch({ type: "FETCH_STATES" });
+  }, []);
   // const [state, setState] = React.useState("");
 
   // searchTerm (a US state) will be stored in redux
-  const searchTerm = useSelector((store) => store.park.searchTerm);
+  const { searchTerm, parkStates } = useSelector((store) => store.park);
 
   const handleChange = (e) => {
     // setState(e.target.value);
@@ -43,9 +46,9 @@ export default function ParkFinderForm() {
           label="State/Territory"
           onChange={handleChange}
         >
-          {states.map((state) => (
-            <MenuItem key={state.code} value={state.code}>
-              {state.name}
+          {parkStates.map((state) => (
+            <MenuItem key={state} value={state}>
+              {state}
             </MenuItem>
           ))}
         </Select>

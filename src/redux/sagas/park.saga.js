@@ -19,9 +19,20 @@ function* fetchSearchResults(action) {
   }
 }
 
+// get list of states that have parks
+function* fetchStates() {
+  try {
+    const states = yield axios.get(`/api/park/states`);
+    yield put({ type: "SET_STATES", payload: states.data });
+  } catch (error) {
+    console.log("error getting states:", error);
+  }
+}
+
 // watcher saga
 function* parkSaga() {
   yield takeLatest("FETCH_SEARCH_RESULTS", fetchSearchResults);
+  yield takeLatest("FETCH_STATES", fetchStates);
 }
 
 export default parkSaga;

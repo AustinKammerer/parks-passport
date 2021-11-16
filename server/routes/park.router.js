@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+const pool = require("../modules/pool");
 
 /**
  * GET route template
@@ -28,6 +29,39 @@ router.get("/finder", (req, res) => {
       );
       console.log(filtered);
       res.send(filtered);
+    })
+    .catch((err) => {
+      console.log("Error getting on server", err);
+    });
+});
+
+router.get("/states", (req, res) => {
+  const query = `SELECT JSON_AGG("state") AS "states" FROM "designations"
+WHERE "type" = 'National Park'
+OR "type" = 'National Park and Preserve'
+OR "type" = 'National Park & Preserve'
+OR "type" = 'National Parks'
+OR "type" = 'National and State Parks'
+GROUP BY "type"
+;`;
+  pool
+    .query(query)
+    .then((response) => {
+      console.log("response is:", response);
+      let statesList = response.rows
+        .map((row) => [...row.states])
+        .flat()
+        .map((el) => el.split(","))
+        .flat();
+      // let flatStatesList = statesList.flat();
+      // // console.log(flatStatesList);
+      // let parsedList = flatStatesList.map((el) => el.split(","));
+      // // console.log(parsedList);
+      // let list = parsedList.flat();
+      console.log(statesList);
+      let filteredStatesList = [...new Set(statesList)].sort();
+      console.log(filteredStatesList);
+      res.send(filteredStatesList);
     })
     .catch((err) => {
       console.log("Error getting on server", err);
