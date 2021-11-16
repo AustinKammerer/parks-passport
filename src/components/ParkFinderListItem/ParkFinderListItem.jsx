@@ -1,3 +1,6 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
@@ -10,9 +13,16 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 
 export default function ParkFinderListItem({ result }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const getParkInfo = () => {
+    console.log(result.parkCode);
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={getParkInfo}>
         <CardMedia
           component="img"
           width="345"

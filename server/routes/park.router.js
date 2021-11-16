@@ -3,13 +3,12 @@ const router = express.Router();
 const axios = require("axios");
 const pool = require("../modules/pool");
 
-/**
- * GET route template
- */
+// GET route for searching parks API by state
 router.get("/finder", (req, res) => {
-  // GET route code here
+  // grab the state to search by from the client's query string
   const state = req.query.stateCode;
   console.log(req.query);
+  // sends a GET request to NPS API
   axios
     .get(
       `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}&stateCode=${state}`
@@ -27,15 +26,18 @@ router.get("/finder", (req, res) => {
           item.designation === "National Park and Preserve" ||
           item.designation === "National and State Parks"
       );
-      console.log(filtered);
+      // console.log(filtered);
       res.send(filtered);
     })
     .catch((err) => {
-      console.log("Error getting on server", err);
+      console.log("Error getting parks from NPS API", err);
     });
 });
 
+// GET route for getting a list of states that contain National Parks
+// this list is used for the search options in ParkFinder
 router.get("/states", (req, res) => {
+  // select the states for every park with particular disignation types
   const query = `SELECT JSON_AGG("state") AS "states" FROM "designations"
 WHERE "type" = 'National Park'
 OR "type" = 'National Park and Preserve'
@@ -48,23 +50,28 @@ GROUP BY "type"
     .query(query)
     .then((response) => {
       console.log("response is:", response);
-      let statesList = response.rows
-        .map((row) => [...row.states])
-        .flat()
-        .map((el) => el.split(","))
-        .flat();
-      // let flatStatesList = statesList.flat();
-      // // console.log(flatStatesList);
-      // let parsedList = flatStatesList.map((el) => el.split(","));
-      // // console.log(parsedList);
-      // let list = parsedList.flat();
-      console.log(statesList);
-      let filteredStatesList = [...new Set(statesList)].sort();
-      console.log(filteredStatesList);
+      // response.rows is an array of objects containing arrays of states
+      // these arrays need to be mapped into a single array and then flattened
+      // but if a park spans multiple parks, the states are combined in a single string (ex: 'CA,NV')
+      // these cases need to be separated into discrete elements (ex: 'CA, 'NV')
+
+      // combine each row's array into a single array:
+      let statesList = response.rows.map((row) => [...row.states]);
+      // iterate over each subarray and parse multi-state strings
+      const parsedStatesList = statesList.map((arr) =>
+        arr.map((el) => (el.includes(",") ? el.split(",") : el))
+      );
+      // flatten the array of sub-arrays
+      // depth of 2 is passed because parsing multi-state strings results in an another nested array
+      const flattenedStatesList = parsedStatesList.flat(2);
+      // remove duplicate states by spreading the processed list into a new Set, then sort by state
+      let filteredStatesList = [...new Set(flattenedStatesList)].sort();
+      console.log("list for client:", filteredStatesList);
+      // send the final list back to the cient to use with a selector input
       res.send(filteredStatesList);
     })
     .catch((err) => {
-      console.log("Error getting on server", err);
+      console.log("Error getting list of states from database", err);
     });
 });
 

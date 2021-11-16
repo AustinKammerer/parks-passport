@@ -22,7 +22,9 @@ function* fetchSearchResults(action) {
 // get list of states that have parks
 function* fetchStates() {
   try {
+    // save the response of the GET request to the server
     const states = yield axios.get(`/api/park/states`);
+    // send it to the redux store
     yield put({ type: "SET_STATES", payload: states.data });
   } catch (error) {
     console.log("error getting states:", error);
