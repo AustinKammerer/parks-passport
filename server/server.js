@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const axios = require("axios");
+const pool = require("./modules/pool");
 
 const app = express();
 
@@ -28,6 +30,26 @@ app.use("/api/park", parksRouter);
 
 // Serve static files
 app.use(express.static("build"));
+
+// axios
+//   .get(
+//     `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}&limit=470`
+//   )
+//   .then((response) => {
+//     const results = response.data.data;
+//     let query = `INSERT INTO "designations" (name) VALUES `;
+//     for (let i = 0; i < results.length; i++) {
+//       query += ` ('${results[i].designation}')`;
+//       if (i === results.length - 1) {
+//         // if last iteration, add semicolon
+//         query += `;`;
+//       } else {
+//         // otherwise, add comma
+//         query += `,`;
+//       }
+//     }
+//     pool.query(query);
+//   });
 
 // App Set //
 const PORT = process.env.PORT || 5000;

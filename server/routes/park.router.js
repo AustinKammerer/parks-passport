@@ -16,8 +16,15 @@ router.get("/finder", (req, res) => {
     .then((response) => {
       console.log("response is:", response);
       const list = response.data.data;
+      // filter results to only return National Parks
+      // there are many other designations on the API in addition to National Parks
       const filtered = list.filter(
-        (item) => item.designation === "National Park"
+        (item) =>
+          item.designation === "National Park" ||
+          item.designation === "National Parks" ||
+          item.designation === "National Park & Preserve" ||
+          item.designation === "National Park and Preserve" ||
+          item.designation === "National and State Parks"
       );
       console.log(filtered);
       res.send(filtered);

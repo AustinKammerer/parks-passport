@@ -18,7 +18,7 @@ import Select from "@mui/material/Select";
 
 export default function ParkFinder() {
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main">
       <Typography component="h1" variant="h3">
         Park Finder
       </Typography>
