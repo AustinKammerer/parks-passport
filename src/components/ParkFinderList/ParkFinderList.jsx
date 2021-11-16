@@ -14,6 +14,7 @@ export default function ParkFinderList() {
       container
       spacing={2}
       justifyContent="center"
+      mt={0}
     >
       {results.map((result) => (
         <Grid item>

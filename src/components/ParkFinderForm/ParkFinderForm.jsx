@@ -27,8 +27,8 @@ export default function ParkFinderForm() {
     dispatch({ type: "FETCH_SEARCH_RESULTS", payload: state });
   };
   return (
-    <Box mt={2}>
-      <FormControl fullWidth variant="standard">
+    <Box>
+      <FormControl fullWidth variant="standard" margin="normal">
         <InputLabel id="state-select-label">State/Territory</InputLabel>
         <Select
           labelId="state-select-label"
