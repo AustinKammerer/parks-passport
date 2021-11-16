@@ -7,14 +7,20 @@ const axios = require("axios");
  */
 router.get("/finder", (req, res) => {
   // GET route code here
-  const { state } = req.query;
+  const state = req.query.stateCode;
+  console.log(req.query);
   axios
     .get(
       `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}&stateCode=${state}`
     )
     .then((response) => {
       console.log("response is:", response);
-      res.send(response.data);
+      const list = response.data.data;
+      const filtered = list.filter(
+        (item) => item.designation === "National Park"
+      );
+      console.log(filtered);
+      res.send(filtered);
     })
     .catch((err) => {
       console.log("Error getting on server", err);

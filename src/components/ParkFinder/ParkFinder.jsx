@@ -1,6 +1,9 @@
 import React from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import states from "../../modules/states";
+
+import ParkFinderForm from "../ParkFinderForm/ParkFinderForm";
+import ParkFinderList from "../ParkFinderList/ParkFinderList";
 
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -14,36 +17,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function ParkFinder() {
-  const [state, setState] = React.useState("");
-
-  const handleChange = (event) => {
-    setState(event.target.value);
-  };
-  console.log(state);
-
   return (
-    <>
+    <Container component="main" maxWidth="sm">
       <Typography component="h1" variant="h3">
         Park Finder
       </Typography>
-      <Box>
-        <FormControl fullWidth>
-          <InputLabel id="state-select-label">State/Territory</InputLabel>
-          <Select
-            labelId="state-select-label"
-            id="state-select"
-            value={state}
-            label="State/Territory"
-            onChange={handleChange}
-          >
-            {states.map((state) => (
-              <MenuItem key={state.code} value={state.code}>
-                {state.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
-    </>
+      <ParkFinderForm />
+    </Container>
   );
 }
