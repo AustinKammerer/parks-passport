@@ -29,11 +29,11 @@ export default function ParkFinderListItem({ result }) {
             </Typography> */}
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
+      <CardActions sx={{ justifyContent: "flex-end" }}>
+        <Button size="large" color="primary" variant="contained">
           Add
         </Button>
-        <Button size="small" color="primary">
+        <Button size="large" color="success" variant="contained">
           Start
         </Button>
       </CardActions>

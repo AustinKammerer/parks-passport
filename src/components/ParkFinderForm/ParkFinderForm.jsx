@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import states from "../../modules/states";
 
 import TextField from "@mui/material/TextField";
@@ -16,16 +16,22 @@ import Select from "@mui/material/Select";
 export default function ParkFinderForm() {
   const dispatch = useDispatch();
 
-  const [state, setState] = React.useState("");
+  // const [state, setState] = React.useState("");
+
+  // searchTerm (a US state) will be stored in redux
+  const searchTerm = useSelector((store) => store.park.searchTerm);
 
   const handleChange = (e) => {
-    setState(e.target.value);
+    // setState(e.target.value);
+    // dispatch the input's value to redux
+    dispatch({ type: "SET_SEARCH_TERM", payload: e.target.value });
   };
 
   const handleSearch = () => {
-    console.log(state);
-    dispatch({ type: "FETCH_SEARCH_RESULTS", payload: state });
+    // dispatch the searchTerm to Saga that queries the NPS API
+    dispatch({ type: "FETCH_SEARCH_RESULTS", payload: searchTerm });
   };
+
   return (
     <Box>
       <FormControl fullWidth variant="standard" margin="normal">
@@ -33,7 +39,7 @@ export default function ParkFinderForm() {
         <Select
           labelId="state-select-label"
           id="state-select"
-          value={state}
+          value={searchTerm}
           label="State/Territory"
           onChange={handleChange}
         >
@@ -44,7 +50,7 @@ export default function ParkFinderForm() {
           ))}
         </Select>
       </FormControl>
-      <Button variant="contained" onClick={handleSearch}>
+      <Button variant="contained" onClick={handleSearch} color="info">
         Search
       </Button>
     </Box>

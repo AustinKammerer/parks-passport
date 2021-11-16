@@ -37,9 +37,9 @@ app.use(express.static("build"));
 //   )
 //   .then((response) => {
 //     const results = response.data.data;
-//     let query = `INSERT INTO "designations" (name) VALUES `;
+//     let query = `INSERT INTO "designations" ("type", "state") VALUES `;
 //     for (let i = 0; i < results.length; i++) {
-//       query += ` ('${results[i].designation}')`;
+//       query += ` ('${results[i].designation}', '${results[i].states}')`;
 //       if (i === results.length - 1) {
 //         // if last iteration, add semicolon
 //         query += `;`;

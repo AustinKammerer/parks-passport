@@ -17,8 +17,8 @@ export default function ParkFinderList() {
       mt={0}
     >
       {results.map((result) => (
-        <Grid item>
-          <ParkFinderListItem result={result} key={result.parkCode} />
+        <Grid item key={result.parkCode}>
+          <ParkFinderListItem result={result} />
         </Grid>
       ))}
     </Grid>
