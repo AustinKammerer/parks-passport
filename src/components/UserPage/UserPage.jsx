@@ -1,6 +1,7 @@
 import React from "react";
 import LogOutButton from "../LogOutButton/LogOutButton";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -10,6 +11,9 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
 function UserPage() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   return (
@@ -28,6 +32,7 @@ function UserPage() {
           variant="contained"
           size="large"
           sx={{ height: 80, width: 200 }}
+          onClick={() => history.push("/finder")}
         >
           Get Started
         </Button>
