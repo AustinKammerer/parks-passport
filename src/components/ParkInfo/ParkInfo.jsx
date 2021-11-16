@@ -14,7 +14,7 @@ export default function ParkInfo() {
   const { parkCode } = useParams();
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_DETAILS", payload: parkCode });
+    dispatch({ type: "FETCH_PARK_INFO", payload: parkCode });
   }, []);
 
   return (
