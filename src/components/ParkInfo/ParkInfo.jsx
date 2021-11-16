@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function ParkInfo() {
+  const dispatch = useDispatch();
   // get the park's parkCode from the react-router url param
   const { parkCode } = useParams();
 

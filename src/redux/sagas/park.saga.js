@@ -39,8 +39,11 @@ function* fetchParkInfo(action) {
     // client GET triggers a server GET to the NPS API
     // capture the response from NPS
     const parkInfo = yield axios.get(`/api/park/info/${parkCode}`);
-    // send the response to the redux store
-    yield put({ type: "SET_PARK_INFO", payload: parkInfo.data });
+    // pull the object we want out of the data.data array and send it to the redux store
+    yield put({
+      type: "SET_PARK_INFO",
+      payload: parkInfo.data.data[0],
+    });
   } catch (error) {
     console.log("error getting park info:", error);
   }
