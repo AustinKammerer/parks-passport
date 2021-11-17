@@ -8,11 +8,11 @@ const npsBaseUrl = `https://developer.nps.gov/api/v1/parks/?api_key=${process.en
 // GET route for searching parks API by state
 router.get("/finder", (req, res) => {
   // grab the state to search by from the client's query string
-  const state = req.query.stateCode;
+  const { stateCode } = req.query;
   console.log(req.query);
   // sends a GET request to NPS API
   axios
-    .get(`${npsBaseUrl}&stateCode=${state}`)
+    .get(`${npsBaseUrl}&stateCode=${stateCode}`)
     .then((response) => {
       console.log("response is:", response);
       const list = response.data.data;
@@ -35,9 +35,9 @@ router.get("/finder", (req, res) => {
 });
 
 // GET route for getting info on a specific park from the NPS API
-router.get("/info/:parkCode", (req, res) => {
+router.get("/info", (req, res) => {
   // grab the parkCode from the url so it may be used in the request to the NPS API
-  const { parkCode } = req.params;
+  const { parkCode } = req.query;
   // send GET request to NPS API for a specific park's data
   axios
     .get(`${npsBaseUrl}&parkCode=${parkCode}`)
