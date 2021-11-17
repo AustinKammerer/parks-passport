@@ -21,6 +21,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
+import Wishlist from "../Wishlist/Wishlist";
 
 import "./App.css";
 
@@ -70,10 +71,21 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          {/* Wishlist */}
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/wishlist"
+          >
+            <Wishlist />
+          </ProtectedRoute>
+
+          {/* Park Finder */}
           <Route exact path="/finder">
             <ParkFinder />
           </Route>
 
+          {/* Park Info */}
           <Route exact path="/info/:parkCode">
             <ParkInfo />
           </Route>
