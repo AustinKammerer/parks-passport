@@ -17,6 +17,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   // GET route code here
   const query = `
     SELECT "id", 
+        "name",
         "park_code" AS "parkCode", 
         "image_path" AS "imagePath", 
         "is_current" AS "isCurrent", 

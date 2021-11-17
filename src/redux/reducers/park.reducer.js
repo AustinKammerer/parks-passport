@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+// stores search-by-state results from NPS
 const searchResults = (state = [], action) => {
   switch (action.type) {
     case "SET_RESULTS":
@@ -9,6 +10,7 @@ const searchResults = (state = [], action) => {
   }
 };
 
+// stores the user's search term
 const searchTerm = (state = "", action) => {
   switch (action.type) {
     case "SET_SEARCH_TERM":
@@ -18,6 +20,7 @@ const searchTerm = (state = "", action) => {
   }
 };
 
+// stores the list of US states that contain Natl Parks for ParkFinder selector input options
 const parkStates = (state = [], action) => {
   switch (action.type) {
     case "SET_STATES":
@@ -27,18 +30,10 @@ const parkStates = (state = [], action) => {
   }
 };
 
+// stores a park's NPS API entry for the ParkInfo view
 const parkInfo = (state = {}, action) => {
   switch (action.type) {
     case "SET_PARK_INFO":
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const wishlist = (state = [], action) => {
-  switch (action.type) {
-    case "SET_WISHLIST":
       return action.payload;
     default:
       return state;
@@ -50,5 +45,4 @@ export default combineReducers({
   searchTerm,
   parkStates,
   parkInfo,
-  wishlist,
 });
