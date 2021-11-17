@@ -27,8 +27,18 @@ const parkStates = (state = [], action) => {
   }
 };
 
+const parkInfo = (state = {}, action) => {
+  switch (action.type) {
+    case "SET_PARK_INFO":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   searchResults,
   searchTerm,
   parkStates,
+  parkInfo,
 });

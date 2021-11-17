@@ -3,6 +3,8 @@ const router = express.Router();
 const axios = require("axios");
 const pool = require("../modules/pool");
 
+const npsBaseUrl = `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}`;
+
 // GET route for searching parks API by state
 router.get("/finder", (req, res) => {
   // grab the state to search by from the client's query string
@@ -10,9 +12,7 @@ router.get("/finder", (req, res) => {
   console.log(req.query);
   // sends a GET request to NPS API
   axios
-    .get(
-      `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}&stateCode=${state}`
-    )
+    .get(`${npsBaseUrl}&stateCode=${state}`)
     .then((response) => {
       console.log("response is:", response);
       const list = response.data.data;
@@ -31,6 +31,22 @@ router.get("/finder", (req, res) => {
     })
     .catch((err) => {
       console.log("Error getting parks from NPS API", err);
+    });
+});
+
+// GET route for getting info on a specific park from the NPS API
+router.get("/info/:parkCode", (req, res) => {
+  // grab the parkCode from the url so it may be used in the request to the NPS API
+  const { parkCode } = req.params;
+  // send GET request to NPS API for a specific park's data
+  axios
+    .get(`${npsBaseUrl}&parkCode=${parkCode}`)
+    .then((response) => {
+      console.log("response is:", response.data);
+      res.send(response.data);
+    })
+    .catch((err) => {
+      console.log("Error getting park info from NPS API", err);
     });
 });
 
