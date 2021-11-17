@@ -16,9 +16,9 @@ router.get("/finder", (req, res) => {
   // sends a GET request to NPS API
   axios
     .get(`${npsBaseUrl}&stateCode=${stateCode}`)
-    .then((response) => {
-      console.log("response is:", response);
-      const list = response.data.data;
+    .then((result) => {
+      console.log("result is:", result);
+      const list = result.data.data;
       // filter results to only return National Parks
       // there are many other designations on the API in addition to National Parks
       const filtered = list.filter(
@@ -45,9 +45,9 @@ router.get("/info", (req, res) => {
   // send GET request to NPS API for a specific park's data
   axios
     .get(`${npsBaseUrl}&parkCode=${parkCode}`)
-    .then((response) => {
-      console.log("response is:", response.data);
-      res.send(response.data);
+    .then((result) => {
+      console.log("result is:", result.data);
+      res.send(result.data);
     })
     .catch((err) => {
       console.log("Error getting park info from NPS API", err);
@@ -69,15 +69,15 @@ router.get("/states", (req, res) => {
   `;
   pool
     .query(query)
-    .then((response) => {
-      console.log("response is:", response);
-      // response.rows is an array of objects containing arrays of states
+    .then((result) => {
+      console.log("result is:", result);
+      // result.rows is an array of objects containing arrays of states
       // these arrays need to be mapped into a single array and then flattened
       // but if a park spans multiple parks, the states are combined in a single string (ex: 'CA,NV')
       // these cases need to be separated into discrete elements (ex: 'CA, 'NV')
 
       // combine each row's array into a single array:
-      let statesList = response.rows.map((row) => [...row.states]);
+      let statesList = result.rows.map((row) => [...row.states]);
       // iterate over each subarray and parse multi-state strings
       const parsedStatesList = statesList.map((arr) =>
         arr.map((el) => (el.includes(",") ? el.split(",") : el))

@@ -13,6 +13,7 @@ CREATE TABLE "user" (
 CREATE TABLE "trip" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INT NOT NULL REFERENCES "user" ON DELETE CASCADE,
+    "name" VARCHAR (255) NOT NULL,
     "park_code" VARCHAR (20) NOT NULL,
     "image_path" VARCHAR (510),
     "is_current" BOOLEAN NOT NULL DEFAULT FALSE,

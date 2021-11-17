@@ -9,8 +9,32 @@ const {
 /**
  * GET route template
  */
-router.get("/", (req, res) => {
+// router.get("/", (req, res) => {
+//   // GET route code here
+// });
+
+router.get("/", rejectUnauthenticated, (req, res) => {
   // GET route code here
+  const query = `
+    SELECT "id", 
+        "park_code" AS "parkCode", 
+        "image_path" AS "imagePath", 
+        "is_current" AS "isCurrent", 
+        "is_complete" AS "isComplete" 
+        FROM "trip"
+        WHERE "user_id" = ${req.user.id};
+  `;
+
+  pool
+    .query(query)
+    .then((result) => {
+      console.log(result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("Error getting trips from database", err);
+      res.sendStatus(500);
+    });
 });
 
 /**
@@ -23,16 +47,16 @@ router.get("/", (req, res) => {
 // POST route for adding a trip to the database
 router.post("/", rejectUnauthenticated, (req, res) => {
   // grab the parkCode and imagePath from the client's request
-  const { parkCode, imagePath } = req.body;
+  const { name, parkCode, imagePath } = req.body;
   console.log(req.body);
   // query string for the database
   const query = `
-    INSERT INTO "trip" ("user_id", "park_code", "image_path")
-        VALUES ($1, $2, $3);
+    INSERT INTO "trip" ("user_id", "name", "park_code", "image_path")
+        VALUES ($1, $2, $3, $4);
   `;
   // make the database INSERT query
   pool
-    .query(query, [req.user.id, parkCode, imagePath])
+    .query(query, [req.user.id, name, parkCode, imagePath])
     .then((response) => {
       res.sendStatus(201);
     })
