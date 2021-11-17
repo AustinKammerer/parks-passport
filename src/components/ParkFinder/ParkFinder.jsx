@@ -1,5 +1,3 @@
-import React from "react";
-
 import ParkFinderForm from "../ParkFinderForm/ParkFinderForm";
 import ParkFinderList from "../ParkFinderList/ParkFinderList";
 

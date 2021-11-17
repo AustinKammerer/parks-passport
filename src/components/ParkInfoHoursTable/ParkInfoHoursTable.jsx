@@ -29,7 +29,7 @@ export default function ParkInfoHoursTable({ entry }) {
       }
     }
   }
-  console.log(hoursArr);
+  // console.log(hoursArr);
   return (
     <TableContainer component={Paper} sx={{ mt: 2 }}>
       <Table>

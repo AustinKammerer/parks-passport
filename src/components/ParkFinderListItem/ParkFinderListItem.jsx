@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import AddTripButton from "../AddTripButton/AddTripButton";
+
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -16,14 +18,6 @@ export default function ParkFinderListItem({ result }) {
   const getParkInfo = () => {
     console.log(result.parkCode);
     history.push(`/info/${result.parkCode}`);
-  };
-
-  const handleAdd = () => {
-    const { parkCode, name } = result;
-    const imagePath = result.images[0].url;
-    console.log(parkCode);
-    console.log(imagePath);
-    dispatch({ type: "ADD_TRIP", payload: { parkCode, imagePath, name } });
   };
 
   return (
@@ -42,17 +36,10 @@ export default function ParkFinderListItem({ result }) {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button
-          size="large"
-          color="primary"
-          variant="contained"
-          onClick={handleAdd}
-        >
-          Add
-        </Button>
         <Button size="large" color="success" variant="contained">
           Start
         </Button>
+        <AddTripButton park={result} />
       </CardActions>
     </Card>
   );

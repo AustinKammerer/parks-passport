@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import ParkInfoHours from "../ParkInfoHours/ParkInfoHours";
+import AddTripButton from "../AddTripButton/AddTripButton";
 
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -16,6 +17,7 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import Button from "@mui/material/Button";
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   maxHeight: 400,
@@ -49,7 +51,13 @@ export default function ParkInfo() {
 
   return (
     <Container component="main">
-      <p>this is the Park Info page for parkCode:{parkCode}</p>
+      <Typography component="h1" variant="h4">
+        {parkInfo.name}
+      </Typography>
+      <Button size="large" color="success" variant="contained">
+        Start
+      </Button>
+      <AddTripButton park={parkInfo} />
 
       {/* Description */}
       <Accordion>
@@ -72,8 +80,7 @@ export default function ParkInfo() {
               ? parkInfo.images?.map((image) => (
                   <ImageListItem key={image.url}>
                     <img
-                      src={image.url}
-                      srcSet={image.url}
+                      src={`${image.url}`}
                       alt={image.altText}
                       loading="lazy"
                     />

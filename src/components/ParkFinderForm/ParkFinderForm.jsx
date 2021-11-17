@@ -28,7 +28,7 @@ export default function ParkFinderForm() {
   };
 
   const handleSearch = () => {
-    history.push(`/finder?state=${searchTerm}`);
+    // history.push(`/finder?state=${searchTerm}`);
     // dispatch the searchTerm to Saga that queries the NPS API
     dispatch({ type: "FETCH_SEARCH_RESULTS", payload: searchTerm });
   };

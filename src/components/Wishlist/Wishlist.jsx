@@ -21,11 +21,13 @@ export default function Wishlist() {
       <Typography component="h1" variant="h3">
         Wishlist
       </Typography>
-      {wishlist.map((trip) => (
-        <Grid item key={trip.parkCode}>
-          <WishlistItem trip={trip} />
-        </Grid>
-      ))}
+      <Grid container spacing={2} justifyContent="center" mt={0}>
+        {wishlist.map((trip) => (
+          <Grid item key={trip.parkCode}>
+            <WishlistItem trip={trip} />
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 }
