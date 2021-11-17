@@ -1,7 +1,7 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
-// will make get request to NPS API based on the state selected
+// GET request to NPS API based on the state selected
 function* fetchSearchResults(action) {
   // user selected state to search for parks
   const state = action.payload;
@@ -16,10 +16,11 @@ function* fetchSearchResults(action) {
     yield put({ type: "SET_RESULTS", payload: searchResults.data });
   } catch (error) {
     console.log("error getting search results:", error);
+    yield put({ type: "GET_ERROR" });
   }
 }
 
-// get list of states that have parks
+// GET list of states that have parks
 function* fetchStates() {
   try {
     // save the response of the GET request to the server
@@ -28,17 +29,18 @@ function* fetchStates() {
     yield put({ type: "SET_STATES", payload: states.data });
   } catch (error) {
     console.log("error getting states:", error);
+    yield put({ type: "GET_ERROR" });
   }
 }
 
-// get details from the NPS API for a specific park
+// GET details from the NPS API for a specific park
 function* fetchParkInfo(action) {
   // action brings the parkCode with it
   const parkCode = action.payload;
   try {
     // client GET triggers a server GET to the NPS API
     // capture the response from NPS
-    const parkInfo = yield axios.get(`/api/park/info/${parkCode}`);
+    const parkInfo = yield axios.get(`/api/park/info?parkCode=${parkCode}`);
     // pull the object we want out of the data.data array and send it to the redux store
     yield put({
       type: "SET_PARK_INFO",
@@ -46,6 +48,7 @@ function* fetchParkInfo(action) {
     });
   } catch (error) {
     console.log("error getting park info:", error);
+    yield put({ type: "GET_ERROR" });
   }
 }
 

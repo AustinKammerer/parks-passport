@@ -12,8 +12,8 @@ function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+
   return (
     <Container component="main" maxWidth="sm">
       <Typography component="h2" variant="h4">

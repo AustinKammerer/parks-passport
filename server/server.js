@@ -11,7 +11,8 @@ const passport = require("./strategies/user.strategy");
 
 // Route includes
 const userRouter = require("./routes/user.router");
-const parksRouter = require("./routes/park.router");
+const parkRouter = require("./routes/park.router");
+const tripRouter = require("./routes/trip.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -26,7 +27,8 @@ app.use(passport.session());
 
 /* Routes */
 app.use("/api/user", userRouter);
-app.use("/api/park", parksRouter);
+app.use("/api/park", parkRouter); // for accessing the NPS API
+app.use("/api/trip", tripRouter); // for accessing "trip" in the database
 
 // Serve static files
 app.use(express.static("build"));

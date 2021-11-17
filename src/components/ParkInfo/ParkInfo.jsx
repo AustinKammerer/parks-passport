@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import ParkInfoHours from "../ParkInfoHours/ParkInfoHours";
+import AddTripButton from "../AddTripButton/AddTripButton";
+import StartTripButton from "../StartTripButton/StartTripButton";
 
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -14,6 +16,9 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import Button from "@mui/material/Button";
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   maxHeight: 400,
@@ -33,10 +38,12 @@ export default function ParkInfo() {
   // get the stored park info from redux
   const { parkInfo } = useSelector((store) => store.park);
 
+  // drill into the addresses property and filter for the physical address
   const physicalAddress = parkInfo.addresses?.filter(
     (address) => address.type === "Physical"
   )[0];
 
+  // drill into the contacts contacts property and filter for the voice phone number
   const voiceContact = parkInfo.contacts?.phoneNumbers?.filter(
     (number) => number.type === "Voice"
   )[0];
@@ -45,7 +52,16 @@ export default function ParkInfo() {
 
   return (
     <Container component="main">
-      <p>this is the Park Info page for parkCode:{parkCode}</p>
+      <Typography component="h1" variant="h4">
+        {parkInfo.name}
+      </Typography>
+      <StartTripButton
+        size="large"
+        color="success"
+        variant="contained"
+        parkInfo={parkInfo}
+      />
+      <AddTripButton park={parkInfo} />
 
       {/* Description */}
       <Accordion>
@@ -57,9 +73,31 @@ export default function ParkInfo() {
         </StyledAccordionDetails>
       </Accordion>
 
-      {/* Activities */}
+      {/* Images */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel2a-header">
+          <Typography>Images</Typography>
+        </AccordionSummary>
+        <StyledAccordionDetails>
+          <ImageList cols={1}>
+            {parkInfo.images
+              ? parkInfo.images?.map((image) => (
+                  <ImageListItem key={image.url}>
+                    <img
+                      src={`${image.url}`}
+                      alt={image.altText}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))
+              : ""}
+          </ImageList>
+        </StyledAccordionDetails>
+      </Accordion>
+
+      {/* Activities */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel3a-header">
           <Typography>Activities Available</Typography>
         </AccordionSummary>
         <StyledAccordionDetails>
@@ -75,7 +113,7 @@ export default function ParkInfo() {
 
       {/* Weather (not a forcast) */}
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel3a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel4a-header">
           <Typography>General Weather Info</Typography>
         </AccordionSummary>
         <StyledAccordionDetails>
@@ -85,7 +123,7 @@ export default function ParkInfo() {
 
       {/* Location */}
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel4a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel5a-header">
           <Typography>Location</Typography>
         </AccordionSummary>
         <StyledAccordionDetails>
@@ -111,7 +149,7 @@ export default function ParkInfo() {
 
       {/* Directions (general, no turn-by-turn) */}
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel5a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel6a-header">
           <Typography>Directions</Typography>
         </AccordionSummary>
         <StyledAccordionDetails>
@@ -120,14 +158,18 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Hours of operation */}
-      <ParkInfoHours
-        parkInfo={parkInfo}
-        StyledAccordionDetails={StyledAccordionDetails}
-      />
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel7a-header">
+          <Typography>Hours of Operation</Typography>
+        </AccordionSummary>
+        <StyledAccordionDetails>
+          <ParkInfoHours parkInfo={parkInfo} />
+        </StyledAccordionDetails>
+      </Accordion>
 
       {/* Contact */}
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel7a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel8a-header">
           <Typography>Contact</Typography>
         </AccordionSummary>
         <StyledAccordionDetails>
@@ -142,13 +184,13 @@ export default function ParkInfo() {
 
       {/* Fees */}
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel8a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel9a-header">
           <Typography>Fees</Typography>
         </AccordionSummary>
         <StyledAccordionDetails>
           <Box>
             {parkInfo.entranceFees?.map((fee) => (
-              <Box key={fee.title} sx={{ mb: 2 }}>
+              <Box key={fee.description} sx={{ mb: 2 }}>
                 <Typography fontWeight="bold">{fee.title}</Typography>
                 <Typography fontStyle="italic">${fee.cost}</Typography>
                 <Typography>{fee.description}</Typography>

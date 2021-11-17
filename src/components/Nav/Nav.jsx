@@ -31,6 +31,11 @@ function Nav() {
             <Link className="navLink" to="/placeholder">
               Placeholder
             </Link>
+
+            <Link className="navLink" to="/wishlist">
+              Wishlist
+            </Link>
+
             <Link className="navLink" to="/finder">
               Finder
             </Link>
