@@ -27,8 +27,8 @@ app.use(passport.session());
 
 /* Routes */
 app.use("/api/user", userRouter);
-app.use("/api/park", parkRouter);
-app.use("/api/trip", tripRouter);
+app.use("/api/park", parkRouter); // for accessing the NPS API
+app.use("/api/trip", tripRouter); // for accessing "trip" in the database
 
 // Serve static files
 app.use(express.static("build"));

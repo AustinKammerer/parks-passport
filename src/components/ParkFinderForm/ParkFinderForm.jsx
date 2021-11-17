@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -10,6 +11,7 @@ import Select from "@mui/material/Select";
 
 export default function ParkFinderForm() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_STATES" });
@@ -26,6 +28,7 @@ export default function ParkFinderForm() {
   };
 
   const handleSearch = () => {
+    history.push(`/finder?state=${searchTerm}`);
     // dispatch the searchTerm to Saga that queries the NPS API
     dispatch({ type: "FETCH_SEARCH_RESULTS", payload: searchTerm });
   };

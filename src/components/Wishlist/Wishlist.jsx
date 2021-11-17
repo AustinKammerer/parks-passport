@@ -14,7 +14,7 @@ export default function Wishlist() {
     dispatch({ type: "FETCH_WISHLIST" });
   }, []);
 
-  const { wishlist } = useSelector((store) => store.park);
+  const { wishlist } = useSelector((store) => store.trip);
 
   return (
     <Container component="main">
