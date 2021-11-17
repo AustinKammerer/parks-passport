@@ -1,7 +1,7 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
-// GET user's list of trips
+// GET user's trip wishlist
 function* fetchWishlist() {
   try {
     // save the response from the database
@@ -22,7 +22,21 @@ function* addTrip(action) {
     yield axios.post(`/api/trip`, action.payload);
     console.log("POST success");
   } catch (error) {
-    console.log("error getting park info:", error);
+    console.log("error adding trip:", error);
+    yield put({ type: "POST_ERROR" });
+  }
+}
+
+// PUT request to start a trip - flips "is_current" to TRUE
+function* startTrip(action) {
+  // payload contains the trip's id
+  const tripId = action.payload;
+  try {
+    // PUT request
+    yield axios.put(`/api/trip/start/${tripId}`);
+    console.log("trip started");
+  } catch (error) {
+    console.log("error starting trip:", error);
     yield put({ type: "POST_ERROR" });
   }
 }
@@ -31,6 +45,7 @@ function* addTrip(action) {
 function* tripSaga() {
   yield takeLatest("FETCH_WISHLIST", fetchWishlist);
   yield takeLatest("ADD_TRIP", addTrip);
+  yield takeLatest("START_TRIP", startTrip);
 }
 
 export default tripSaga;

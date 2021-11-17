@@ -14,7 +14,7 @@ const {
 // });
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  // GET route code here
+  // GET the list of trips where "is_current" AND "is_complete" are FALSE
   const query = `
     SELECT "id", 
         "name",
@@ -23,7 +23,9 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         "is_current" AS "isCurrent", 
         "is_complete" AS "isComplete" 
         FROM "trip"
-        WHERE "user_id" = ${req.user.id};
+        WHERE "user_id" = ${req.user.id}
+        AND "is_current" = FALSE
+        AND "is_complete" = FALSE;
   `;
 
   pool

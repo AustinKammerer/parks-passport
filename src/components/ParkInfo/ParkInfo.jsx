@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ParkInfoHours from "../ParkInfoHours/ParkInfoHours";
 import AddTripButton from "../AddTripButton/AddTripButton";
+import StartTripButton from "../StartTripButton/StartTripButton";
 
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -54,9 +55,12 @@ export default function ParkInfo() {
       <Typography component="h1" variant="h4">
         {parkInfo.name}
       </Typography>
-      <Button size="large" color="success" variant="contained">
-        Start
-      </Button>
+      <StartTripButton
+        size="large"
+        color="success"
+        variant="contained"
+        parkInfo={parkInfo}
+      />
       <AddTripButton park={parkInfo} />
 
       {/* Description */}
