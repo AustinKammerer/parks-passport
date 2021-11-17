@@ -7,9 +7,7 @@ import ParkInfoHours from "../ParkInfoHours/ParkInfoHours";
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails, {
-  accordionDetailsClasses,
-} from "@mui/material/AccordionDetails";
+import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import List from "@mui/material/List";
@@ -46,13 +44,17 @@ export default function ParkInfo() {
     (address) => address.type === "Physical"
   )[0];
 
-  const standardHours = parkInfo.operatingHours?.map(
-    (entry) => entry.standardHours
-  );
+  const voiceContact = parkInfo.contacts?.phoneNumbers?.filter(
+    (number) => number.type === "Voice"
+  )[0];
+
+  console.log(voiceContact);
 
   return (
     <Container component="main">
       <p>this is the Park Info page for parkCode:{parkCode}</p>
+
+      {/* Description */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
           <Typography>Description</Typography>
@@ -61,6 +63,8 @@ export default function ParkInfo() {
           <Typography>{parkInfo.description}</Typography>
         </StyledAccordionDetails>
       </Accordion>
+
+      {/* Activities */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel2a-header">
           <Typography>Activities Available</Typography>
@@ -75,6 +79,8 @@ export default function ParkInfo() {
           </List>
         </StyledAccordionDetails>
       </Accordion>
+
+      {/* Weather (not a forcast) */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel3a-header">
           <Typography>General Weather Info</Typography>
@@ -83,6 +89,8 @@ export default function ParkInfo() {
           <Typography>{parkInfo.weatherInfo}</Typography>
         </StyledAccordionDetails>
       </Accordion>
+
+      {/* Location */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel4a-header">
           <Typography>Location</Typography>
@@ -107,6 +115,8 @@ export default function ParkInfo() {
           </Box>
         </StyledAccordionDetails>
       </Accordion>
+
+      {/* Directions (general, no turn-by-turn) */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel5a-header">
           <Typography>Directions</Typography>
@@ -115,39 +125,44 @@ export default function ParkInfo() {
           <Typography>{parkInfo?.directionsInfo}</Typography>
         </StyledAccordionDetails>
       </Accordion>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel6a-header">
-          <Typography>Hours of Operation</Typography>
-        </AccordionSummary>
-        <StyledAccordionDetails>
-          <ParkInfoHours parkInfo={parkInfo} />
-          {/* <TableContainer component={Paper}>
-            <Table>
-              <TableBody>
-                {parkInfo.operatingHours?.map((entry) =>
-                  entry.exceptions.map((day) => (
-                    <TableRow key={day.name}>
-                      <TableCell>{day.name}</TableCell>
-                      <TableCell>{day.exceptionHours.sunday}</TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer> */}
-        </StyledAccordionDetails>
-      </Accordion>
+
+      {/* Hours of operation */}
+      <ParkInfoHours
+        parkInfo={parkInfo}
+        StyledAccordionDetails={StyledAccordionDetails}
+      />
+
+      {/* Contact */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel7a-header">
           <Typography>Contact</Typography>
         </AccordionSummary>
-        <StyledAccordionDetails></StyledAccordionDetails>
+        <StyledAccordionDetails>
+          <Box>
+            <Typography variant="body1" textAlign="start">
+              Phone Number:
+            </Typography>
+            <Typography>{voiceContact?.phoneNumber}</Typography>
+          </Box>
+        </StyledAccordionDetails>
       </Accordion>
+
+      {/* Fees */}
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel8a-header">
           <Typography>Fees</Typography>
         </AccordionSummary>
-        <StyledAccordionDetails></StyledAccordionDetails>
+        <StyledAccordionDetails>
+          <Box>
+            {parkInfo.entranceFees?.map((fee) => (
+              <Box key={fee.title} sx={{ mb: 2 }}>
+                <Typography fontWeight="bold">{fee.title}</Typography>
+                <Typography fontStyle="italic">${fee.cost}</Typography>
+                <Typography>{fee.description}</Typography>
+              </Box>
+            ))}
+          </Box>
+        </StyledAccordionDetails>
       </Accordion>
     </Container>
   );

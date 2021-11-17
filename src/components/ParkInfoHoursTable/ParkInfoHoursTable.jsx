@@ -5,6 +5,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 
 const weekdays = [
   "Sunday",
@@ -17,12 +18,7 @@ const weekdays = [
 ];
 
 export default function ParkInfoHoursTable({ entry }) {
-  // const operatingHours = parkInfo.operatingHours?.find((entry) => entry);
-  // const hoursArr = [];
-  // for (const day of standardHours) {
-  //   hoursArr.push(day);
-  // }
-  console.log(entry);
+  // the API has the days of the week in a random order, this loop reorders them
   let hoursArr = [];
   if (entry) {
     for (let i = 0; i < weekdays.length; i++) {
@@ -40,7 +36,7 @@ export default function ParkInfoHoursTable({ entry }) {
         <TableHead>
           <TableRow>
             <TableCell align="center" colSpan={2}>
-              {entry.name}
+              <Typography fontWeight="bold">{entry.name}</Typography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -54,15 +50,19 @@ export default function ParkInfoHoursTable({ entry }) {
           {entry.exceptions.length > 0 && (
             <TableRow>
               <TableCell align="center" colSpan={2}>
-                Exceptions
+                <Typography fontWeight="bold">Exceptions</Typography>
               </TableCell>
             </TableRow>
           )}
           {entry.exceptions.length > 0 &&
-            entry.exceptions.map((day) => (
-              <TableRow key={day.name}>
-                <TableCell>{day.name}</TableCell>
-                <TableCell>{day.exceptionHours.sunday}</TableCell>
+            entry.exceptions.map((period) => (
+              <TableRow key={period.name}>
+                <TableCell>
+                  {period.startDate === period.endDate
+                    ? period.name
+                    : period.startDate + " - " + period.endDate}
+                </TableCell>
+                <TableCell>{period.exceptionHours.sunday}</TableCell>
               </TableRow>
             ))}
         </TableBody>
