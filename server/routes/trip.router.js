@@ -16,9 +16,9 @@ router.get("/", (req, res) => {
 /**
  * POST route template
  */
-router.post("/", (req, res) => {
-  // POST route code here
-});
+// router.post("/", (req, res) => {
+//   // POST route code here
+// });
 
 // POST route for adding a trip to the database
 router.post("/", rejectUnauthenticated, (req, res) => {

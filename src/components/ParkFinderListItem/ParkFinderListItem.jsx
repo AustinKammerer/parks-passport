@@ -18,6 +18,14 @@ export default function ParkFinderListItem({ result }) {
     history.push(`/info/${result.parkCode}`);
   };
 
+  const handleAdd = () => {
+    const { parkCode } = result;
+    const imagePath = result.images[0].url;
+    console.log(parkCode);
+    console.log(imagePath);
+    dispatch({ type: "ADD_TRIP", payload: { parkCode, imagePath } });
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea onClick={getParkInfo}>
@@ -34,7 +42,12 @@ export default function ParkFinderListItem({ result }) {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button size="large" color="primary" variant="contained">
+        <Button
+          size="large"
+          color="primary"
+          variant="contained"
+          onClick={handleAdd}
+        >
           Add
         </Button>
         <Button size="large" color="success" variant="contained">
