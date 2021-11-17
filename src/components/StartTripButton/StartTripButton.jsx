@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 
 export default function StartTripButton(props) {
+  const dispatch = useDispatch();
+
   const handleStart = () => {
     // determine in which view the Start button was selected
     // from ParkInfo:

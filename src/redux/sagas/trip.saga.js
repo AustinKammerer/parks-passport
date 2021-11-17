@@ -35,6 +35,7 @@ function* startTrip(action) {
     // PUT request
     yield axios.put(`/api/trip/start/${tripId}`);
     console.log("trip started");
+    yield put({ type: "FETCH_WISHLIST" });
   } catch (error) {
     console.log("error starting trip:", error);
     yield put({ type: "POST_ERROR" });
