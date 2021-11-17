@@ -54,11 +54,10 @@ function* fetchParkInfo(action) {
 
 // POST a park to the "trip" table in database
 function* addPark(action) {
-  // action brings the parkCode with it
-  const parkCode = action.payload;
+  // payload contains parkCode and default imagePath
   try {
     // POST request
-    yield axios.post(`/api/park/trip`);
+    yield axios.post(`/api/park/trip`, action.payload);
     console.log("POST success");
   } catch (error) {
     console.log("error getting park info:", error);

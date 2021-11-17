@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 const npsBaseUrl = `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}`;
 
@@ -31,12 +34,13 @@ router.get("/finder", (req, res) => {
     })
     .catch((err) => {
       console.log("Error getting parks from NPS API", err);
+      res.sendStatus(500);
     });
 });
 
 // GET route for getting info on a specific park from the NPS API
 router.get("/info", (req, res) => {
-  // grab the parkCode from the url so it may be used in the request to the NPS API
+  // grab the parkCode from the client's query string so it may be used in the request to the NPS API
   const { parkCode } = req.query;
   // send GET request to NPS API for a specific park's data
   axios
@@ -54,14 +58,15 @@ router.get("/info", (req, res) => {
 // this list is used for the search options in ParkFinder
 router.get("/states", (req, res) => {
   // select the states for every park with particular disignation types
-  const query = `SELECT JSON_AGG("state") AS "states" FROM "designations"
-WHERE "type" = 'National Park'
-OR "type" = 'National Park and Preserve'
-OR "type" = 'National Park & Preserve'
-OR "type" = 'National Parks'
-OR "type" = 'National and State Parks'
-GROUP BY "type"
-;`;
+  const query = `
+    SELECT JSON_AGG("state") AS "states" FROM "designations"
+        WHERE "type" = 'National Park'
+        OR "type" = 'National Park and Preserve'
+        OR "type" = 'National Park & Preserve'
+        OR "type" = 'National Parks'
+        OR "type" = 'National and State Parks'
+        GROUP BY "type";
+  `;
   pool
     .query(query)
     .then((response) => {
@@ -88,6 +93,7 @@ GROUP BY "type"
     })
     .catch((err) => {
       console.log("Error getting list of states from database", err);
+      res.sendStatus(500);
     });
 });
 
@@ -96,6 +102,28 @@ GROUP BY "type"
  */
 router.post("/", (req, res) => {
   // POST route code here
+});
+
+// POST route for adding a trip to the database
+router.post("/trip", rejectUnauthenticated, (req, res) => {
+  // grab the parkCode and imagePath from the client's request
+  const { parkCode, imagePath } = req.body;
+  console.log(req.body);
+  // query string for the database
+  const query = `
+    INSERT INTO "trip" ("user_id", "park_code", "image_path")
+        VALUES ($1, $2, $3);
+  `;
+  // make the database INSERT query
+  pool
+    .query(query, [req.user.id, parkCode, imagePath])
+    .then((response) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log("Error POSTing trip to database", err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;
