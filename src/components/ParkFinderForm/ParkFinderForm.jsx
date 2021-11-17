@@ -51,9 +51,11 @@ export default function ParkFinderForm() {
           ))}
         </Select>
       </FormControl>
-      <Button variant="contained" onClick={handleSearch} color="info">
-        Search
-      </Button>
+      <FormControl fullWidth margin="normal">
+        <Button variant="contained" onClick={handleSearch} color="info">
+          Search
+        </Button>
+      </FormControl>
     </Box>
   );
 }
