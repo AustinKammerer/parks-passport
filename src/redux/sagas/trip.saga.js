@@ -42,11 +42,27 @@ function* startTrip(action) {
   }
 }
 
+// PUT request to end a trip - flips "is_current" to FALSE and "is_complete" to TRUE
+function* endTrip(action) {
+  // payload contains the trip's id
+  const tripId = action.payload;
+  try {
+    // PUT request
+    yield axios.put(`/api/trip/end/${tripId}`);
+    console.log("trip ended");
+    yield put({ type: "FETCH_TRIP_LISTS" });
+  } catch (error) {
+    console.log("error ending trip:", error);
+    yield put({ type: "POST_ERROR" });
+  }
+}
+
 // watcher saga
 function* tripSaga() {
   yield takeLatest("FETCH_TRIP_LISTS", fetchTripLists);
   yield takeLatest("ADD_TRIP", addTrip);
   yield takeLatest("START_TRIP", startTrip);
+  yield takeLatest("END_TRIP", endTrip);
 }
 
 export default tripSaga;

@@ -119,4 +119,26 @@ router.put("/start/:tripId", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// PUT route to end a trip - updates "is_current" to FALSE and "is_complete" to TRUE
+router.put("/end/:tripId", rejectUnauthenticated, (req, res) => {
+  // grab the trip's id from request params
+  const { tripId } = req.params;
+  console.log(req.params);
+
+  const query = `
+    UPDATE "trip" SET "is_current" = FALSE, "is_complete" = TRUE
+        WHERE "id" = $1
+        AND "user_id" = $2;
+  `;
+  pool
+    .query(query, [tripId, req.user.id])
+    .then((response) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log("Error updating trip in database", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
