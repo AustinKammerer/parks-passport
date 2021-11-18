@@ -4,8 +4,28 @@ import { combineReducers } from "redux";
 // contains all rows in "trips" table where "is_current" and "is_complete" are FALSE
 const wishlist = (state = [], action) => {
   switch (action.type) {
-    case "SET_WISHLIST":
-      return action.payload;
+    case "SET_TRIP_LISTS":
+      return action.payload.wishlist;
+    default:
+      return state;
+  }
+};
+
+// contains all rows in "trips" table where "is_current" is TRUE and "is_complete" is FALSE
+const currentLog = (state = [], action) => {
+  switch (action.type) {
+    case "SET_TRIP_LISTS":
+      return action.payload.currentLog;
+    default:
+      return state;
+  }
+};
+
+// contains all rows in "trips" table where "is_current" is FALSE and "is_complete" is TRUE
+const logHistory = (state = [], action) => {
+  switch (action.type) {
+    case "SET_TRIP_LISTS":
+      return action.payload.logHistory;
     default:
       return state;
   }
@@ -13,4 +33,6 @@ const wishlist = (state = [], action) => {
 
 export default combineReducers({
   wishlist,
+  currentLog,
+  logHistory,
 });

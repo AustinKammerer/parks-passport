@@ -1,15 +1,15 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
-// GET user's trip wishlist
-function* fetchWishlist() {
+// GET user's wishlist , current log(s), and log history
+function* fetchTripLists() {
   try {
     // save the response from the database
-    const tripWishlist = yield axios.get("/api/trip");
+    const tripLists = yield axios.get("/api/trip");
     // send response to the redux store
-    yield put({ type: "SET_WISHLIST", payload: tripWishlist.data });
+    yield put({ type: "SET_TRIP_LISTS", payload: tripLists.data });
   } catch (error) {
-    console.log("error getting wishlist:", error);
+    console.log("error getting trips:", error);
     yield put({ type: "GET_ERROR" });
   }
 }
@@ -35,7 +35,7 @@ function* startTrip(action) {
     // PUT request
     yield axios.put(`/api/trip/start/${tripId}`);
     console.log("trip started");
-    yield put({ type: "FETCH_WISHLIST" });
+    yield put({ type: "FETCH_TRIP_LISTS" });
   } catch (error) {
     console.log("error starting trip:", error);
     yield put({ type: "POST_ERROR" });
@@ -44,7 +44,7 @@ function* startTrip(action) {
 
 // watcher saga
 function* tripSaga() {
-  yield takeLatest("FETCH_WISHLIST", fetchWishlist);
+  yield takeLatest("FETCH_TRIP_LISTS", fetchTripLists);
   yield takeLatest("ADD_TRIP", addTrip);
   yield takeLatest("START_TRIP", startTrip);
 }

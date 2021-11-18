@@ -29,7 +29,7 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/placeholder">
-              Placeholder
+              Blank
             </Link>
 
             <Link className="navLink" to="/wishlist">

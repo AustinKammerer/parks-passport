@@ -13,8 +13,36 @@ const {
 //   // GET route code here
 // });
 
+// function to sort the user's trips into an object that the client can easily use for lists
+const sortTrips = (trips) => {
+  const wishlist = trips.filter(
+    (trip) => trip.isCurrent === false && trip.isComplete === false
+  );
+  const logHistory = trips.filter(
+    (trip) => trip.isCurrent === false && trip.isComplete === true
+  );
+  const currentLog = trips.filter(
+    (trip) => trip.isCurrent === true && trip.isComplete === false
+  );
+  return { wishlist, logHistory, currentLog };
+};
+
 router.get("/", rejectUnauthenticated, (req, res) => {
   // GET the list of trips where "is_current" AND "is_complete" are FALSE
+  // const query = `
+  //   SELECT "id",
+  //       "name",
+  //       "park_code" AS "parkCode",
+  //       "states",
+  //       "image_path" AS "imagePath",
+  //       "is_current" AS "isCurrent",
+  //       "is_complete" AS "isComplete"
+  //       FROM "trip"
+  //       WHERE "user_id" = $1
+  //       AND "is_current" = FALSE
+  //       AND "is_complete" = FALSE
+  //       ORDER BY "states";
+  // `;
   const query = `
     SELECT "id", 
         "name",
@@ -25,16 +53,14 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         "is_complete" AS "isComplete" 
         FROM "trip"
         WHERE "user_id" = $1
-        AND "is_current" = FALSE
-        AND "is_complete" = FALSE
         ORDER BY "states";
   `;
 
   pool
     .query(query, [req.user.id])
     .then((result) => {
-      console.log(result.rows);
-      res.send(result.rows);
+      console.log(sortTrips(result.rows));
+      res.send(sortTrips(result.rows));
     })
     .catch((err) => {
       console.log("Error getting trips from database", err);
