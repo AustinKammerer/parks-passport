@@ -13,7 +13,8 @@ const {
 //   // GET route code here
 // });
 
-// function to sort the user's trips into an object that the client can easily use for lists
+// function to sort the user's trips into an object containing three lists: wishlist, currentLog, logHistory
+// note: a trip may only be on one list at a given time
 const sortTrips = (trips) => {
   const wishlist = trips.filter(
     (trip) => trip.isCurrent === false && trip.isComplete === false
@@ -127,6 +128,28 @@ router.put("/end/:tripId", rejectUnauthenticated, (req, res) => {
 
   const query = `
     UPDATE "trip" SET "is_current" = FALSE, "is_complete" = TRUE
+        WHERE "id" = $1
+        AND "user_id" = $2;
+  `;
+  pool
+    .query(query, [tripId, req.user.id])
+    .then((response) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log("Error updating trip in database", err);
+      res.sendStatus(500);
+    });
+});
+
+// DELETE route to delete a trip from the database
+router.delete("/:tripId", rejectUnauthenticated, (req, res) => {
+  // grab the trip's id from request params
+  const { tripId } = req.params;
+  console.log(req.params);
+  // delete the entry from "trip"
+  const query = `
+    DELETE FROM "trip"
         WHERE "id" = $1
         AND "user_id" = $2;
   `;

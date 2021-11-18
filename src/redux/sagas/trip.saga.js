@@ -35,10 +35,11 @@ function* startTrip(action) {
     // PUT request
     yield axios.put(`/api/trip/start/${tripId}`);
     console.log("trip started");
+    // refresh the user's lists
     yield put({ type: "FETCH_TRIP_LISTS" });
   } catch (error) {
     console.log("error starting trip:", error);
-    yield put({ type: "POST_ERROR" });
+    yield put({ type: "PUT_ERROR" });
   }
 }
 
@@ -50,10 +51,27 @@ function* endTrip(action) {
     // PUT request
     yield axios.put(`/api/trip/end/${tripId}`);
     console.log("trip ended");
+    // refresh the user's lists
     yield put({ type: "FETCH_TRIP_LISTS" });
   } catch (error) {
     console.log("error ending trip:", error);
-    yield put({ type: "POST_ERROR" });
+    yield put({ type: "PUT_ERROR" });
+  }
+}
+
+// DELETE request to remove a trip from a user's list ("trip" table)
+function* deleteTrip(action) {
+  // payload contains the trip's id
+  const tripId = action.payload;
+  try {
+    // DELETE request
+    yield axios.delete(`/api/trip/${tripId}`);
+    console.log("trip deleted");
+    // refresh user's lists
+    yield put({ type: "FETCH_TRIP_LISTS" });
+  } catch (error) {
+    console.log("error deleting trip:", error);
+    yield put({ type: "DELETE_ERROR" });
   }
 }
 
@@ -63,6 +81,7 @@ function* tripSaga() {
   yield takeLatest("ADD_TRIP", addTrip);
   yield takeLatest("START_TRIP", startTrip);
   yield takeLatest("END_TRIP", endTrip);
+  yield takeLatest("DELETE_TRIP", deleteTrip);
 }
 
 export default tripSaga;
