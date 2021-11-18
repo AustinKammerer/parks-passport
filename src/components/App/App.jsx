@@ -32,6 +32,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
+    dispatch({ type: "FETCH_TRIP_LISTS" });
   }, [dispatch]);
 
   return (

@@ -3,20 +3,24 @@ import React from "react";
 
 import Button from "@mui/material/Button";
 
-export default function AddTripButton({ park, isInWishlist }) {
+export default function AddTripButton({ park }) {
   const dispatch = useDispatch();
 
-  // const { wishlist } = useSelector((store) => store.trip);
+  const { wishlist } = useSelector((store) => store.trip);
 
-  // const isInWishlist = (park) => {
-  //   const found = wishlist.find((trip) => trip.parkCode === park.parkCode);
-  //   console.log(found);
-  //   return found !== undefined;
-  // };
+  // local state for whether or not the park is found in the user's wishlist
+  const [isFound, setIsFound] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   isInWishlist(park);
-  // }, []);
+  const isInWishlist = (park) => {
+    // the button has access to individaul parks via a prop that its parent component passes
+    // this function checks if that park is present in the user's wishlist
+    const found = wishlist.find((trip) => trip.parkCode === park.parkCode);
+    found !== undefined && setIsFound(true);
+  };
+
+  React.useEffect(() => {
+    isInWishlist(park);
+  }, []);
 
   const handleAdd = () => {
     const { parkCode, name, states } = park;
@@ -34,8 +38,9 @@ export default function AddTripButton({ park, isInWishlist }) {
       color="primary"
       variant="contained"
       onClick={handleAdd}
+      disabled={isFound}
     >
-      {isInWishlist ? "In Wishlist" : "Add"}
+      {isFound ? "In Wishlist" : "Add"}
     </Button>
   );
 }

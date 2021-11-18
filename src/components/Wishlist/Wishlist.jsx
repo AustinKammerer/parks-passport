@@ -10,9 +10,9 @@ import Grid from "@mui/material/Grid";
 export default function Wishlist() {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch({ type: "FETCH_TRIP_LISTS" });
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch({ type: "FETCH_TRIP_LISTS" });
+  // }, []);
 
   const { wishlist } = useSelector((store) => store.trip);
 

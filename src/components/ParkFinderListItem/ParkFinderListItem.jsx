@@ -21,18 +21,6 @@ export default function ParkFinderListItem({ result }) {
     history.push(`/info/${result.parkCode}`);
   };
 
-  // const { wishlist } = useSelector((store) => store.trip);
-
-  // const isInWishlist = (park) => {
-  //   const found = wishlist.find((trip) => trip.parkCode === park.parkCode);
-  //   console.log(found);
-  //   return found !== undefined;
-  // };
-
-  // React.useEffect(() => {
-  //   isInWishlist(result);
-  // }, []);
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea onClick={getParkInfo}>
