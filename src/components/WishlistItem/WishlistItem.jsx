@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import StartTripButton from "../StartTripButton/StartTripButton";
+import { StartTripButton } from "../Buttons";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";

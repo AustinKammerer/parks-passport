@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import GetStarted from "../GetStarted/GetStarted";
+import TripLog from "../TripLog/TripLog";
+import Wishlist from "../Wishlist/Wishlist";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -26,7 +28,14 @@ function UserPage() {
       <Typography component="h2" variant="h4">
         Welcome, {user.username}!
       </Typography>
-      {wishlist?.length > 0 ? "under construction" : <GetStarted user={user} />}
+      {currentLog?.length > 0 ? (
+        <TripLog />
+      ) : wishlist?.length > 0 ? (
+        <Wishlist />
+      ) : (
+        <GetStarted user={user} />
+      )}
+
       {/* <LogOutButton className="btn" /> */}
     </Container>
   );
