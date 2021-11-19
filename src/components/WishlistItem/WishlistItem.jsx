@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { StartTripButton, DeleteTripButton } from "../Buttons";
+import { StartTripButton, DeleteButton } from "../Buttons";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -36,7 +36,7 @@ export default function WishlistItem({ trip }) {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ justifyContent: "flex-end" }}>
-        <DeleteTripButton trip={trip} />
+        <DeleteButton trip={trip} />
         <StartTripButton trip={trip} />
       </CardActions>
     </Card>

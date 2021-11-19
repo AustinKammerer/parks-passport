@@ -14,6 +14,7 @@ function* fetchTripLogs() {
   }
 }
 
+// POST a new journal entry
 function* addJournalEntry(action) {
   const { tripId, journalInput, history } = action.payload;
   console.log(journalInput);
@@ -28,10 +29,24 @@ function* addJournalEntry(action) {
   }
 }
 
+// DELETE a log entry (journal/image)
+function* deleteLog(action) {
+  const logId = action.payload;
+  try {
+    yield axios.delete(`/api/log/${logId}`);
+    console.log("log deleted successfully");
+    yield put({ type: "FETCH_TRIP_LOGS" });
+  } catch (error) {
+    console.log("error deleting log:", error);
+    yield put({ type: "DELETE_ERROR" });
+  }
+}
+
 // watcher saga
 function* logSaga() {
   yield takeLatest("FETCH_TRIP_LOGS", fetchTripLogs);
   yield takeLatest("ADD_JOURNAL_ENTRY", addJournalEntry);
+  yield takeLatest("DELETE_LOG", deleteLog);
 }
 
 export default logSaga;

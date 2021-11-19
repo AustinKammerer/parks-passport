@@ -60,4 +60,23 @@ router.post("/:tripId", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// DELETE route for deleting a log entry (image/journal)
+router.delete("/:logId", rejectUnauthenticated, (req, res) => {
+  const { logId } = req.params;
+  const query = `
+    DELETE FROM "log" WHERE "id" = $1;
+  `;
+
+  pool
+    .query(query, [logId])
+    .then((result) => {
+      res.sendStatus(201);
+    })
+
+    .catch((err) => {
+      console.log("Error deleting log from database", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
