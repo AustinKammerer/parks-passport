@@ -14,10 +14,12 @@ export default function AddTripButton({ park }) {
   const dispatch = useDispatch();
   // const forceUpdate = useForceUpdate();
 
-  const { wishlist } = useSelector((store) => store.trip);
+  const { wishlist, currentLog } = useSelector((store) => store.trip);
 
   // local state for whether or not the park is found in the user's wishlist
-  const [isFound, setIsFound] = React.useState(false);
+  const [isFoundWishlist, setIsFoundWishlist] = React.useState(false);
+  // local state for whether or not the park is found in the user's currentLog
+  const [isFoundCurrentLog, setIsFoundCurrentLog] = React.useState(false);
 
   // const [clicked, setClicked] = React.useState(false);
 
@@ -26,12 +28,24 @@ export default function AddTripButton({ park }) {
     // this function checks if that park is present in the user's wishlist
     console.log("checking wishlist");
     const found = wishlist.find((trip) => trip.parkCode === park.parkCode);
-    found !== undefined && setIsFound(true);
+    found !== undefined && setIsFoundWishlist(true);
+  };
+
+  const isInCurrentLog = (park) => {
+    // the button has access to the component's park search result via prop
+    // this function checks if that park is present in the user's currentLog
+    console.log("checking currentLog");
+    const found = currentLog.find((trip) => trip.parkCode === park.parkCode);
+    found !== undefined && setIsFoundCurrentLog(true);
   };
 
   React.useEffect(() => {
     isInWishlist(park);
   }, [wishlist]);
+
+  React.useEffect(() => {
+    isInCurrentLog(park);
+  }, [currentLog]);
 
   const handleAdd = () => {
     const { parkCode, name, states } = park;
@@ -49,9 +63,13 @@ export default function AddTripButton({ park }) {
       color="primary"
       variant="contained"
       onClick={handleAdd}
-      disabled={isFound}
+      disabled={isFoundWishlist || isFoundCurrentLog}
     >
-      {isFound ? "In Wishlist" : "Add"}
+      {isFoundWishlist
+        ? "In Wishlist"
+        : isFoundCurrentLog
+        ? "In Progress"
+        : "Add"}
     </Button>
   );
 }

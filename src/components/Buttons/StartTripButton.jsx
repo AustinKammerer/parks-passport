@@ -54,7 +54,7 @@ export default function StartTripButton(props) {
       onClick={handleStart}
       disabled={isFound}
     >
-      {isFound ? "Started" : "Start"}
+      {isFound ? "In Progress" : "Start"}
     </Button>
   );
 }
