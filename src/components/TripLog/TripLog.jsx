@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -9,7 +10,12 @@ import Button from "@mui/material/Button";
 
 export default function TripLog() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { currentLog } = useSelector((store) => store.trip);
+
+  React.useEffect(() => {
+    dispatch({ type: "FETCH_TRIP_LOGS" });
+  }, []);
 
   const getParkInfo = () => {
     console.log(currentLog[0].parkCode);

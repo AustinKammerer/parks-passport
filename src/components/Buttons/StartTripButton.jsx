@@ -22,7 +22,7 @@ export default function StartTripButton(props) {
   };
 
   React.useEffect(() => {
-    props.trip && isCurrentLog(props.park);
+    // props.trip && isCurrentLog(props.trip);
     props.result && isCurrentLog(props.result);
   }, [currentLog]);
 

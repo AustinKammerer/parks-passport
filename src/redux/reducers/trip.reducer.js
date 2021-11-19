@@ -22,10 +22,10 @@ const currentLog = (state = [], action) => {
 };
 
 // contains all rows in "trips" table where "is_current" is FALSE and "is_complete" is TRUE
-const logHistory = (state = [], action) => {
+const tripHistory = (state = [], action) => {
   switch (action.type) {
     case "SET_TRIP_LISTS":
-      return action.payload.logHistory;
+      return action.payload.tripHistory;
     default:
       return state;
   }
@@ -34,5 +34,5 @@ const logHistory = (state = [], action) => {
 export default combineReducers({
   wishlist,
   currentLog,
-  logHistory,
+  tripHistory,
 });

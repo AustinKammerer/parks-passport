@@ -1,7 +1,6 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
-const axios = require("axios");
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
@@ -13,39 +12,27 @@ const {
 //   // GET route code here
 // });
 
-// function to sort the user's trips into an object containing three lists: wishlist, currentLog, logHistory
+// function to sort the user's trips into an object containing three lists: wishlist, currentLog, tripHistory
 // note: a trip may only be on one list at a given time
 const sortTrips = (trips) => {
   const wishlist = trips.filter(
     (trip) => trip.isCurrent === false && trip.isComplete === false
   );
-  const logHistory = trips.filter(
+  const tripHistory = trips.filter(
     (trip) => trip.isCurrent === false && trip.isComplete === true
   );
   const currentLog = trips.filter(
     (trip) => trip.isCurrent === true && trip.isComplete === false
   );
-  return { wishlist, logHistory, currentLog };
+  return { wishlist, tripHistory, currentLog };
 };
 
+// GET route for getting a user's trip lists
 router.get("/", rejectUnauthenticated, (req, res) => {
-  // GET the list of trips where "is_current" AND "is_complete" are FALSE
-  // const query = `
-  //   SELECT "id",
-  //       "name",
-  //       "park_code" AS "parkCode",
-  //       "states",
-  //       "image_path" AS "imagePath",
-  //       "is_current" AS "isCurrent",
-  //       "is_complete" AS "isComplete"
-  //       FROM "trip"
-  //       WHERE "user_id" = $1
-  //       AND "is_current" = FALSE
-  //       AND "is_complete" = FALSE
-  //       ORDER BY "states";
-  // `;
+  // get a user's trip records
   const query = `
     SELECT "id", 
+        "user_id" AS "userId",
         "name",
         "park_code" AS "parkCode", 
         "states",
