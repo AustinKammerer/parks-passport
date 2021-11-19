@@ -79,4 +79,27 @@ router.delete("/:logId", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// PUT route for updating log text
+router.put("/:logId", rejectUnauthenticated, (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  const { logId } = req.params;
+  const { journalInput } = req.body;
+
+  const query = `
+    UPDATE "log" SET "text" = $1 WHERE "id" = $2
+  `;
+
+  pool
+    .query(query, [journalInput, logId])
+    .then((result) => {
+      res.sendStatus(201);
+    })
+
+    .catch((err) => {
+      console.log("Error updating log on database", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

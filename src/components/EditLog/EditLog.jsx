@@ -29,20 +29,20 @@ export default function EditLog() {
 
   React.useEffect(() => {
     dispatch({ type: "SET_JOURNAL_INPUT", payload: logToEdit.text });
-  }, [logToEdit.text]);
+  }, []);
 
   const handleChange = (e) => {
     dispatch({ type: "SET_JOURNAL_INPUT", payload: e.target.value });
   };
 
-  const handleEdit = () => {
+  const handleEdit = (e) => {
+    e.preventDefault();
     console.log(logToEdit);
     dispatch({
       type: "EDIT_LOG",
-      payload: { logId: props.log.id, text: props.log.journalInput },
+      payload: { logId: Number(query.get("logId")), journalInput, history },
     });
   };
-  console.log(logToEdit);
   return (
     <Container component="main">
       <Typography component="h1" variant="h5">

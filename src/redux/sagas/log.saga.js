@@ -44,12 +44,13 @@ function* deleteLog(action) {
 
 // PUT request to edit a log
 function* editLog(action) {
-  const { logId, text } = action.payload;
+  const { logId, journalInput, history } = action.payload;
   try {
-    yield axios.put(`/api/logs/${logId}`, { text });
+    yield axios.put(`/api/log/${logId}`, { journalInput });
     console.log("log updated successfully");
     // refresh the user's log list
-    yield put({ type: "FETCH_TRIP_LOGS" });
+    // yield put({ type: "FETCH_TRIP_LOGS" });
+    yield history.goBack();
   } catch (error) {
     console.log("error deleting log:", error);
     yield put({ type: "DELETE_ERROR" });

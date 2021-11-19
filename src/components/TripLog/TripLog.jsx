@@ -25,7 +25,7 @@ export default function TripLog() {
 
   return (
     <Box>
-      <Typography variant="body2">{JSON.stringify(currentLog)}</Typography>
+      {/* <Typography variant="body2">{JSON.stringify(currentLog)}</Typography> */}
       <img src={currentLog[0].imagePath} />
       <EndTripButton trip={currentLog[0]} />
       <Button onClick={getParkInfo}>Info</Button>
