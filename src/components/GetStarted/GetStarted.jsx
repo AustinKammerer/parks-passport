@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 export default function GetStarted() {
+  const history = useHistory();
   return (
     <Box>
       <Typography component="h3" variant="h5" mt={2}>

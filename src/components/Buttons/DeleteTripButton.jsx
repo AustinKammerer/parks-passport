@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import React from "react";
 
 import Button from "@mui/material/Button";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export default function DeleteTripButton({ trip }) {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function DeleteTripButton({ trip }) {
 
   return (
     <Button size="large" color="error" variant="contained" onClick={handleEnd}>
-      Delete
+      {<DeleteForeverIcon />}
     </Button>
   );
 }

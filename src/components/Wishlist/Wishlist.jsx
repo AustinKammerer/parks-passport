@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import WishlistItem from "../WishlistItem/WishlistItem";
+import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -10,9 +11,9 @@ import Grid from "@mui/material/Grid";
 export default function Wishlist() {
   const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   dispatch({ type: "FETCH_TRIP_LISTS" });
-  // }, []);
+  React.useEffect(() => {
+    dispatch({ type: "FETCH_TRIP_LISTS" });
+  }, []);
 
   const { wishlist } = useSelector((store) => store.trip);
 
@@ -21,13 +22,17 @@ export default function Wishlist() {
       <Typography component="h1" variant="h3">
         Wishlist
       </Typography>
-      <Grid container spacing={2} justifyContent="center" mt={0}>
-        {wishlist.map((trip) => (
-          <Grid item key={trip.parkCode}>
-            <WishlistItem trip={trip} />
-          </Grid>
-        ))}
-      </Grid>
+      {wishlist.length > 0 ? (
+        <Grid container spacing={2} justifyContent="center" mt={0}>
+          {wishlist.map((trip) => (
+            <Grid item key={trip.parkCode}>
+              <WishlistItem trip={trip} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <GetStarted />
+      )}
     </Container>
   );
 }

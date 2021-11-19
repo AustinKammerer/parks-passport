@@ -40,6 +40,15 @@ export default function ParkFinderListItem({ result }) {
         <Button size="large" color="success" variant="contained">
           Start
         </Button>
+        {/* <Button
+          size="large"
+          color="primary"
+          variant="contained"
+          onClick={handleAdd}
+          disabled={isFound}
+        >
+          {isFound ? "In Wishlist" : "Add"}
+        </Button> */}
         <AddTripButton park={result} />
       </CardActions>
     </Card>

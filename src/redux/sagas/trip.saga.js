@@ -21,6 +21,8 @@ function* addTrip(action) {
     // POST request
     yield axios.post(`/api/trip`, action.payload);
     console.log("POST success");
+    // refresh the user's list
+    yield put({ type: "FETCH_TRIP_LISTS" });
   } catch (error) {
     console.log("error adding trip:", error);
     yield put({ type: "POST_ERROR" });
