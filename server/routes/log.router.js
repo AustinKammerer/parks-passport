@@ -33,4 +33,31 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST route for adding a journal entry
+router.post("/:tripId", rejectUnauthenticated, (req, res) => {
+  const { tripId } = req.params;
+  const { journalInput } = req.body;
+  console.log(req.body);
+
+  const query = `
+    INSERT INTO "log" ("trip_id", "type", "text", "image_path")
+        VALUES ($1, $2, $3, $4);
+  `;
+  pool
+    .query(query, [
+      tripId,
+      journalInput ? "journal" : "image",
+      journalInput,
+      journalInput ? "" : imagePath,
+    ])
+    .then((result) => {
+      res.sendStatus(201);
+    })
+
+    .catch((err) => {
+      console.log("Error posting log to database", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

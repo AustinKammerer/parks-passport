@@ -24,8 +24,9 @@ CREATE TABLE "trip" (
 -- table to hold the actual log entries users make for each trip
 CREATE TABLE "log" (
     "id" SERIAL PRIMARY KEY,
+    "user_id" INT NOT NULL REFERENCES "user" ON DELETE CASCADE,
     "trip_id" INT NOT NULL REFERENCES "trip" ON DELETE CASCADE,
     "type" VARCHAR (20) NOT NULL,
     "text" VARCHAR (1000),
-    "image_path" VARCHAR (510)
+    "image_path" VARCHAR (510) DEFAULT NULL
 );

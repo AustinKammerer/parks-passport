@@ -47,7 +47,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(query, [req.user.id])
     .then((result) => {
-      console.log(sortTrips(result.rows));
+      // console.log(sortTrips(result.rows));
       res.send(sortTrips(result.rows));
     })
     .catch((err) => {
