@@ -34,7 +34,7 @@ export default function TripLog() {
       </Button>
       <Button
         variant="contained"
-        onClick={() => history.push(`/journal/${currentLog[0].id}`)}
+        onClick={() => history.push(`/journal/new/${currentLog[0].id}`)}
       >
         Add Note
       </Button>

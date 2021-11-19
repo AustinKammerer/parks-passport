@@ -42,11 +42,26 @@ function* deleteLog(action) {
   }
 }
 
+// PUT request to edit a log
+function* editLog(action) {
+  const { logId, text } = action.payload;
+  try {
+    yield axios.put(`/api/logs/${logId}`, { text });
+    console.log("log updated successfully");
+    // refresh the user's log list
+    yield put({ type: "FETCH_TRIP_LOGS" });
+  } catch (error) {
+    console.log("error deleting log:", error);
+    yield put({ type: "DELETE_ERROR" });
+  }
+}
+
 // watcher saga
 function* logSaga() {
   yield takeLatest("FETCH_TRIP_LOGS", fetchTripLogs);
   yield takeLatest("ADD_JOURNAL_ENTRY", addJournalEntry);
   yield takeLatest("DELETE_LOG", deleteLog);
+  yield takeLatest("EDIT_LOG", editLog);
 }
 
 export default logSaga;
