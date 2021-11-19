@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { EndTripButton } from "../Buttons";
+import JournalList from "../JournalList/JournalList";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -37,6 +38,7 @@ export default function TripLog() {
       >
         Add Note
       </Button>
+      <JournalList />
     </Box>
   );
 }
