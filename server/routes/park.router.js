@@ -17,7 +17,6 @@ router.get("/finder", (req, res) => {
   axios
     .get(`${npsBaseUrl}&stateCode=${stateCode}`)
     .then((result) => {
-      console.log("result is:", result);
       const list = result.data.data;
       // filter results to only return National Parks
       // there are many other designations on the API in addition to National Parks
@@ -46,7 +45,6 @@ router.get("/info", (req, res) => {
   axios
     .get(`${npsBaseUrl}&parkCode=${parkCode}`)
     .then((result) => {
-      console.log("result is:", result.data);
       res.send(result.data);
     })
     .catch((err) => {
@@ -70,7 +68,6 @@ router.get("/states", (req, res) => {
   pool
     .query(query)
     .then((result) => {
-      console.log("result is:", result);
       // result.rows is an array of objects containing arrays of states
       // these arrays need to be mapped into a single array and then flattened
       // but if a park spans multiple parks, the states are combined in a single string (ex: 'CA,NV')

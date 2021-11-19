@@ -1,19 +1,40 @@
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@mui/material/Button";
 
 export default function StartTripButton(props) {
   const dispatch = useDispatch();
 
+  const { currentLog } = useSelector((store) => store.trip);
+
+  // local state for whether or not the park is found in the user's wishlist
+  const [isFound, setIsFound] = React.useState(false);
+
+  // const [clicked, setClicked] = React.useState(false);
+
+  const isCurrentLog = (park) => {
+    // the button has access to the component's park search result via prop
+    // this function checks if that park is present in the user's wishlist
+    console.log("checking currentLog");
+    const found = currentLog.find((trip) => trip.parkCode === park.parkCode);
+    found !== undefined && setIsFound(true);
+  };
+
+  React.useEffect(() => {
+    props.trip && isCurrentLog(props.park);
+    props.result && isCurrentLog(props.result);
+  }, [currentLog]);
+
   const handleStart = () => {
     // determine in which view the Start button was selected
-    // from ParkInfo:
-    if (props.parkInfo) {
-      const { parkCode, name } = props.parkInfo;
-      const imagePath = props.parkInfo.images[0].url;
+    // from ParkFinder:
+    if (props.result) {
+      const { parkCode, name } = props.result;
+      const imagePath = props.result.images[0].url;
       // send the park to the saga to insert to database
       // dispatch({ type: "ADD_TRIP", payload: { parkCode, imagePath, name } });
-      console.log("clicked in Info");
+      console.log("clicked in Finder");
     }
     // from Wishlist
     else if (props.trip) {
@@ -31,8 +52,9 @@ export default function StartTripButton(props) {
       color="success"
       variant="contained"
       onClick={handleStart}
+      disabled={isFound}
     >
-      Start
+      {isFound ? "Started" : "Start"}
     </Button>
   );
 }

@@ -22,6 +22,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
 import Wishlist from "../Wishlist/Wishlist";
+import JournalForm from "../JournalForm/JournalForm";
 
 import "./App.css";
 
@@ -79,6 +80,15 @@ function App() {
             path="/wishlist"
           >
             <Wishlist />
+          </ProtectedRoute>
+
+          {/* Form for adding journal entry */}
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/journal/:tripId"
+          >
+            <JournalForm />
           </ProtectedRoute>
 
           {/* Park Finder */}
