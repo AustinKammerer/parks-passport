@@ -31,6 +31,7 @@ function* addTrip(action) {
     console.log("POST success");
     // refresh the user's list
     yield put({ type: "FETCH_TRIP_LISTS" });
+    // if the trip being added is also being activated, direct to it
     isCurrent && history.push(`/current?tripId=${response.data[0].id}`);
   } catch (error) {
     console.log("error adding trip:", error);
@@ -47,7 +48,7 @@ function* startTrip(action) {
     yield axios.put(`/api/trip/start/${tripId}`);
     console.log("trip started");
     // refresh the user's lists
-    yield put({ type: "FETCH_TRIP_LISTS" });
+    // yield put({ type: "FETCH_TRIP_LISTS" });
     history.push(`/current?tripId=${tripId}`);
   } catch (error) {
     console.log("error starting trip:", error);
@@ -58,13 +59,15 @@ function* startTrip(action) {
 // PUT request to end a trip - flips "is_current" to FALSE and "is_complete" to TRUE
 function* endTrip(action) {
   // payload contains the trip's id
-  const tripId = action.payload;
+  const { tripId, history } = action.payload;
   try {
     // PUT request
     yield axios.put(`/api/trip/end/${tripId}`);
     console.log("trip ended");
     // refresh the user's lists
-    yield put({ type: "FETCH_TRIP_LISTS" });
+    // yield put({ type: "FETCH_TRIP_LISTS" });
+    // directs the user back to UserPage
+    history.push("/user");
   } catch (error) {
     console.log("error ending trip:", error);
     yield put({ type: "PUT_ERROR" });

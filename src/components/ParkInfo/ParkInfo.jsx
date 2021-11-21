@@ -49,8 +49,6 @@ export default function ParkInfo() {
     (number) => number.type === "Voice"
   )[0];
 
-  console.log(voiceContact);
-
   return (
     <Container component="main">
       <BackButton />

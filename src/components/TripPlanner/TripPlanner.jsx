@@ -11,11 +11,11 @@ import Grid from "@mui/material/Grid";
 export default function TripPlanner() {
   const dispatch = useDispatch();
 
+  const { tripPlanner } = useSelector((store) => store.trip);
+
   React.useEffect(() => {
     dispatch({ type: "FETCH_TRIP_LISTS" });
   }, []);
-
-  const { tripPlanner } = useSelector((store) => store.trip);
 
   return (
     <Container component="main">
@@ -31,7 +31,7 @@ export default function TripPlanner() {
           ))}
         </Grid>
       ) : (
-        <GetStarted />
+        <GetStarted tripPlannerEmpty={true} />
       )}
     </Container>
   );

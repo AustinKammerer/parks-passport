@@ -23,6 +23,7 @@ export default function CurrentTrip() {
   const { currentTrip, tripPlanner } = useSelector((store) => store.trip);
 
   React.useEffect(() => {
+    // fetch the trip lists
     dispatch({ type: "FETCH_TRIP_LISTS" });
     // clear the entry form inputs
     dispatch({ type: "CLEAR_JOURNAL_INPUT" });
@@ -62,7 +63,10 @@ export default function CurrentTrip() {
           <JournalList />
         </Box>
       ) : (
-        <GetStarted />
+        <GetStarted
+          currentTripEmpty={true}
+          tripPlannerEmpty={tripPlanner.length === 0}
+        />
       )}
     </Container>
   );
