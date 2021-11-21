@@ -2,27 +2,21 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { EndTripButton } from "../Buttons";
 import JournalList from "../JournalList/JournalList";
 
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-
-export default function TripLog() {
-  const history = useHistory();
+export default function CurrentTrip() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { currentTrip } = useSelector((store) => store.trip);
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_TRIP_LOGS" });
+    dispatch({ type: "FETCH_TRIP_LOG", payload: currentTrip[0].id });
   }, []);
 
   const getParkInfo = () => {
     console.log(currentTrip[0].parkCode);
     history.push(`/info/${currentTrip[0].parkCode}`);
   };
-
   return (
     <Box>
       {/* <Typography variant="body2">{JSON.stringify(currentTrip)}</Typography> */}

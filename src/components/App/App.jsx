@@ -21,9 +21,10 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
-import Wishlist from "../Wishlist/Wishlist";
+import TripPlanner from "../TripPlanner/TripPlanner";
 import JournalForm from "../JournalForm/JournalForm";
 import EditLog from "../EditLog/EditLog";
+import CurrentTrip from "../CurrentTrip/CurrentTrip";
 
 import "./App.css";
 
@@ -74,13 +75,22 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          {/* Wishlist */}
+          {/* TripPlanner */}
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/wishlist"
+            path="/planner"
           >
-            <Wishlist />
+            <TripPlanner />
+          </ProtectedRoute>
+
+          {/* Current Trips */}
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/current"
+          >
+            <CurrentTrip />
           </ProtectedRoute>
 
           {/* Form for editing journal entry */}

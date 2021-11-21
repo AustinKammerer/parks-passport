@@ -1,7 +1,7 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
-// GET user's wishlist , current log(s), and log history
+// GET user's tripPlanner , current trip, and trip history
 function* fetchTripLists() {
   try {
     // save the response from the database

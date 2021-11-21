@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import WishlistItem from "../WishlistItem/WishlistItem";
+import TripPlannerItem from "../TripPlannerItem/TripPlannerItem";
 import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";
@@ -15,18 +15,18 @@ export default function Wishlist() {
     dispatch({ type: "FETCH_TRIP_LISTS" });
   }, []);
 
-  const { wishlist } = useSelector((store) => store.trip);
+  const { tripPlanner } = useSelector((store) => store.trip);
 
   return (
     <Container component="main">
       <Typography component="h1" variant="h3">
-        Wishlist
+        Planner
       </Typography>
-      {wishlist.length > 0 ? (
+      {tripPlanner?.length > 0 ? (
         <Grid container spacing={2} justifyContent="center" mt={0}>
-          {wishlist.map((trip) => (
+          {tripPlanner.map((trip) => (
             <Grid item key={trip.parkCode}>
-              <WishlistItem trip={trip} />
+              <TripPlannerItem trip={trip} />
             </Grid>
           ))}
         </Grid>

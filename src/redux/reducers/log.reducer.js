@@ -2,9 +2,9 @@ import { combineReducers } from "redux";
 
 // reducer for storing a user's logs (images and journal entries)
 // for all trips
-const tripLogs = (state = [], action) => {
+const tripLog = (state = [], action) => {
   switch (action.type) {
-    case "SET_TRIP_LOGS":
+    case "SET_TRIP_LOG":
       return action.payload;
     default:
       return state;
@@ -24,6 +24,6 @@ const journalInput = (state = "", action) => {
 };
 
 export default combineReducers({
-  tripLogs,
+  tripLog,
   journalInput,
 });

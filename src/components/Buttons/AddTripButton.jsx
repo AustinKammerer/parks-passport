@@ -14,38 +14,38 @@ export default function AddTripButton({ park }) {
   const dispatch = useDispatch();
   // const forceUpdate = useForceUpdate();
 
-  const { wishlist, currentLog } = useSelector((store) => store.trip);
+  const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
 
-  // local state for whether or not the park is found in the user's wishlist
-  const [isFoundWishlist, setIsFoundWishlist] = React.useState(false);
-  // local state for whether or not the park is found in the user's currentLog
-  const [isFoundCurrentLog, setIsFoundCurrentLog] = React.useState(false);
+  // local state for whether or not the park is found in the user's planner
+  const [isFoundPlanner, setIsFoundPlanner] = React.useState(false);
+  // local state for whether or not the park is the user's currentTrip
+  const [isFoundCurrentTrip, setIsFoundCurrentTrip] = React.useState(false);
 
   // const [clicked, setClicked] = React.useState(false);
 
-  const isInWishlist = (park) => {
+  const isInPlanner = (park) => {
     // the button has access to the component's park search result via prop
-    // this function checks if that park is present in the user's wishlist
-    console.log("checking wishlist");
-    const found = wishlist.find((trip) => trip.parkCode === park.parkCode);
-    found !== undefined && setIsFoundWishlist(true);
+    // this function checks if that park is present in the user's planner
+    console.log("checking planner");
+    const found = tripPlanner.find((trip) => trip.parkCode === park.parkCode);
+    found !== undefined && setIsFoundPlanner(true);
   };
 
-  const isInCurrentLog = (park) => {
+  const isCurrentTrip = (park) => {
     // the button has access to the component's park search result via prop
-    // this function checks if that park is present in the user's currentLog
-    console.log("checking currentLog");
-    const found = currentLog.find((trip) => trip.parkCode === park.parkCode);
-    found !== undefined && setIsFoundCurrentLog(true);
+    // this function checks if that park is the user's currentTrip
+    console.log("checking currentTrip");
+    const found = currentTrip.find((trip) => trip.parkCode === park.parkCode);
+    found !== undefined && setIsFoundCurrentTrip(true);
   };
 
   React.useEffect(() => {
-    isInWishlist(park);
-  }, [wishlist]);
+    isInPlanner(park);
+  }, [tripPlanner]);
 
   React.useEffect(() => {
-    isInCurrentLog(park);
-  }, [currentLog]);
+    isCurrentTrip(park);
+  }, [currentTrip]);
 
   const handleAdd = () => {
     const { parkCode, name, states } = park;
@@ -63,11 +63,11 @@ export default function AddTripButton({ park }) {
       color="primary"
       variant="contained"
       onClick={handleAdd}
-      disabled={isFoundWishlist || isFoundCurrentLog}
+      disabled={isFoundPlanner || isFoundCurrentTrip}
     >
-      {isFoundWishlist
-        ? "In Wishlist"
-        : isFoundCurrentLog
+      {isFoundPlanner
+        ? "In Planner"
+        : isFoundCurrentTrip
         ? "In Progress"
         : "Add"}
     </Button>

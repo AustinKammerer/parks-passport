@@ -2,14 +2,14 @@ import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
 // GET user's trip logs for all trips (images, journal entries)
-function* fetchTripLogs() {
+function* fetchTripLog() {
   try {
     // save the response from the database
-    const tripLogs = yield axios.get("/api/log");
+    const tripLog = yield axios.get("/api/log/");
     // send response to the redux store
-    yield put({ type: "SET_TRIP_LOGS", payload: tripLogs.data });
+    yield put({ type: "SET_TRIP_LOG", payload: tripLog.data });
   } catch (error) {
-    console.log("error getting logs:", error);
+    console.log("error getting log:", error);
     yield put({ type: "GET_ERROR" });
   }
 }
@@ -59,7 +59,7 @@ function* editLog(action) {
 
 // watcher saga
 function* logSaga() {
-  yield takeLatest("FETCH_TRIP_LOGS", fetchTripLogs);
+  yield takeLatest("FETCH_TRIP_LOG", fetchTripLog);
   yield takeLatest("ADD_JOURNAL_ENTRY", addJournalEntry);
   yield takeLatest("DELETE_LOG", deleteLog);
   yield takeLatest("EDIT_LOG", editLog);

@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   park, // contains park info from NPS API
-  trip, // contains user's trip lists (wishlist, currentLog, tripHistory)
+  trip, // contains user's trip lists (TripPlanner, currentTrip, tripHistory)
   log, // contains user's trip logs for all trips (images, journal entries)
 });
 

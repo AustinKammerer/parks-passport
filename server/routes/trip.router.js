@@ -12,19 +12,19 @@ const {
 //   // GET route code here
 // });
 
-// function to sort the user's trips into an object containing three lists: wishlist, currentLog, tripHistory
+// function to sort the user's trips into an object containing three lists: tripPlanner, currentTrip, tripHistory
 // note: a trip may only be on one list at a given time
 const sortTrips = (trips) => {
-  const wishlist = trips.filter(
+  const tripPlanner = trips.filter(
     (trip) => trip.isCurrent === false && trip.isComplete === false
   );
   const tripHistory = trips.filter(
     (trip) => trip.isCurrent === false && trip.isComplete === true
   );
-  const currentLog = trips.filter(
+  const currentTrip = trips.filter(
     (trip) => trip.isCurrent === true && trip.isComplete === false
   );
-  return { wishlist, tripHistory, currentLog };
+  return { tripPlanner, tripHistory, currentTrip };
 };
 
 // GET route for getting a user's trip lists

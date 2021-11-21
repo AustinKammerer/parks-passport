@@ -32,8 +32,8 @@ function Nav() {
               Blank
             </Link>
 
-            <Link className="navLink" to="/wishlist">
-              Wishlist
+            <Link className="navLink" to="/planner">
+              Planner
             </Link>
 
             <Link className="navLink" to="/finder">

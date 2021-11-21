@@ -19,16 +19,16 @@ export default function EditLog() {
   console.log(query.get("logId"));
   console.log(query.get("type"));
 
-  const { tripLogs } = useSelector((store) => store.log);
+  const { tripLog } = useSelector((store) => store.log);
 
-  const logToEdit = tripLogs?.filter(
-    (log) => log.id === Number(query.get("logId"))
-  )[0];
+  // const logToEdit = tripLog?.filter(
+  //   (log) => log.id === Number(query.get("logId"))
+  // )[0];
 
   const { journalInput } = useSelector((store) => store.log);
 
   React.useEffect(() => {
-    dispatch({ type: "SET_JOURNAL_INPUT", payload: logToEdit.text });
+    dispatch({ type: "SET_JOURNAL_INPUT", payload: tripLog.text });
   }, []);
 
   const handleChange = (e) => {
@@ -37,7 +37,7 @@ export default function EditLog() {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    console.log(logToEdit);
+    console.log(tripLog);
     dispatch({
       type: "EDIT_LOG",
       payload: { logId: Number(query.get("logId")), journalInput, history },

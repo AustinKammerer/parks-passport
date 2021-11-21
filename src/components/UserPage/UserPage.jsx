@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import GetStarted from "../GetStarted/GetStarted";
-import TripLog from "../TripLog/TripLog";
-import Wishlist from "../Wishlist/Wishlist";
+import CurrentTrip from "../CurrentTrip/CurrentTrip";
+import TripPlanner from "../TripPlanner/TripPlanner";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -21,17 +21,17 @@ function UserPage() {
   }, []);
 
   const user = useSelector((store) => store.user);
-  const { wishlist, currentLog } = useSelector((store) => store.trip);
+  const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
 
   return (
     <Container component="main" maxWidth="sm">
       <Typography component="h2" variant="h4">
         Welcome, {user.username}!
       </Typography>
-      {currentLog?.length > 0 ? (
-        <TripLog />
-      ) : wishlist?.length > 0 ? (
-        <Wishlist />
+      {currentTrip?.length > 0 ? (
+        <CurrentTrip />
+      ) : tripPlanner?.length > 0 ? (
+        <TripPlanner />
       ) : (
         <GetStarted user={user} />
       )}
