@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 // import Button from "@mui/material/Button";
 // import EditIcon from "@mui/icons-material/Edit";
 
-export default function JournalLogItem({ entry }) {
+export default function JournalListItem({ entry }) {
   return (
     <Paper>
       <Grid container justifyContent="space-between">

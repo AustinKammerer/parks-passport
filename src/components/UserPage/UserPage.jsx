@@ -22,7 +22,7 @@ function UserPage() {
   }, []);
 
   const user = useSelector((store) => store.user);
-  // const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
+  const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
 
   return (
     <Container component="main" maxWidth="sm">
@@ -40,7 +40,13 @@ function UserPage() {
         <Button
           size="large"
           variant="contained"
-          onClick={() => history.push("/current")}
+          onClick={() =>
+            history.push(
+              `/current?tripId=${
+                JSON.stringify(currentTrip) !== "[]" ? currentTrip.id : "null"
+              }`
+            )
+          }
         >
           Current Trip
         </Button>

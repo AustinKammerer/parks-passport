@@ -25,7 +25,7 @@ function* addEntry(action) {
     // clear the input field
     yield put({ type: "CLEAR_JOURNAL_INPUT" });
     // redirect back to CurrentTrip
-    yield history.push("/current");
+    yield history.push(`/current?tripId=${tripId}`);
   } catch (error) {
     console.log("error POSTing log:", error);
     yield put({ type: "POST_ERROR" });
@@ -34,11 +34,11 @@ function* addEntry(action) {
 
 // DELETE a log entry (journal/image)
 function* deleteEntry(action) {
-  const logId = action.payload;
+  const { logId, tripId } = action.payload;
   try {
     yield axios.delete(`/api/log/${logId}`);
     console.log("log deleted successfully");
-    yield put({ type: "FETCH_TRIP_LOG" });
+    yield put({ type: "FETCH_TRIP_LOG", payload: tripId });
   } catch (error) {
     console.log("error deleting log:", error);
     yield put({ type: "DELETE_ERROR" });
@@ -47,14 +47,14 @@ function* deleteEntry(action) {
 
 // PUT request to edit a log
 function* editEntry(action) {
-  const { logId, journalInput, history } = action.payload;
+  const { tripId, logId, journalInput, history } = action.payload;
   try {
     yield axios.put(`/api/log/${logId}`, { journalInput });
     console.log("log updated successfully");
     // clear the input field
     yield put({ type: "CLEAR_JOURNAL_INPUT" });
     // redirect back to CurrentTrip
-    yield history.push("/current");
+    yield history.push(`/current?tripId=${tripId}`);
   } catch (error) {
     console.log("error deleting log:", error);
     yield put({ type: "DELETE_ERROR" });

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
-export default function Wishlist() {
+export default function TripPlanner() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {

@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
 
-export default function NoteForm() {
+export default function JournalForm() {
   const { tripId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -34,7 +34,9 @@ export default function NoteForm() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button onClick={() => history.push("/current")}>Cancel</Button>
+        <Button onClick={() => history.push(`/current?tripId=${tripId}`)}>
+          Cancel
+        </Button>
         <FormControl fullWidth margin="normal">
           <TextField
             id="journal-form"

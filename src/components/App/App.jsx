@@ -25,7 +25,7 @@ import TripPlanner from "../TripPlanner/TripPlanner";
 import JournalForm from "../JournalForm/JournalForm";
 import EditEntry from "../EditEntry/EditEntry";
 import CurrentTrip from "../CurrentTrip/CurrentTrip";
-
+import GetStarted from "../GetStarted/GetStarted";
 import "./App.css";
 
 function App() {
@@ -73,6 +73,15 @@ function App() {
             path="/placeholder"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          {/* Get Started */}
+          <ProtectedRoute
+            // logged in shows CurrentTrip else shows LoginPage
+            exact
+            path="/start"
+          >
+            <GetStarted />
           </ProtectedRoute>
 
           {/* TripPlanner */}

@@ -12,8 +12,8 @@ const tripPlanner = (state = [], action) => {
 };
 
 // stores the user's currentTrip
-// contains all rows in "trips" table where "is_current" is TRUE and "is_complete" is FALSE
-const currentTrip = (state = [], action) => {
+// contains the row in "trips" table where "is_current" is TRUE
+const currentTrip = (state = {}, action) => {
   switch (action.type) {
     case "SET_TRIP_LISTS":
       return action.payload.currentTrip;

@@ -16,14 +16,16 @@ export default function EditEntry() {
   // custom hook to parse the hash router query string
   const query = useQuery();
 
+  // get properties from the query string
+  const tripId = query.get("tripId");
+  const logId = Number(query.get("logId"));
+
   console.log(query.get("logId"));
   console.log(query.get("type"));
 
   const { tripLog } = useSelector((store) => store.log);
 
-  const logToEdit = tripLog?.filter(
-    (log) => log.id === Number(query.get("logId"))
-  )[0];
+  const logToEdit = tripLog?.filter((log) => log.id === logId)[0];
 
   const { journalInput } = useSelector((store) => store.log);
 
@@ -40,7 +42,7 @@ export default function EditEntry() {
     console.log(tripLog);
     dispatch({
       type: "EDIT_ENTRY",
-      payload: { logId: logToEdit.id, journalInput, history },
+      payload: { tripId, logId: logToEdit.id, journalInput, history },
     });
   };
   return (
@@ -52,7 +54,9 @@ export default function EditEntry() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button onClick={() => history.push("/current")}>Cancel</Button>
+        <Button onClick={() => history.push(`/current?tripId=${tripId}`)}>
+          Cancel
+        </Button>
         <FormControl fullWidth margin="normal">
           <TextField
             id="journal-edit"

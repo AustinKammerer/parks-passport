@@ -11,7 +11,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 
-export default function WishlistItem({ trip }) {
+export default function TripPlannerItem({ trip }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
