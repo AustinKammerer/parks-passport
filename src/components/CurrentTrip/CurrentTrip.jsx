@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { EndTripButton } from "../Buttons";
 import JournalList from "../JournalList/JournalList";
 
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
@@ -21,6 +21,7 @@ export default function CurrentTrip() {
     dispatch({ type: "CLEAR_JOURNAL_INPUT" });
   }, []);
 
+  // directs user to the park's info page - uses route params
   const getParkInfo = () => {
     console.log(currentTrip[0].parkCode);
     history.push(`/info/${currentTrip[0].parkCode}`);

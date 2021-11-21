@@ -1,6 +1,6 @@
 import React from "react";
-import LogOutButton from "../LogOutButton/LogOutButton";
-import { useSelector, useDispatch } from "react-redux";
+// import LogOutButton from "../LogOutButton/LogOutButton";
+// import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";

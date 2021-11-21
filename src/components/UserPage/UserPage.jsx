@@ -1,16 +1,16 @@
 import React from "react";
-import LogOutButton from "../LogOutButton/LogOutButton";
+// import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import GetStarted from "../GetStarted/GetStarted";
-import CurrentTrip from "../CurrentTrip/CurrentTrip";
-import TripPlanner from "../TripPlanner/TripPlanner";
+// import GetStarted from "../GetStarted/GetStarted";
+// import CurrentTrip from "../CurrentTrip/CurrentTrip";
+// import TripPlanner from "../TripPlanner/TripPlanner";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 function UserPage() {
@@ -22,7 +22,7 @@ function UserPage() {
   }, []);
 
   const user = useSelector((store) => store.user);
-  const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
+  // const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
 
   return (
     <Container component="main" maxWidth="sm">

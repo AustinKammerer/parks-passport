@@ -1,14 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
-import { connect } from "react-redux";
-// import useForceUpdate from "../../hooks/useForceUpdate";
-import App from "../App/App";
 import Button from "@mui/material/Button";
-
-// function useForceUpdate() {
-//   const [value, setValue] = useState(0); // integer state
-//   return () => setValue((value) => value + 1); // update the state to force render
-// }
 
 export default function AddTripButton({ park }) {
   const dispatch = useDispatch();
@@ -18,10 +10,9 @@ export default function AddTripButton({ park }) {
 
   // local state for whether or not the park is found in the user's planner
   const [isFoundPlanner, setIsFoundPlanner] = React.useState(false);
+
   // local state for whether or not the park is the user's currentTrip
   const [isFoundCurrentTrip, setIsFoundCurrentTrip] = React.useState(false);
-
-  // const [clicked, setClicked] = React.useState(false);
 
   const isInPlanner = (park) => {
     // the button has access to the component's park search result via prop
@@ -39,10 +30,12 @@ export default function AddTripButton({ park }) {
     found !== undefined && setIsFoundCurrentTrip(true);
   };
 
+  // checks tripPlanner on render and when tripPlanner changes
   React.useEffect(() => {
     isInPlanner(park);
   }, [tripPlanner]);
 
+  // checks currentTrip on render and when currentTrip changes
   React.useEffect(() => {
     isCurrentTrip(park);
   }, [currentTrip]);

@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 
 import JournalListItem from "../JournalListItem/JournalListItem";
 
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+// import Typography from "@mui/material/Typography";
+// import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 export default function JournalList() {

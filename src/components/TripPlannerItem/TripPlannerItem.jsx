@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { StartTripButton, DeleteButton } from "../Buttons";
 
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -15,6 +15,7 @@ export default function WishlistItem({ trip }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // directs user to the park's info page - uses route params
   const getParkInfo = () => {
     console.log(trip.parkCode);
     history.push(`/info/${trip.parkCode}`);

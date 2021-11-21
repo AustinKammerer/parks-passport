@@ -7,11 +7,15 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 export default function DeleteTripButton(props) {
   const dispatch = useDispatch();
 
+  // action differs depending on the button's props from its parent component
   const handleDelete = () => {
+    // TripPlanner and TripHistory give it 'trip'
     if (props.trip) {
       const { id } = props.trip;
       dispatch({ type: "DELETE_TRIP", payload: id });
-    } else if (props.entry) {
+    }
+    // JournalListItem and PhotoItem give it 'entry'
+    else if (props.entry) {
       const { id } = props.entry;
       dispatch({ type: "DELETE_ENTRY", payload: id });
     }
