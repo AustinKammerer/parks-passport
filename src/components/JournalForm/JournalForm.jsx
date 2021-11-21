@@ -21,7 +21,7 @@ export default function NoteForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({
-      type: "ADD_JOURNAL_ENTRY",
+      type: "ADD_ENTRY",
       payload: { tripId, journalInput, history },
     });
   };
@@ -34,7 +34,7 @@ export default function NoteForm() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button onClick={() => history.goBack()}>Back</Button>
+        <Button onClick={() => history.push("/current")}>Cancel</Button>
         <FormControl fullWidth margin="normal">
           <TextField
             id="journal-form"

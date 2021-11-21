@@ -1,4 +1,4 @@
-import { DeleteButton, EditButton } from "../Buttons/";
+import { DeleteButton, EditButton } from "../Buttons";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,16 +7,16 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 
-export default function JournalLogItem({ log }) {
+export default function JournalLogItem({ entry }) {
   return (
     <Paper>
       <Grid container justifyContent="space-between">
         <Grid item>
-          <Typography>{log.text}</Typography>
+          <Typography>{entry.text}</Typography>
         </Grid>
         <Grid item>
-          <EditButton log={log} />
-          <DeleteButton variant="text" log={log} />
+          <EditButton entry={entry} />
+          <DeleteButton variant="text" entry={entry} />
         </Grid>
       </Grid>
     </Paper>

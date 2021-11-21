@@ -2,7 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import { EndTripButton } from "../Buttons";
 import JournalList from "../JournalList/JournalList";
+
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 export default function CurrentTrip() {
   const dispatch = useDispatch();
@@ -10,7 +15,10 @@ export default function CurrentTrip() {
   const { currentTrip } = useSelector((store) => store.trip);
 
   React.useEffect(() => {
+    // get the trip's log
     dispatch({ type: "FETCH_TRIP_LOG", payload: currentTrip[0].id });
+    // clear the entry form inputs
+    dispatch({ type: "CLEAR_JOURNAL_INPUT" });
   }, []);
 
   const getParkInfo = () => {

@@ -23,7 +23,7 @@ import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
 import TripPlanner from "../TripPlanner/TripPlanner";
 import JournalForm from "../JournalForm/JournalForm";
-import EditLog from "../EditLog/EditLog";
+import EditEntry from "../EditEntry/EditEntry";
 import CurrentTrip from "../CurrentTrip/CurrentTrip";
 
 import "./App.css";
@@ -77,16 +77,16 @@ function App() {
 
           {/* TripPlanner */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows TripPlanner else shows LoginPage
             exact
             path="/planner"
           >
             <TripPlanner />
           </ProtectedRoute>
 
-          {/* Current Trips */}
+          {/* Current Trip */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows CurrentTrip else shows LoginPage
             exact
             path="/current"
           >
@@ -95,16 +95,16 @@ function App() {
 
           {/* Form for editing journal entry */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows EditEntry else shows LoginPage
             exact
             path="/journal/edit"
           >
-            <EditLog />
+            <EditEntry />
           </ProtectedRoute>
 
           {/* Form for adding journal entry */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows JournalForm else shows LoginPage
             exact
             path="/journal/new/:tripId"
           >

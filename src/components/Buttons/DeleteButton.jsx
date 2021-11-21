@@ -11,9 +11,9 @@ export default function DeleteTripButton(props) {
     if (props.trip) {
       const { id } = props.trip;
       dispatch({ type: "DELETE_TRIP", payload: id });
-    } else if (props.log) {
-      const { id } = props.log;
-      dispatch({ type: "DELETE_LOG", payload: id });
+    } else if (props.entry) {
+      const { id } = props.entry;
+      dispatch({ type: "DELETE_ENTRY", payload: id });
     }
   };
 

@@ -6,22 +6,25 @@ const {
 } = require("../modules/authentication-middleware");
 
 // GET request for getting a user's log records for all trips
-router.get("/", rejectUnauthenticated, (req, res) => {
+router.get("/:tripId", rejectUnauthenticated, (req, res) => {
+  const { tripId } = req.params;
+  console.log(req.params);
   const query = `
     SELECT 
-		    "trip"."user_id" AS "userId",
+		    "user_id" AS "userId",
         "log"."id",
-        "log"."trip_id" AS "tripId",
-        "log"."type",
-        "log"."text",
+        "trip_id" AS "tripId",
+        "type",
+        "text",
         "log"."image_path" AS "imagePath"
         FROM "trip"
         JOIN "log" ON "trip"."id" = "log"."trip_id"
         WHERE "user_id" = ${req.user.id}
-        ORDER BY "log"."trip_id";
+        AND "trip_id" = $1
+        ORDER BY "id" DESC;
   `;
   pool
-    .query(query)
+    .query(query, [tripId])
     .then((result) => {
       console.log(result.rows);
       res.send(result.rows);

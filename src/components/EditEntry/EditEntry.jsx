@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
 
-export default function EditLog() {
+export default function EditEntry() {
   const dispatch = useDispatch();
   const history = useHistory();
   // custom hook to parse the hash router query string
@@ -21,14 +21,14 @@ export default function EditLog() {
 
   const { tripLog } = useSelector((store) => store.log);
 
-  // const logToEdit = tripLog?.filter(
-  //   (log) => log.id === Number(query.get("logId"))
-  // )[0];
+  const logToEdit = tripLog?.filter(
+    (log) => log.id === Number(query.get("logId"))
+  )[0];
 
   const { journalInput } = useSelector((store) => store.log);
 
   React.useEffect(() => {
-    dispatch({ type: "SET_JOURNAL_INPUT", payload: tripLog.text });
+    dispatch({ type: "SET_JOURNAL_INPUT", payload: logToEdit.text });
   }, []);
 
   const handleChange = (e) => {
@@ -39,8 +39,8 @@ export default function EditLog() {
     e.preventDefault();
     console.log(tripLog);
     dispatch({
-      type: "EDIT_LOG",
-      payload: { logId: Number(query.get("logId")), journalInput, history },
+      type: "EDIT_ENTRY",
+      payload: { logId: logToEdit.id, journalInput, history },
     });
   };
   return (
@@ -52,7 +52,7 @@ export default function EditLog() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button onClick={() => history.goBack()}>Cancel</Button>
+        <Button onClick={() => history.push("/current")}>Cancel</Button>
         <FormControl fullWidth margin="normal">
           <TextField
             id="journal-edit"

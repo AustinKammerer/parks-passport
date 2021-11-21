@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import JournalLogItem from "../JournalLogItem/JournalLogItem";
+import JournalListItem from "../JournalListItem/JournalListItem";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -11,9 +11,9 @@ export default function JournalList() {
 
   return (
     <Grid container flexDirection="column" spacing={2} justifyContent="center">
-      {tripLog?.map((log) => (
-        <Grid item key={log.id}>
-          <JournalLogItem log={log} />
+      {tripLog?.map((entry) => (
+        <Grid item key={entry.id}>
+          <JournalListItem entry={entry} />
         </Grid>
       ))}
     </Grid>

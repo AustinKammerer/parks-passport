@@ -11,7 +11,7 @@ export default function EditButton(props) {
     <IconButton
       onClick={() =>
         history.push(
-          `/journal/edit?logId=${props.log.id}&type=${props.log.type}`
+          `/journal/edit?logId=${props.entry.id}&type=${props.entry.type}`
         )
       }
     >
