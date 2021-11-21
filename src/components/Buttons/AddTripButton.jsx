@@ -46,7 +46,7 @@ export default function AddTripButton({ park }) {
     // send the park to the saga to insert to database
     dispatch({
       type: "ADD_TRIP",
-      payload: { parkCode, imagePath, name, states },
+      payload: { parkCode, imagePath, name, states, isCurrent: false },
     });
   };
 

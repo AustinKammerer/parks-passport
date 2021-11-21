@@ -66,18 +66,23 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 // POST route for adding a trip to the database
 router.post("/", rejectUnauthenticated, (req, res) => {
   // grab the parkCode and imagePath from the client's request
-  const { name, parkCode, imagePath, states } = req.body;
+  const { name, parkCode, imagePath, states, isCurrent } = req.body;
   console.log(req.body);
   // query string for the database
-  const query = `
-    INSERT INTO "trip" ("user_id", "name", "states", "park_code", "image_path")
-        VALUES ($1, $2, $3, $4, $5);
+  let query = `
+    INSERT INTO "trip" ("user_id", "name", "states", "park_code", "image_path", "is_current")
+        VALUES ($1, $2, $3, $4, $5, $6)
   `;
+  if (isCurrent) {
+    query += 'RETURNING "id";';
+  } else {
+    query += ";";
+  }
   // make the database INSERT query
   pool
-    .query(query, [req.user.id, name, states, parkCode, imagePath])
-    .then((response) => {
-      res.sendStatus(201);
+    .query(query, [req.user.id, name, states, parkCode, imagePath, isCurrent])
+    .then((result) => {
+      req.body.isCurrent ? res.send(result.rows) : res.sendStatus(201);
     })
     .catch((err) => {
       console.log("Error POSTing trip to database", err);

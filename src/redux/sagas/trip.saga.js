@@ -17,12 +17,21 @@ function* fetchTripLists() {
 // POST a park to the "trip" table in database
 function* addTrip(action) {
   // payload contains parkCode and default imagePath
+  const { parkCode, imagePath, name, states, isCurrent, history } =
+    action.payload;
   try {
     // POST request
-    yield axios.post(`/api/trip`, action.payload);
+    const response = yield axios.post(`/api/trip`, {
+      parkCode,
+      imagePath,
+      name,
+      states,
+      isCurrent,
+    });
     console.log("POST success");
     // refresh the user's list
     yield put({ type: "FETCH_TRIP_LISTS" });
+    isCurrent && history.push(`/current?tripId=${response.data[0].id}`);
   } catch (error) {
     console.log("error adding trip:", error);
     yield put({ type: "POST_ERROR" });
@@ -32,13 +41,14 @@ function* addTrip(action) {
 // PUT request to start a trip - flips "is_current" to TRUE
 function* startTrip(action) {
   // payload contains the trip's id
-  const tripId = action.payload;
+  const { tripId, history } = action.payload;
   try {
     // PUT request
     yield axios.put(`/api/trip/start/${tripId}`);
     console.log("trip started");
     // refresh the user's lists
     yield put({ type: "FETCH_TRIP_LISTS" });
+    history.push(`/current?tripId=${tripId}`);
   } catch (error) {
     console.log("error starting trip:", error);
     yield put({ type: "PUT_ERROR" });

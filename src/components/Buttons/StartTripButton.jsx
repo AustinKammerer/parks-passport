@@ -43,12 +43,19 @@ export default function StartTripButton(props) {
       switch (currentTrip?.length) {
         // if there is no current trip, add a new trip and activate it
         case 0:
-          const { parkCode, name } = props.result;
+          const { parkCode, name, states } = props.result;
           const imagePath = props.result.images[0].url;
           // send the park to the saga to insert to database with is_current = TRUE
           dispatch({
             type: "ADD_TRIP",
-            payload: { parkCode, imagePath, name, isCurrent: true },
+            payload: {
+              parkCode,
+              imagePath,
+              name,
+              states,
+              isCurrent: true,
+              history,
+            },
           });
           break;
         // otherwise open a dialogue saying only one trip may be active
@@ -62,9 +69,9 @@ export default function StartTripButton(props) {
       // get the trip's id for the PUT request to activate the trip
       const { id } = props.trip;
       // dispatch the action to a saga with the id
-      dispatch({ type: "START_TRIP", payload: id });
+      dispatch({ type: "START_TRIP", payload: { tripId: id, history } });
       // direct user to the started trip
-      history.push(`/current?tripId=${id}`);
+      // history.push(`/current?tripId=${id}`);
       console.log("clicked in planner");
     }
   };

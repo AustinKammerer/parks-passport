@@ -20,7 +20,7 @@ export default function CurrentTrip() {
   // if tripId is "null", the GetStarted component will render
   const tripId = query.get("tripId");
 
-  const { currentTrip } = useSelector((store) => store.trip);
+  const { currentTrip, tripPlanner } = useSelector((store) => store.trip);
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_TRIP_LISTS" });
@@ -39,9 +39,10 @@ export default function CurrentTrip() {
     console.log(currentTrip[0].parkCode);
     history.push(`/info/${currentTrip[0].parkCode}`);
   };
+
   return (
     <Container component="main">
-      {tripId !== "null" ? (
+      {currentTrip.length ? (
         <Box>
           <img src={currentTrip[0]?.imagePath} />
           <Typography component="h2" variant="h4">
