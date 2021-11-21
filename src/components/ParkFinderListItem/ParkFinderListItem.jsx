@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import AddTripButton from "../AddTripButton/AddTripButton";
+import { AddTripButton, StartTripButton } from "../Buttons";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -21,18 +21,6 @@ export default function ParkFinderListItem({ result }) {
     history.push(`/info/${result.parkCode}`);
   };
 
-  // const { wishlist } = useSelector((store) => store.trip);
-
-  // const isInWishlist = (park) => {
-  //   const found = wishlist.find((trip) => trip.parkCode === park.parkCode);
-  //   console.log(found);
-  //   return found !== undefined;
-  // };
-
-  // React.useEffect(() => {
-  //   isInWishlist(result);
-  // }, []);
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea onClick={getParkInfo}>
@@ -49,9 +37,16 @@ export default function ParkFinderListItem({ result }) {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ justifyContent: "flex-end" }}>
-        <Button size="large" color="success" variant="contained">
-          Start
-        </Button>
+        <StartTripButton result={result} />
+        {/* <Button
+          size="large"
+          color="primary"
+          variant="contained"
+          onClick={handleAdd}
+          disabled={isFound}
+        >
+          {isFound ? "In Wishlist" : "Add"}
+        </Button> */}
         <AddTripButton park={result} />
       </CardActions>
     </Card>

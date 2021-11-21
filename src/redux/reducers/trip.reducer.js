@@ -1,16 +1,40 @@
 import { combineReducers } from "redux";
 
-// stores the user's wishlist
+// stores the user's tripPlanner list
 // contains all rows in "trips" table where "is_current" and "is_complete" are FALSE
-const wishlist = (state = [], action) => {
+const tripPlanner = (state = [], action) => {
   switch (action.type) {
-    case "SET_WISHLIST":
-      return action.payload;
+    case "SET_TRIP_LISTS":
+      return action.payload.tripPlanner;
+    default:
+      return state;
+  }
+};
+
+// stores the user's currentTrip
+// contains the row in "trips" table where "is_current" is TRUE
+const currentTrip = (state = {}, action) => {
+  switch (action.type) {
+    case "SET_TRIP_LISTS":
+      return action.payload.currentTrip;
+    default:
+      return state;
+  }
+};
+
+// stores the user's tripHistory
+// contains all rows in "trips" table where "is_current" is FALSE and "is_complete" is TRUE
+const tripHistory = (state = [], action) => {
+  switch (action.type) {
+    case "SET_TRIP_LISTS":
+      return action.payload.tripHistory;
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  wishlist,
+  tripPlanner,
+  currentTrip,
+  tripHistory,
 });

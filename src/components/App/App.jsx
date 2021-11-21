@@ -21,8 +21,11 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
-import Wishlist from "../Wishlist/Wishlist";
-
+import TripPlanner from "../TripPlanner/TripPlanner";
+import JournalForm from "../JournalForm/JournalForm";
+import EditEntry from "../EditEntry/EditEntry";
+import CurrentTrip from "../CurrentTrip/CurrentTrip";
+import GetStarted from "../GetStarted/GetStarted";
 import "./App.css";
 
 function App() {
@@ -32,6 +35,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
+    // dispatch({ type: "FETCH_TRIP_LISTS" });
   }, [dispatch]);
 
   return (
@@ -71,13 +75,49 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          {/* Wishlist */}
+          {/* Get Started */}
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows CurrentTrip else shows LoginPage
             exact
-            path="/wishlist"
+            path="/start"
           >
-            <Wishlist />
+            <GetStarted />
+          </ProtectedRoute>
+
+          {/* TripPlanner */}
+          <ProtectedRoute
+            // logged in shows TripPlanner else shows LoginPage
+            exact
+            path="/planner"
+          >
+            <TripPlanner />
+          </ProtectedRoute>
+
+          {/* Current Trip */}
+          <ProtectedRoute
+            // logged in shows CurrentTrip else shows LoginPage
+            exact
+            path="/current"
+          >
+            <CurrentTrip />
+          </ProtectedRoute>
+
+          {/* Form for editing journal entry */}
+          <ProtectedRoute
+            // logged in shows EditEntry else shows LoginPage
+            exact
+            path="/journal/edit"
+          >
+            <EditEntry />
+          </ProtectedRoute>
+
+          {/* Form for adding journal entry */}
+          <ProtectedRoute
+            // logged in shows JournalForm else shows LoginPage
+            exact
+            path="/journal/new/:tripId"
+          >
+            <JournalForm />
           </ProtectedRoute>
 
           {/* Park Finder */}

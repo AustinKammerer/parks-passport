@@ -1,10 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import ParkInfoHours from "../ParkInfoHours/ParkInfoHours";
-import AddTripButton from "../AddTripButton/AddTripButton";
-import StartTripButton from "../StartTripButton/StartTripButton";
+import { BackButton } from "../Buttons";
 
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -18,7 +18,7 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   maxHeight: 400,
@@ -28,6 +28,7 @@ const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
 
 export default function ParkInfo() {
   const dispatch = useDispatch();
+  const history = useHistory();
   // get the park's parkCode from the react-router url param
   const { parkCode } = useParams();
 
@@ -48,20 +49,20 @@ export default function ParkInfo() {
     (number) => number.type === "Voice"
   )[0];
 
-  console.log(voiceContact);
-
   return (
     <Container component="main">
+      <BackButton />
+
       <Typography component="h1" variant="h4">
         {parkInfo.name}
       </Typography>
-      <StartTripButton
+      {/* <StartTripButton
         size="large"
         color="success"
         variant="contained"
         parkInfo={parkInfo}
       />
-      <AddTripButton park={parkInfo} />
+      <AddTripButton park={parkInfo} /> */}
 
       {/* Description */}
       <Accordion>

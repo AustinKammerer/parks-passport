@@ -13,6 +13,7 @@ const passport = require("./strategies/user.strategy");
 const userRouter = require("./routes/user.router");
 const parkRouter = require("./routes/park.router");
 const tripRouter = require("./routes/trip.router");
+const logRouter = require("./routes/log.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use(passport.session());
 app.use("/api/user", userRouter);
 app.use("/api/park", parkRouter); // for accessing the NPS API
 app.use("/api/trip", tripRouter); // for accessing "trip" in the database
+app.use("/api/log", logRouter); // for accessing "log" in the database
 
 // Serve static files
 app.use(express.static("build"));
