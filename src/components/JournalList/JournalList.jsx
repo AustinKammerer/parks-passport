@@ -6,8 +6,8 @@ import JournalListItem from "../JournalListItem/JournalListItem";
 // import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-export default function JournalList() {
-  const { tripLog } = useSelector((store) => store.log);
+export default function JournalList({ tripLog }) {
+  // const { tripLog } = useSelector((store) => store.log);
 
   return (
     <Grid container flexDirection="column" spacing={2} justifyContent="center">

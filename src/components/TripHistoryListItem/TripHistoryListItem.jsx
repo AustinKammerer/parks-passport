@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { DeleteButton } from "../Buttons";
 
 import Typography from "@mui/material/Typography";
@@ -8,10 +9,11 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 
-export default function TripHistoryItem({ trip }) {
+export default function TripHistoryListItem({ trip }) {
+  const history = useHistory();
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={() => history.push(`/history/${trip.id}`)}>
         <CardMedia
           component="img"
           width="345"

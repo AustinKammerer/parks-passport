@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import TripPlannerItem from "../TripPlannerItem/TripPlannerItem";
+import TripPlannerListItem from "../TripPlannerListItem/TripPlannerListItem";
 import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";
@@ -26,7 +26,7 @@ export default function TripPlanner() {
         <Grid container spacing={2} justifyContent="center" mt={0}>
           {tripPlanner.map((trip) => (
             <Grid item key={trip.id}>
-              <TripPlannerItem trip={trip} />
+              <TripPlannerListItem trip={trip} />
             </Grid>
           ))}
         </Grid>

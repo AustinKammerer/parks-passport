@@ -5,7 +5,7 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-// GET request for getting a user's log records for all trips
+// GET request for getting a user's log records for a trip
 router.get("/:tripId", rejectUnauthenticated, (req, res) => {
   const { tripId } = req.params;
   console.log(req.params);

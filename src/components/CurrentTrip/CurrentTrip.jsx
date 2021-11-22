@@ -21,6 +21,7 @@ export default function CurrentTrip() {
   const tripId = query.get("tripId");
 
   const { currentTrip, tripPlanner } = useSelector((store) => store.trip);
+  const { tripLog } = useSelector((store) => store.log);
 
   React.useEffect(() => {
     // fetch the trip lists
@@ -60,7 +61,7 @@ export default function CurrentTrip() {
           >
             Add Note
           </Button>
-          <JournalList />
+          <JournalList tripLog={tripLog} />
         </Box>
       ) : (
         <GetStarted

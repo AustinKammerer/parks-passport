@@ -26,6 +26,7 @@ import JournalForm from "../JournalForm/JournalForm";
 import EditEntry from "../EditEntry/EditEntry";
 import CurrentTrip from "../CurrentTrip/CurrentTrip";
 import TripHistory from "../TripHistory/TripHistory";
+import TripHistoryLog from "../TripHistoryLog/TripHistoryLog";
 import GetStarted from "../GetStarted/GetStarted";
 import "./App.css";
 
@@ -117,6 +118,15 @@ function App() {
           >
             <TripHistory />
           </Route> */}
+
+          {/* Trip History Log*/}
+          <ProtectedRoute
+            // logged in shows TripHistory else shows LoginPage
+            exact
+            path="/history/:tripId"
+          >
+            <TripHistoryLog />
+          </ProtectedRoute>
 
           {/* Form for editing journal entry */}
           <ProtectedRoute
