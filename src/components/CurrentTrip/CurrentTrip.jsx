@@ -27,7 +27,7 @@ export default function CurrentTrip() {
     dispatch({ type: "FETCH_TRIP_LISTS" });
     // clear the entry form inputs
     dispatch({ type: "CLEAR_JOURNAL_INPUT" });
-  }, []);
+  }, [dispatch]);
 
   React.useEffect(() => {
     // get the trip's log after the trip is fetched

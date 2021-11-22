@@ -1,37 +1,35 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import TripPlannerItem from "../TripPlannerItem/TripPlannerItem";
+import TripHistoryItem from "../TripHistoryItem/TripHistoryItem";
 import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
-export default function TripPlanner() {
+export default function TripHistory() {
   const dispatch = useDispatch();
 
-  const { tripPlanner } = useSelector((store) => store.trip);
+  const { tripHistory } = useSelector((store) => store.trip);
 
-  React.useEffect(() => {
-    dispatch({ type: "FETCH_TRIP_LISTS" });
-  }, []);
+  useEffect(() => dispatch({ type: "FETCH_TRIP_LISTS" }), [dispatch]);
 
   return (
     <Container component="main">
       <Typography component="h1" variant="h3">
-        Planner
+        History
       </Typography>
-      {tripPlanner?.length > 0 ? (
+      {tripHistory?.length > 0 ? (
         <Grid container spacing={2} justifyContent="center" mt={0}>
-          {tripPlanner.map((trip) => (
+          {tripHistory.map((trip) => (
             <Grid item key={trip.id}>
-              <TripPlannerItem trip={trip} />
+              <TripHistoryItem trip={trip} />
             </Grid>
           ))}
         </Grid>
       ) : (
-        <GetStarted tripPlannerEmpty={true} />
+        <GetStarted tripHistoryEmpty={true} />
       )}
     </Container>
   );

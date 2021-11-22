@@ -25,6 +25,7 @@ import TripPlanner from "../TripPlanner/TripPlanner";
 import JournalForm from "../JournalForm/JournalForm";
 import EditEntry from "../EditEntry/EditEntry";
 import CurrentTrip from "../CurrentTrip/CurrentTrip";
+import TripHistory from "../TripHistory/TripHistory";
 import GetStarted from "../GetStarted/GetStarted";
 import "./App.css";
 
@@ -35,7 +36,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    // dispatch({ type: "FETCH_TRIP_LISTS" });
   }, [dispatch]);
 
   return (
@@ -77,7 +77,7 @@ function App() {
 
           {/* Get Started */}
           <ProtectedRoute
-            // logged in shows CurrentTrip else shows LoginPage
+            // logged in shows GetStarted else shows LoginPage
             exact
             path="/start"
           >
@@ -101,6 +101,22 @@ function App() {
           >
             <CurrentTrip />
           </ProtectedRoute>
+
+          {/* Trip History */}
+          <ProtectedRoute
+            // logged in shows TripHistory else shows LoginPage
+            exact
+            path="/history"
+          >
+            <TripHistory />
+          </ProtectedRoute>
+          {/* <Route
+            // logged in shows TripHistory else shows LoginPage
+            exact
+            path="/history"
+          >
+            <TripHistory />
+          </Route> */}
 
           {/* Form for editing journal entry */}
           <ProtectedRoute

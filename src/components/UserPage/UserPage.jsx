@@ -43,7 +43,9 @@ function UserPage() {
           onClick={() =>
             history.push(
               `/current?tripId=${
-                JSON.stringify(currentTrip) !== "[]" ? currentTrip.id : "null"
+                JSON.stringify(currentTrip) !== "[]"
+                  ? currentTrip[0].id
+                  : "null"
               }`
             )
           }

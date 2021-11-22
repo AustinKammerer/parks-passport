@@ -1,7 +1,7 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
-// GET user's trip logs for all trips (images, journal entries)
+// GET user's trip log for a trip (images, journal entries)
 function* fetchTripLog(action) {
   const tripId = action.payload;
   try {

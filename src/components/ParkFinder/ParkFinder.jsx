@@ -17,7 +17,7 @@ export default function ParkFinder() {
   return (
     <Container component="main">
       <Typography component="h1" variant="h3">
-        Park Finder
+        Finder
       </Typography>
       <ParkFinderForm />
       <ParkFinderList />
