@@ -11,8 +11,8 @@ export default function JournalList({ tripLog }) {
 
   return (
     <Grid container flexDirection="column" spacing={2} justifyContent="center">
-      {tripLog?.map((entry) => (
-        <Grid item key={entry.id}>
+      {tripLog.entries?.map((entry) => (
+        <Grid item key={entry.logId}>
           <JournalListItem entry={entry} />
         </Grid>
       ))}

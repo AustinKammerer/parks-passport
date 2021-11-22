@@ -17,8 +17,8 @@ export default function DeleteTripButton(props) {
     }
     // JournalListItem and PhotoItem give it 'entry'
     else if (props.entry) {
-      const { id, tripId } = props.entry;
-      dispatch({ type: "DELETE_ENTRY", payload: { logId: id, tripId } });
+      const { logId } = props.entry;
+      dispatch({ type: "DELETE_ENTRY", payload: logId });
     }
   };
 

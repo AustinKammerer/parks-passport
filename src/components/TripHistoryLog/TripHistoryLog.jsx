@@ -16,31 +16,31 @@ export default function TripHistoryLog() {
   const { tripLog } = useSelector((store) => store.trip);
   const { tripHistory } = useSelector((store) => store.trip);
 
-  useEffect(
-    () => dispatch({ type: "FETCH_TRIP_LISTS", payload: tripId }),
-    [dispatch]
-  );
+  // useEffect(
+  //   () => dispatch({ type: "FETCH_TRIP_LISTS", payload: tripId }),
+  //   [dispatch]
+  // );
   useEffect(
     () => dispatch({ type: "FETCH_TRIP_LOG", payload: tripId }),
-    [tripHistory]
+    [dispatch]
   );
 
-  const thisTrip = tripHistory?.find((trip) => trip.id === tripId);
+  // const thisTrip = tripHistory?.find((trip) => trip.id === tripId);
 
   // directs user to the park's info page - uses route params
   const getParkInfo = () => {
-    console.log(currentTrip[0].parkCode);
-    history.push(`/info/${currentTrip[0].parkCode}`);
+    console.log(tripLog.parkCode);
+    history.push(`/info/${tripLog.parkCode}`);
   };
 
-  console.log("thisTrip:", thisTrip);
+  console.log("tripLog:", tripLog);
 
   return (
     <Container component="main">
       <Box>
-        <img src={thisTrip?.imagePath} />
+        <img src={tripLog?.coverImage} />
         <Typography component="h2" variant="h4">
-          {thisTrip?.name}
+          {tripLog?.name}
         </Typography>
         <Button onClick={getParkInfo}>Info</Button>
         <Button variant="contained" color="secondary">

@@ -25,12 +25,12 @@ export default function EditEntry() {
 
   const { tripLog } = useSelector((store) => store.log);
 
-  const logToEdit = tripLog?.filter((log) => log.id === logId)[0];
+  const entryToEdit = tripLog.entries?.find((entry) => entry.logId === logId);
 
   const { journalInput } = useSelector((store) => store.log);
 
   React.useEffect(() => {
-    dispatch({ type: "SET_JOURNAL_INPUT", payload: logToEdit.text });
+    dispatch({ type: "SET_JOURNAL_INPUT", payload: entryToEdit.text });
   }, []);
 
   const handleChange = (e) => {
@@ -42,19 +42,26 @@ export default function EditEntry() {
     console.log(tripLog);
     dispatch({
       type: "EDIT_ENTRY",
-      payload: { tripId, logId: logToEdit.id, journalInput, history },
+      payload: {
+        tripId: tripLog.tripId,
+        logId: entryToEdit.logId,
+        journalInput,
+        history,
+      },
     });
   };
   return (
     <Container component="main">
       <Typography component="h1" variant="h5">
-        Edit your journal note
+        Edit your journal entry
       </Typography>
       <Box component="form" onSubmit={handleEdit}>
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button onClick={() => history.push(`/current?tripId=${tripId}`)}>
+        <Button
+          onClick={() => history.push(`/current?tripId=${tripLog.tripId}`)}
+        >
           Cancel
         </Button>
         <FormControl fullWidth margin="normal">

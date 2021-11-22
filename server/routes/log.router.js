@@ -5,29 +5,53 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
+// this function puts a trip's log entries in an array of entry objects
+// the array is then added to the 'entries' property of a slimmed down version of the 'trip' obj
+// as a result, a single row is returned to the client
+const combineLogs = (logs) => {
+  let logObj = {
+    tripId: logs[0].tripId,
+    name: logs[0].name,
+    states: logs[0].states,
+    parkCode: logs[0].parkCode,
+    coverImage: logs[0].coverImage,
+    entries: logs.map((log) => ({
+      logId: log.logId,
+      type: log.type,
+      text: log.text,
+      imagePath: log.imagePath,
+    })),
+  };
+  return logObj;
+};
+
 // GET request for getting a user's log records for a trip
 router.get("/:tripId", rejectUnauthenticated, (req, res) => {
   const { tripId } = req.params;
-  console.log(req.params);
+  console.log("GET", req.params);
+  // joins 'trip' and 'log' to get the trip info along with it's log entries
+  // UI will need both tables' data
   const query = `
     SELECT 
-		    "user_id" AS "userId",
-        "log"."id",
-        "trip_id" AS "tripId",
+        "trip"."id" AS "tripId",
+		    "name",
+		    "states",
+		    "park_code" AS "parkCode",
+		    "trip"."image_path" AS "coverImage",
+		    "log"."id" AS "logId",
         "type",
         "text",
         "log"."image_path" AS "imagePath"
-        FROM "trip"
-        JOIN "log" ON "trip"."id" = "log"."trip_id"
-        WHERE "user_id" = ${req.user.id}
-        AND "trip_id" = $1
-        ORDER BY "id" DESC;
+    FROM "trip" JOIN "log" ON "trip"."id" = "log"."trip_id"
+    WHERE "trip"."id" = $1
+    ORDER BY "log"."id" DESC;
   `;
   pool
     .query(query, [tripId])
     .then((result) => {
-      console.log(result.rows);
-      res.send(result.rows);
+      console.log("combined:", combineLogs(result.rows));
+      // entries are consolidated into a single array, so a single row is returned to client
+      res.send(combineLogs(result.rows));
     })
 
     .catch((err) => {
@@ -67,13 +91,14 @@ router.post("/:tripId", rejectUnauthenticated, (req, res) => {
 router.delete("/:logId", rejectUnauthenticated, (req, res) => {
   const { logId } = req.params;
   const query = `
-    DELETE FROM "log" WHERE "id" = $1;
+    DELETE FROM "log" WHERE "id" = $1
+    RETURNING "trip_id" AS "tripId"; 
   `;
 
   pool
     .query(query, [logId])
     .then((result) => {
-      res.sendStatus(201);
+      res.send(result.rows);
     })
 
     .catch((err) => {

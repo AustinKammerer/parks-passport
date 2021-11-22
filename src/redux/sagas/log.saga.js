@@ -34,11 +34,11 @@ function* addEntry(action) {
 
 // DELETE a log entry (journal/image)
 function* deleteEntry(action) {
-  const { logId, tripId } = action.payload;
+  const logId = action.payload;
   try {
-    yield axios.delete(`/api/log/${logId}`);
-    console.log("log deleted successfully");
-    yield put({ type: "FETCH_TRIP_LOG", payload: tripId });
+    const response = yield axios.delete(`/api/log/${logId}`);
+    console.log("log deleted successfully from trip", response.data);
+    yield put({ type: "FETCH_TRIP_LOG", payload: response.data[0].tripId });
   } catch (error) {
     console.log("error deleting log:", error);
     yield put({ type: "DELETE_ERROR" });
