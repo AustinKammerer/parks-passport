@@ -63,8 +63,35 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// GET route for a specific log entry to edit
+router.get("/entry/:logId", rejectUnauthenticated, (req, res) => {
+  const { logId } = req.params;
+  console.log("/entry:", req.params);
+  const query = `
+    SELECT
+      "id" AS "logId",
+      "trip_id" AS "tripId",
+      "text",
+      "image_path" AS "imagePath",
+      "type"
+    FROM "log" WHERE "id" = $1;
+  `;
+  pool
+    .query(query, [logId])
+    .then((result) => {
+      console.log("entry:", result.rows);
+      // log entries are consolidated into a single array, so a single row is returned to client
+      res.send(result.rows);
+    })
+
+    .catch((err) => {
+      console.log("Error getting log entry from database", err);
+      res.sendStatus(500);
+    });
+});
+
 // POST route for adding a journal entry
-router.post("/:tripId", rejectUnauthenticated, (req, res) => {
+router.post("/entry/:tripId", rejectUnauthenticated, (req, res) => {
   const { tripId } = req.params;
   const { journalInput } = req.body;
   console.log(req.body);
@@ -91,7 +118,7 @@ router.post("/:tripId", rejectUnauthenticated, (req, res) => {
 });
 
 // DELETE route for deleting a log entry (image/journal)
-router.delete("/:logId", rejectUnauthenticated, (req, res) => {
+router.delete("/entry/:logId", rejectUnauthenticated, (req, res) => {
   const { logId } = req.params;
   const query = `
     DELETE FROM "log" WHERE "id" = $1
@@ -110,19 +137,19 @@ router.delete("/:logId", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// PUT route for updating log text
-router.put("/:logId", rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
+// PUT route for updating log entry
+router.put("/entry/:logId", rejectUnauthenticated, (req, res) => {
+  console.log("put:", req.body);
   console.log(req.params);
   const { logId } = req.params;
-  const { journalInput } = req.body;
+  const { text, imagePath } = req.body;
 
   const query = `
-    UPDATE "log" SET "text" = $1 WHERE "id" = $2
+    UPDATE "log" SET "text" = $1, "image_path" = $2 WHERE "id" = $3
   `;
 
   pool
-    .query(query, [journalInput, logId])
+    .query(query, [text, imagePath, logId])
     .then((result) => {
       res.sendStatus(201);
     })

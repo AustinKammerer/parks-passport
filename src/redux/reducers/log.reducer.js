@@ -10,13 +10,27 @@ const tripLog = (state = {}, action) => {
   }
 };
 
-// reducer to store user's journal form input
-const journalInput = (state = "", action) => {
+// // reducer to store user's journal form input
+// const journalInput = (state = "", action) => {
+//   switch (action.type) {
+//     case "SET_JOURNAL_INPUT":
+//       return action.payload;
+//     case "CLEAR_JOURNAL_INPUT":
+//       return "";
+//     default:
+//       return state;
+//   }
+// };
+
+// payload={property:property, value:value}
+const editEntry = (state = {}, action) => {
   switch (action.type) {
-    case "SET_JOURNAL_INPUT":
+    case "SET_EDIT_ITEM":
       return action.payload;
-    case "CLEAR_JOURNAL_INPUT":
-      return "";
+    case "EDIT_ONCHANGE":
+      return { ...state, [action.payload.property]: action.payload.value };
+    case "CLEAR_EDIT_ITEM":
+      return {};
     default:
       return state;
   }
@@ -24,5 +38,6 @@ const journalInput = (state = "", action) => {
 
 export default combineReducers({
   tripLog,
-  journalInput,
+  // journalInput,
+  editEntry,
 });

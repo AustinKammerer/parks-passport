@@ -15,12 +15,25 @@ function* fetchTripLog(action) {
   }
 }
 
+// GET the log entry the user wants to edit
+function* fetchLogEntryToEdit(action) {
+  const logId = action.payload;
+  try {
+    const entry = yield axios.get(`/api/log/entry/${logId}`);
+
+    yield put({ type: "SET_EDIT_ITEM", payload: entry.data[0] });
+  } catch (error) {
+    console.log("error getting log entry:", error);
+    yield put({ type: "GET_ERROR" });
+  }
+}
+
 // POST a new journal entry
 function* addEntry(action) {
   const { tripId, journalInput, history } = action.payload;
   console.log(journalInput);
   try {
-    yield axios.post(`/api/log/${tripId}`, { journalInput });
+    yield axios.post(`/api/log/entry/${tripId}`, { journalInput });
     console.log("journal POST success");
     // clear the input field
     yield put({ type: "CLEAR_JOURNAL_INPUT" });
@@ -36,7 +49,7 @@ function* addEntry(action) {
 function* deleteEntry(action) {
   const logId = action.payload;
   try {
-    const response = yield axios.delete(`/api/log/${logId}`);
+    const response = yield axios.delete(`/api/log/entry/${logId}`);
     console.log("log deleted successfully from trip", response.data);
     yield put({ type: "FETCH_TRIP_LOG", payload: response.data[0].tripId });
   } catch (error) {
@@ -47,23 +60,25 @@ function* deleteEntry(action) {
 
 // PUT request to edit a log
 function* editEntry(action) {
-  const { tripId, logId, journalInput, history } = action.payload;
+  const { tripId, logId } = action.payload.editEntry;
+  const { history } = action.payload;
   try {
-    yield axios.put(`/api/log/${logId}`, { journalInput });
+    yield axios.put(`/api/log/entry/${logId}`, action.payload);
     console.log("log updated successfully");
     // clear the input field
-    yield put({ type: "CLEAR_JOURNAL_INPUT" });
+    yield put({ type: "CLEAR_EDIT_ITEM" });
     // redirect back to CurrentTrip
     yield history.push(`/current?tripId=${tripId}`);
   } catch (error) {
     console.log("error deleting log:", error);
-    yield put({ type: "DELETE_ERROR" });
+    yield put({ type: "PUT_ERROR" });
   }
 }
 
 // watcher saga
 function* logSaga() {
   yield takeLatest("FETCH_TRIP_LOG", fetchTripLog);
+  yield takeLatest("FETCH_ENTRY_TO_EDIT", fetchLogEntryToEdit);
   yield takeLatest("ADD_ENTRY", addEntry);
   yield takeLatest("DELETE_ENTRY", deleteEntry);
   yield takeLatest("EDIT_ENTRY", editEntry);
