@@ -15,12 +15,15 @@ const combineLogs = (logs) => {
     states: logs[0].states,
     parkCode: logs[0].parkCode,
     coverImage: logs[0].coverImage,
-    entries: logs.map((log) => ({
-      logId: log.logId,
-      type: log.type,
-      text: log.text,
-      imagePath: log.imagePath,
-    })),
+    entries:
+      logs[0].logId !== null
+        ? logs.map((log) => ({
+            logId: log.logId,
+            type: log.type,
+            text: log.text,
+            imagePath: log.imagePath,
+          }))
+        : [],
   };
   return logObj;
 };
@@ -28,7 +31,7 @@ const combineLogs = (logs) => {
 // GET request for getting a user's log records for a trip
 router.get("/:tripId", rejectUnauthenticated, (req, res) => {
   const { tripId } = req.params;
-  console.log("GET", req.params);
+  console.log("GET", tripId);
   // joins 'trip' and 'log' to get the trip info along with it's log entries
   // UI will need both tables' data
   const query = `
@@ -42,7 +45,7 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
         "type",
         "text",
         "log"."image_path" AS "imagePath"
-    FROM "trip" JOIN "log" ON "trip"."id" = "log"."trip_id"
+    FROM "trip" LEFT JOIN "log" ON "trip"."id" = "log"."trip_id"
     WHERE "trip"."id" = $1
     ORDER BY "log"."id" DESC;
   `;
@@ -50,7 +53,7 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
     .query(query, [tripId])
     .then((result) => {
       console.log("combined:", combineLogs(result.rows));
-      // entries are consolidated into a single array, so a single row is returned to client
+      // log entries are consolidated into a single array, so a single row is returned to client
       res.send(combineLogs(result.rows));
     })
 

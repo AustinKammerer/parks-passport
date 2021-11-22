@@ -3,17 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import JournalList from "../JournalList/JournalList";
+import JournalListItem from "../JournalListItem/JournalListItem";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 
 export default function TripHistoryLog() {
   const dispatch = useDispatch();
   const { tripId } = useParams();
 
-  const { tripLog } = useSelector((store) => store.trip);
+  const { tripLog } = useSelector((store) => store.log);
   const { tripHistory } = useSelector((store) => store.trip);
 
   // useEffect(
@@ -52,7 +54,21 @@ export default function TripHistoryLog() {
         >
           Add Note
         </Button>
-        <JournalList tripLog={tripLog} />
+        {/* <JournalList tripLog={tripLog} /> */}
+        {tripLog.entries?.length > 0 && (
+          <Grid
+            container
+            flexDirection="column"
+            spacing={2}
+            justifyContent="center"
+          >
+            {tripLog?.entries.map((entry) => (
+              <Grid item key={entry.logId}>
+                <JournalListItem entry={entry} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Box>
     </Container>
   );
