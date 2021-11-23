@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import ParkFinderListItem from "../ParkFinderListItem/ParkFinderListItem";
+import ParkFinderListItem from "./ParkFinderListItem";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";

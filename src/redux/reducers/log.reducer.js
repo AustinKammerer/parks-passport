@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
 
-// reducer for storing a user's logs (images and journal entries)
-// for all trips
-const tripLog = (state = [], action) => {
+// reducer for storing a user's log (images and journal entries) for a selected trip
+const tripLog = (state = {}, action) => {
   switch (action.type) {
     case "SET_TRIP_LOG":
       return action.payload;
@@ -11,13 +10,28 @@ const tripLog = (state = [], action) => {
   }
 };
 
-// reducer to store user's journal form input
-const journalInput = (state = "", action) => {
+// reducer to store user's new entry input
+const newEntry = (state = {}, action) => {
   switch (action.type) {
-    case "SET_JOURNAL_INPUT":
+    case "NEW_NOTE_ONCHANGE":
+      return { ...state, [action.payload.property]: action.payload.value };
+    case "CLEAR_ENTRY_INPUT":
+      return {};
+    default:
+      return state;
+  }
+};
+
+// payload={property:property, value:value}
+// reducer for storing the entry to be edited and new values from input
+const editEntry = (state = {}, action) => {
+  switch (action.type) {
+    case "SET_EDIT_ITEM":
       return action.payload;
-    case "CLEAR_JOURNAL_INPUT":
-      return "";
+    case "EDIT_ONCHANGE":
+      return { ...state, [action.payload.property]: action.payload.value };
+    case "CLEAR_EDIT_ITEM":
+      return {};
     default:
       return state;
   }
@@ -25,5 +39,6 @@ const journalInput = (state = "", action) => {
 
 export default combineReducers({
   tripLog,
-  journalInput,
+  newEntry,
+  editEntry,
 });

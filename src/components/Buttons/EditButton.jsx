@@ -6,14 +6,12 @@ import EditIcon from "@mui/icons-material/Edit";
 export default function EditButton(props) {
   const history = useHistory();
 
-  const { tripId, logId, type } = props.entry;
+  const { logId, type } = props.entry;
 
   return (
     <IconButton
       onClick={() =>
-        history.push(
-          `/journal/edit?tripId=${tripId}logId=${logId}&type=${type}`
-        )
+        history.push(`/log/entry?logId=${logId}&type=${type}&mode=edit`)
       }
     >
       <EditIcon />

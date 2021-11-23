@@ -22,10 +22,10 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
 import TripPlanner from "../TripPlanner/TripPlanner";
-import JournalForm from "../JournalForm/JournalForm";
-import EditEntry from "../EditEntry/EditEntry";
-import CurrentTrip from "../CurrentTrip/CurrentTrip";
+import EntryForm from "../EntryForm/EntryForm";
+import TripHistory from "../TripHistory/TripHistory";
 import GetStarted from "../GetStarted/GetStarted";
+import TripLog from "../TripLog/TripLog";
 import "./App.css";
 
 function App() {
@@ -35,7 +35,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    // dispatch({ type: "FETCH_TRIP_LISTS" });
   }, [dispatch]);
 
   return (
@@ -77,7 +76,7 @@ function App() {
 
           {/* Get Started */}
           <ProtectedRoute
-            // logged in shows CurrentTrip else shows LoginPage
+            // logged in shows GetStarted else shows LoginPage
             exact
             path="/start"
           >
@@ -93,32 +92,39 @@ function App() {
             <TripPlanner />
           </ProtectedRoute>
 
-          {/* Current Trip */}
+          {/* Add/Edit Log Entry */}
           <ProtectedRoute
-            // logged in shows CurrentTrip else shows LoginPage
+            // logged in shows EntryForm else shows LoginPage
             exact
-            path="/current"
+            path="/log/entry"
           >
-            <CurrentTrip />
+            <EntryForm />
           </ProtectedRoute>
 
-          {/* Form for editing journal entry */}
+          {/* Trip Log */}
           <ProtectedRoute
-            // logged in shows EditEntry else shows LoginPage
+            // logged in shows TripLog else shows LoginPage
             exact
-            path="/journal/edit"
+            path="/log/main/:tripId"
           >
-            <EditEntry />
+            <TripLog />
           </ProtectedRoute>
 
-          {/* Form for adding journal entry */}
+          {/* Trip History */}
           <ProtectedRoute
-            // logged in shows JournalForm else shows LoginPage
+            // logged in shows TripHistory else shows LoginPage
             exact
-            path="/journal/new/:tripId"
+            path="/history"
           >
-            <JournalForm />
+            <TripHistory />
           </ProtectedRoute>
+          {/* <Route
+            // logged in shows TripHistory else shows LoginPage
+            exact
+            path="/history"
+          >
+            <TripHistory />
+          </Route> */}
 
           {/* Park Finder */}
           <Route exact path="/finder">

@@ -32,7 +32,7 @@ function* addTrip(action) {
     // refresh the user's list
     yield put({ type: "FETCH_TRIP_LISTS" });
     // if the trip being added is also being activated, direct to it
-    isCurrent && history.push(`/current?tripId=${response.data[0].id}`);
+    isCurrent && history.push(`/log/main/${response.data[0].id}`);
   } catch (error) {
     console.log("error adding trip:", error);
     yield put({ type: "POST_ERROR" });
@@ -49,7 +49,7 @@ function* startTrip(action) {
     console.log("trip started");
     // refresh the user's lists
     // yield put({ type: "FETCH_TRIP_LISTS" });
-    history.push(`/current?tripId=${tripId}`);
+    history.push(`/log/main${tripId}`);
   } catch (error) {
     console.log("error starting trip:", error);
     yield put({ type: "PUT_ERROR" });

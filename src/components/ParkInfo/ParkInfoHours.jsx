@@ -1,4 +1,4 @@
-import ParkInfoHoursTable from "../ParkInfoHoursTable/ParkInfoHoursTable";
+import ParkInfoHoursTable from "./ParkInfoHoursTable";
 
 export default function ParkInfoHours({ parkInfo }) {
   const operatingHours = parkInfo && parkInfo.operatingHours;

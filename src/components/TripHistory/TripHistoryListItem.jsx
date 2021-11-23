@@ -1,7 +1,5 @@
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-import { StartTripButton, DeleteButton } from "../Buttons";
+import { DeleteButton } from "../Buttons";
 
 import Typography from "@mui/material/Typography";
 // import Button from "@mui/material/Button";
@@ -11,19 +9,11 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 
-export default function TripPlannerItem({ trip }) {
-  const dispatch = useDispatch();
+export default function TripHistoryListItem({ trip }) {
   const history = useHistory();
-
-  // directs user to the park's info page - uses route params
-  const getParkInfo = () => {
-    console.log(trip.parkCode);
-    history.push(`/info/${trip.parkCode}`);
-  };
-
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={getParkInfo}>
+      <CardActionArea onClick={() => history.push(`/log/main/${trip.id}`)}>
         <CardMedia
           component="img"
           width="345"
@@ -38,7 +28,6 @@ export default function TripPlannerItem({ trip }) {
       </CardActionArea>
       <CardActions sx={{ justifyContent: "flex-end" }}>
         <DeleteButton trip={trip} />
-        <StartTripButton trip={trip} />
       </CardActions>
     </Card>
   );

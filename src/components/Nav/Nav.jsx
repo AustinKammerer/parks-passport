@@ -40,6 +40,10 @@ function Nav() {
               Finder
             </Link>
 
+            <Link className="navLink" to="/history">
+              History
+            </Link>
+
             <LogOutButton className="navLink" />
           </>
         )}

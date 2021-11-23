@@ -5,29 +5,60 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-// GET request for getting a user's log records for all trips
+// this function puts a trip's log entries in an array of entry objects
+// the array is then added to the 'entries' property of a slimmed down version of the 'trip' obj
+// as a result, a single row is returned to the client
+const combineLogs = (logs) => {
+  let logObj = {
+    tripId: logs[0].tripId,
+    name: logs[0].name,
+    states: logs[0].states,
+    parkCode: logs[0].parkCode,
+    coverImage: logs[0].coverImage,
+    isCurrent: logs[0].isCurrent,
+    isComplete: logs[0].isComplete,
+    entries:
+      logs[0].logId !== null
+        ? logs.map((log) => ({
+            logId: log.logId,
+            type: log.type,
+            text: log.text,
+            imagePath: log.imagePath,
+          }))
+        : [],
+  };
+  return logObj;
+};
+
+// GET request for getting a user's log records for a trip
 router.get("/:tripId", rejectUnauthenticated, (req, res) => {
   const { tripId } = req.params;
-  console.log(req.params);
+  console.log("GET", tripId);
+  // joins 'trip' and 'log' to get the trip info along with it's log entries
+  // UI will need both tables' data
   const query = `
     SELECT 
-		    "user_id" AS "userId",
-        "log"."id",
-        "trip_id" AS "tripId",
-        "type",
-        "text",
-        "log"."image_path" AS "imagePath"
-        FROM "trip"
-        JOIN "log" ON "trip"."id" = "log"."trip_id"
-        WHERE "user_id" = ${req.user.id}
-        AND "trip_id" = $1
-        ORDER BY "id" DESC;
+      "trip"."id" AS "tripId",
+		  "name",
+		  "states",
+		  "park_code" AS "parkCode",
+		  "trip"."image_path" AS "coverImage",
+		  "is_current" AS "isCurrent",
+		  "is_complete" AS "isComplete",
+		  "log"."id" AS "logId",
+      "type",
+      "text",
+      "log"."image_path" AS "imagePath"
+    FROM "trip" LEFT JOIN "log" ON "trip"."id" = "log"."trip_id"
+    WHERE "trip"."id" = $1
+    ORDER BY "log"."id" DESC;
   `;
   pool
     .query(query, [tripId])
     .then((result) => {
-      console.log(result.rows);
-      res.send(result.rows);
+      console.log("combined:", combineLogs(result.rows));
+      // log entries are consolidated into a single array, so a single row is returned to client
+      res.send(combineLogs(result.rows));
     })
 
     .catch((err) => {
@@ -36,23 +67,45 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// POST route for adding a journal entry
-router.post("/:tripId", rejectUnauthenticated, (req, res) => {
-  const { tripId } = req.params;
-  const { journalInput } = req.body;
-  console.log(req.body);
-
+// GET route for a specific log entry to edit
+router.get("/entry/:logId", rejectUnauthenticated, (req, res) => {
+  const { logId } = req.params;
+  console.log("/entry:", req.params);
   const query = `
-    INSERT INTO "log" ("trip_id", "type", "text", "image_path")
-        VALUES ($1, $2, $3, $4);
+    SELECT
+      "id" AS "logId",
+      "trip_id" AS "tripId",
+      "text",
+      "image_path" AS "imagePath",
+      "type"
+    FROM "log" WHERE "id" = $1;
   `;
   pool
-    .query(query, [
-      tripId,
-      journalInput ? "journal" : "image",
-      journalInput,
-      journalInput ? "" : imagePath,
-    ])
+    .query(query, [logId])
+    .then((result) => {
+      console.log("entry:", result.rows);
+      // log entries are consolidated into a single array, so a single row is returned to client
+      res.send(result.rows);
+    })
+
+    .catch((err) => {
+      console.log("Error getting log entry from database", err);
+      res.sendStatus(500);
+    });
+});
+
+// POST route for adding a journal entry
+router.post("/entry", rejectUnauthenticated, (req, res) => {
+  // const { tripId } = req.params;
+  const { tripId, text, type } = req.body;
+  console.log("post body", req.body);
+
+  const query = `
+    INSERT INTO "log" ("trip_id", "type", "text")
+        VALUES ($1, $2, $3);
+  `;
+  pool
+    .query(query, [tripId, type, text])
     .then((result) => {
       res.sendStatus(201);
     })
@@ -64,16 +117,17 @@ router.post("/:tripId", rejectUnauthenticated, (req, res) => {
 });
 
 // DELETE route for deleting a log entry (image/journal)
-router.delete("/:logId", rejectUnauthenticated, (req, res) => {
+router.delete("/entry/:logId", rejectUnauthenticated, (req, res) => {
   const { logId } = req.params;
   const query = `
-    DELETE FROM "log" WHERE "id" = $1;
+    DELETE FROM "log" WHERE "id" = $1
+    RETURNING "trip_id" AS "tripId"; 
   `;
 
   pool
     .query(query, [logId])
     .then((result) => {
-      res.sendStatus(201);
+      res.send(result.rows);
     })
 
     .catch((err) => {
@@ -82,19 +136,19 @@ router.delete("/:logId", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// PUT route for updating log text
-router.put("/:logId", rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
+// PUT route for updating log entry
+router.put("/entry/:logId", rejectUnauthenticated, (req, res) => {
+  console.log("put:", req.body);
   console.log(req.params);
   const { logId } = req.params;
-  const { journalInput } = req.body;
+  const { text, imagePath } = req.body;
 
   const query = `
-    UPDATE "log" SET "text" = $1 WHERE "id" = $2
+    UPDATE "log" SET "text" = $1, "image_path" = $2 WHERE "id" = $3
   `;
 
   pool
-    .query(query, [journalInput, logId])
+    .query(query, [text, imagePath, logId])
     .then((result) => {
       res.sendStatus(201);
     })
