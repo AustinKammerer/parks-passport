@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import { EndTripButton, DeleteButton } from "../Buttons";
 import TripLogEntryListItem from "./TripLogEntryListItem";
+import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -24,10 +25,11 @@ export default function TripLog() {
   //   [dispatch]
   // );
 
-  useEffect(
-    () => dispatch({ type: "FETCH_TRIP_LOG", payload: tripId }),
-    [dispatch]
-  );
+  tripId !== "null" &&
+    useEffect(
+      () => dispatch({ type: "FETCH_TRIP_LOG", payload: tripId }),
+      [dispatch]
+    );
 
   // const thisTrip = tripHistory?.find((trip) => trip.id === tripId);
 
@@ -41,45 +43,49 @@ export default function TripLog() {
 
   return (
     <Container component="main">
-      <Box>
-        <img src={tripLog?.coverImage} />
-        <Typography component="h2" variant="h4">
-          {tripLog?.name}
-        </Typography>
-        {tripLog?.isCurrent ? (
-          <EndTripButton tripId={tripLog.tripId} />
-        ) : (
-          <DeleteButton tripLog={tripLog} />
-        )}
-        <Button onClick={getParkInfo}>Info</Button>
-        <Button variant="contained" color="secondary">
-          Photos
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            history.push(
-              `/log/entry?tripId=${tripLog.tripId}&type=${"note"}&mode=${"new"}`
-            )
-          }
-        >
-          Add Note
-        </Button>
-        {tripLog.entries?.length > 0 && (
-          <Grid
-            container
-            flexDirection="column"
-            spacing={2}
-            justifyContent="center"
+      {tripId !== "null" ? (
+        <Box>
+          <img src={tripLog?.coverImage} />
+          <Typography component="h2" variant="h4">
+            {tripLog?.name}
+          </Typography>
+          {tripLog?.isCurrent ? (
+            <EndTripButton tripId={tripLog.tripId} />
+          ) : (
+            <DeleteButton tripLog={tripLog} />
+          )}
+          <Button onClick={getParkInfo}>Info</Button>
+          <Button variant="contained" color="secondary">
+            Photos
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() =>
+              history.push(
+                `/log/entry/add?tripId=${tripLog.tripId}&type=${"note"}`
+              )
+            }
           >
-            {tripLog.entries?.map((entry) => (
-              <Grid item key={entry.logId}>
-                <TripLogEntryListItem entry={entry} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Box>
+            Add Note
+          </Button>
+          {tripLog.entries?.length > 0 && (
+            <Grid
+              container
+              flexDirection="column"
+              spacing={2}
+              justifyContent="center"
+            >
+              {tripLog.entries?.map((entry) => (
+                <Grid item key={entry.logId}>
+                  <TripLogEntryListItem entry={entry} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Box>
+      ) : (
+        <GetStarted currentTripEmpty={true} />
+      )}
     </Container>
   );
 }
