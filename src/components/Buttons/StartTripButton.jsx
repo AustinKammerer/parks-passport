@@ -40,37 +40,40 @@ export default function StartTripButton(props) {
     // determine behavior by checking the props passed to the button
     // from ParkFinder (parent passes 'result'):
     if (props.result) {
-      switch (currentTrip?.length) {
-        // if there is no current trip, add a new trip and activate it
-        case 0:
-          const { parkCode, name, states } = props.result;
-          const imagePath = props.result.images[0].url;
-          // send the park to the saga to insert to database with is_current = TRUE
-          dispatch({
-            type: "ADD_TRIP",
-            payload: {
-              parkCode,
-              imagePath,
-              name,
-              states,
-              isCurrent: true,
-              history,
-            },
-          });
-          break;
-        // otherwise open a dialogue saying only one trip may be active
-        default:
-          setOpen(true);
-      }
       console.log("clicked in Finder");
+      if (currentTrip?.length === 0) {
+        // if there is no current trip, add a new trip and activate it
+        const { parkCode, name, states } = props.result;
+        const imagePath = props.result.images[0].url;
+        // send the park to the saga to insert to database with is_current = TRUE
+        dispatch({
+          type: "ADD_TRIP",
+          payload: {
+            parkCode,
+            imagePath,
+            name,
+            states,
+            isCurrent: true,
+            history,
+          },
+        });
+      } else if (currentTrip?.length > 0) {
+        // otherwise open a dialogue saying only one trip may be active
+        setOpen(true);
+      }
     }
     // from tripPlanner (parent passes 'trip')
     else if (props.trip) {
-      // get the trip's id for the PUT request to activate the trip
-      const { id } = props.trip;
-      // dispatch the action to a saga with the id
-      dispatch({ type: "START_TRIP", payload: { tripId: id, history } });
       console.log("clicked in planner");
+      if (currentTrip?.length === 0) {
+        // get the trip's id for the PUT request to activate the trip
+        const { id } = props.trip;
+        // dispatch the action to a saga with the id
+        dispatch({ type: "START_TRIP", payload: { tripId: id, history } });
+      } else if (currentTrip?.length > 0) {
+        // otherwise open a dialogue saying only one trip may be active
+        setOpen(true);
+      }
     }
   };
 
