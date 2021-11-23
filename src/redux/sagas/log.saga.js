@@ -37,8 +37,8 @@ function* addEntry(action) {
     console.log("journal POST success");
     // clear the input field
     yield put({ type: "CLEAR_JOURNAL_INPUT" });
-    // redirect back to CurrentTrip
-    yield history.push(`/current?tripId=${tripId}`);
+    // redirect back to TripLog
+    yield history.push(`/log${tripId}`);
   } catch (error) {
     console.log("error POSTing log:", error);
     yield put({ type: "POST_ERROR" });
@@ -63,12 +63,12 @@ function* editEntry(action) {
   const { tripId, logId } = action.payload.editEntry;
   const { history } = action.payload;
   try {
-    yield axios.put(`/api/log/entry/${logId}`, action.payload);
+    yield axios.put(`/api/log/entry/${logId}`, action.payload.editEntry);
     console.log("log updated successfully");
     // clear the input field
     yield put({ type: "CLEAR_EDIT_ITEM" });
-    // redirect back to CurrentTrip
-    yield history.push(`/current?tripId=${tripId}`);
+    // redirect back to TripLog
+    yield history.push(`/log/${tripId}`);
   } catch (error) {
     console.log("error deleting log:", error);
     yield put({ type: "PUT_ERROR" });

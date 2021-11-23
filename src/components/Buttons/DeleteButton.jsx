@@ -15,6 +15,11 @@ export default function DeleteTripButton(props) {
       const { id } = props.trip;
       dispatch({ type: "DELETE_TRIP", payload: id });
     }
+    // TripLog gives it 'tripLog'
+    else if (props.tripLog) {
+      const { tripId } = props.tripLog;
+      dispatch({ type: "DELETE_TRIP", payload: tripId });
+    }
     // JournalListItem and PhotoItem give it 'entry'
     else if (props.entry) {
       const { logId } = props.entry;
@@ -30,12 +35,12 @@ export default function DeleteTripButton(props) {
         </IconButton>
       ) : (
         <Button
-          size="large"
+          size={props.trip && "large"}
           color="error"
-          variant={props.trip && "contained"}
+          variant="contained"
           onClick={handleDelete}
         >
-          {<DeleteForeverIcon />}
+          {props.trip ? <DeleteForeverIcon /> : "Delete"}
         </Button>
       )}
     </>

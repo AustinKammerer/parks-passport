@@ -57,9 +57,7 @@ export default function EditEntry() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button
-          onClick={() => history.push(`/current?tripId=${tripLog.tripId}`)}
-        >
+        <Button onClick={() => history.push(`/log/${editEntry.tripId}`)}>
           Cancel
         </Button>
         <FormControl fullWidth margin="normal">

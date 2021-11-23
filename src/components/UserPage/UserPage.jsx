@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 // import GetStarted from "../GetStarted/GetStarted";
-// import CurrentTrip from "../CurrentTrip/CurrentTrip";
 // import TripPlanner from "../TripPlanner/TripPlanner";
 
 import Typography from "@mui/material/Typography";
@@ -29,26 +28,11 @@ function UserPage() {
       <Typography component="h2" variant="h4">
         Welcome, {user.username}!
       </Typography>
-      {/* {currentTrip?.length > 0 ? (
-        <CurrentTrip />
-      ) : tripPlanner?.length > 0 ? (
-        <TripPlanner />
-      ) : (
-        <GetStarted user={user} />
-      )} */}
       <Stack spacing={2}>
         <Button
           size="large"
           variant="contained"
-          onClick={() =>
-            history.push(
-              `/current?tripId=${
-                JSON.stringify(currentTrip) !== "[]"
-                  ? currentTrip[0].id
-                  : "null"
-              }`
-            )
-          }
+          onClick={() => history.push(`/log/${currentTrip[0].id}`)}
         >
           Current Trip
         </Button>

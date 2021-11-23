@@ -15,6 +15,8 @@ const combineLogs = (logs) => {
     states: logs[0].states,
     parkCode: logs[0].parkCode,
     coverImage: logs[0].coverImage,
+    isCurrent: logs[0].isCurrent,
+    isComplete: logs[0].isComplete,
     entries:
       logs[0].logId !== null
         ? logs.map((log) => ({
@@ -36,15 +38,17 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
   // UI will need both tables' data
   const query = `
     SELECT 
-        "trip"."id" AS "tripId",
-		    "name",
-		    "states",
-		    "park_code" AS "parkCode",
-		    "trip"."image_path" AS "coverImage",
-		    "log"."id" AS "logId",
-        "type",
-        "text",
-        "log"."image_path" AS "imagePath"
+      "trip"."id" AS "tripId",
+		  "name",
+		  "states",
+		  "park_code" AS "parkCode",
+		  "trip"."image_path" AS "coverImage",
+		  "is_current" AS "isCurrent",
+		  "is_complete" AS "isComplete",
+		  "log"."id" AS "logId",
+      "type",
+      "text",
+      "log"."image_path" AS "imagePath"
     FROM "trip" LEFT JOIN "log" ON "trip"."id" = "log"."trip_id"
     WHERE "trip"."id" = $1
     ORDER BY "log"."id" DESC;
