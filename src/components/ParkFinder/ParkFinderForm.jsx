@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import useQuery from "../../hooks/useQuery";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -12,9 +13,13 @@ import Select from "@mui/material/Select";
 export default function ParkFinderForm() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const query = useQuery();
+
+  const state = query.get("state");
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_STATES" });
+    dispatch({ type: "SET_SEARCH_TERM", payload: state ? state : "" });
   }, []);
   // const [state, setState] = React.useState("");
 
@@ -22,7 +27,8 @@ export default function ParkFinderForm() {
   const { searchTerm, parkStates } = useSelector((store) => store.park);
 
   const handleChange = (e) => {
-    // setState(e.target.value);
+    console.dir(e.target);
+    history.push(`/finder?state=${e.target.value}`);
     // dispatch the input's value to redux
     dispatch({ type: "SET_SEARCH_TERM", payload: e.target.value });
   };
@@ -35,27 +41,33 @@ export default function ParkFinderForm() {
 
   return (
     <Box>
-      <FormControl fullWidth variant="standard" margin="normal">
-        <InputLabel id="state-select-label">State/Territory</InputLabel>
-        <Select
-          labelId="state-select-label"
-          id="state-select"
-          value={searchTerm}
-          label="State/Territory"
-          onChange={handleChange}
-        >
-          {parkStates.map((state) => (
-            <MenuItem key={state} value={state}>
-              {state}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl fullWidth margin="normal">
-        <Button variant="contained" onClick={handleSearch} color="info">
-          Search
-        </Button>
-      </FormControl>
+      {parkStates.length && (
+        <>
+          <FormControl fullWidth variant="standard" margin="normal">
+            <InputLabel id="state-select-label">State/Territory</InputLabel>
+            <Select
+              labelId="state-select-label"
+              id="state-select"
+              name="state"
+              defaultValue=""
+              value={searchTerm}
+              label="State/Territory"
+              onChange={handleChange}
+            >
+              {parkStates.map((state) => (
+                <MenuItem key={state} value={state}>
+                  {state}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+            <Button variant="contained" onClick={handleSearch} color="info">
+              Search
+            </Button>
+          </FormControl>
+        </>
+      )}
     </Box>
   );
 }

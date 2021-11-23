@@ -70,8 +70,6 @@ export default function StartTripButton(props) {
       const { id } = props.trip;
       // dispatch the action to a saga with the id
       dispatch({ type: "START_TRIP", payload: { tripId: id, history } });
-      // direct user to the started trip
-      // history.push(`/current?tripId=${id}`);
       console.log("clicked in planner");
     }
   };
@@ -108,13 +106,7 @@ export default function StartTripButton(props) {
           <Button
             variant="outlined"
             color="success"
-            onClick={() =>
-              history.push(
-                `/current?tripId=${
-                  JSON.stringify(currentTrip) !== "[]" ? currentTrip.id : "null"
-                }`
-              )
-            }
+            onClick={() => history.push(`/log/main/${currentTrip[0].id}`)}
           >
             Yes, Please
           </Button>

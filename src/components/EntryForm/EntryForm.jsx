@@ -99,7 +99,7 @@ export default function EntryForm() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button onClick={() => history.push(`/log/${editEntry.tripId}`)}>
+        <Button onClick={() => history.push(`/log/main/${editEntry.tripId}`)}>
           Cancel
         </Button>
         <FormControl fullWidth margin="normal">
