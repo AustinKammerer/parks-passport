@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import ParkFinderForm from "../ParkFinderForm/ParkFinderForm";
-import ParkFinderList from "../ParkFinderList/ParkFinderList";
+import ParkFinderForm from "./ParkFinderForm";
+import ParkFinderList from "./ParkFinderList";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";

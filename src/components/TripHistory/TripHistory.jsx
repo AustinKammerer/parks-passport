@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TripHistoryListItem from "../TripHistoryListItem/TripHistoryListItem";
+import TripHistoryListItem from "./TripHistoryListItem";
 import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";

@@ -32,7 +32,7 @@ function UserPage() {
         <Button
           size="large"
           variant="contained"
-          onClick={() => history.push(`/log/${currentTrip[0].id}`)}
+          onClick={() => history.push(`/log/main/${currentTrip[0].id}`)}
         >
           Current Trip
         </Button>

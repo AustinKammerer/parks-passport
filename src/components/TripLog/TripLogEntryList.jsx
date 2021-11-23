@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 
-import JournalListItem from "../JournalListItem/JournalListItem";
+import TripLogEntryListItem from "./TripLogEntryListItem";
 
 // import Typography from "@mui/material/Typography";
 // import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-export default function JournalList({ tripLog }) {
+export default function TripLogEntryList({ tripLog }) {
   // const { tripLog } = useSelector((store) => store.log);
 
   return (

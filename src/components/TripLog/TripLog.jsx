@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 
 import { EndTripButton, DeleteButton } from "../Buttons";
-import JournalList from "../JournalList/JournalList";
-import JournalListItem from "../JournalListItem/JournalListItem";
+import TripLogEntryListItem from "./TripLogEntryListItem";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -58,11 +57,14 @@ export default function TripLog() {
         </Button>
         <Button
           variant="contained"
-          onClick={() => history.push(`/journal/new/${tripId}`)}
+          onClick={() =>
+            history.push(
+              `/log/entry?tripId=${tripLog.tripId}&type=${"note"}&mode=${"new"}`
+            )
+          }
         >
           Add Note
         </Button>
-        {/* <JournalList tripLog={tripLog} /> */}
         {tripLog.entries?.length > 0 && (
           <Grid
             container
@@ -72,7 +74,7 @@ export default function TripLog() {
           >
             {tripLog.entries?.map((entry) => (
               <Grid item key={entry.logId}>
-                <JournalListItem entry={entry} />
+                <TripLogEntryListItem entry={entry} />
               </Grid>
             ))}
           </Grid>

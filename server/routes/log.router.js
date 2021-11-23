@@ -95,22 +95,17 @@ router.get("/entry/:logId", rejectUnauthenticated, (req, res) => {
 });
 
 // POST route for adding a journal entry
-router.post("/entry/:tripId", rejectUnauthenticated, (req, res) => {
-  const { tripId } = req.params;
-  const { journalInput } = req.body;
-  console.log(req.body);
+router.post("/entry", rejectUnauthenticated, (req, res) => {
+  // const { tripId } = req.params;
+  const { tripId, text, type } = req.body;
+  console.log("post body", req.body);
 
   const query = `
-    INSERT INTO "log" ("trip_id", "type", "text", "image_path")
-        VALUES ($1, $2, $3, $4);
+    INSERT INTO "log" ("trip_id", "type", "text")
+        VALUES ($1, $2, $3);
   `;
   pool
-    .query(query, [
-      tripId,
-      journalInput ? "journal" : "image",
-      journalInput,
-      journalInput ? "" : imagePath,
-    ])
+    .query(query, [tripId, type, text])
     .then((result) => {
       res.sendStatus(201);
     })

@@ -22,10 +22,8 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
 import TripPlanner from "../TripPlanner/TripPlanner";
-import JournalForm from "../JournalForm/JournalForm";
-import EditEntry from "../EditEntry/EditEntry";
+import EntryForm from "../EntryForm/EntryForm";
 import TripHistory from "../TripHistory/TripHistory";
-import TripHistoryLog from "../TripHistoryLog/TripHistoryLog";
 import GetStarted from "../GetStarted/GetStarted";
 import TripLog from "../TripLog/TripLog";
 import "./App.css";
@@ -94,11 +92,20 @@ function App() {
             <TripPlanner />
           </ProtectedRoute>
 
+          {/* Add/Edit Log Entry */}
+          <ProtectedRoute
+            // logged in shows EntryForm else shows LoginPage
+            exact
+            path="/log/entry"
+          >
+            <EntryForm />
+          </ProtectedRoute>
+
           {/* Trip Log */}
           <ProtectedRoute
             // logged in shows TripLog else shows LoginPage
             exact
-            path="/log/:tripId"
+            path="/log/main/:tripId"
           >
             <TripLog />
           </ProtectedRoute>
@@ -118,33 +125,6 @@ function App() {
           >
             <TripHistory />
           </Route> */}
-
-          {/* Trip History Log*/}
-          <ProtectedRoute
-            // logged in shows TripHistory else shows LoginPage
-            exact
-            path="/history/:tripId"
-          >
-            <TripHistoryLog />
-          </ProtectedRoute>
-
-          {/* Form for editing journal entry */}
-          <ProtectedRoute
-            // logged in shows EditEntry else shows LoginPage
-            exact
-            path="/journal/edit"
-          >
-            <EditEntry />
-          </ProtectedRoute>
-
-          {/* Form for adding journal entry */}
-          <ProtectedRoute
-            // logged in shows JournalForm else shows LoginPage
-            exact
-            path="/journal/new/:tripId"
-          >
-            <JournalForm />
-          </ProtectedRoute>
 
           {/* Park Finder */}
           <Route exact path="/finder">

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import TripPlannerListItem from "../TripPlannerListItem/TripPlannerListItem";
+import TripPlannerListItem from "./TripPlannerListItem";
 import GetStarted from "../GetStarted/GetStarted";
 
 import Typography from "@mui/material/Typography";

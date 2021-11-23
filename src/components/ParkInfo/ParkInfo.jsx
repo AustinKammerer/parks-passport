@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import ParkInfoHours from "../ParkInfoHours/ParkInfoHours";
+import ParkInfoHours from "./ParkInfoHours";
 import { BackButton } from "../Buttons";
 
 import Container from "@mui/material/Container";
