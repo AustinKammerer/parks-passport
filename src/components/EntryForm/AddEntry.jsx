@@ -21,7 +21,6 @@ export default function AddEntry() {
   // get properties from the query string
   const tripId = query.get("tripId");
   const logId = query.get("logId");
-  const type = query.get("type");
   const mode = query.get("mode");
 
   console.log("logId", query.get("logId"));
@@ -41,13 +40,13 @@ export default function AddEntry() {
       case "text":
         dispatch({
           type: "NEW_TEXT_ONCHANGE",
-          payload: { property: e.target.name, value: e.target.value },
+          payload: { property: "text", value: e.target.value },
         });
         break;
       case "image":
         dispatch({
           type: "NEW_IMAGE_ONCHANGE",
-          payload: { propertry: e.target.name, value: e.target.files[0] },
+          payload: { property: "image", value: e.target.files[0] },
         });
         break;
     }
@@ -55,11 +54,20 @@ export default function AddEntry() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("newEntry", newEntry);
-    dispatch({
-      type: "ADD_ENTRY",
-      payload: { newEntry, history, type, tripId },
-    });
+    const formData = new FormData();
+    // append any tripId first
+    formData.append("tripId", tripLog.tripId);
+    // then append any text
+    formData.append("text", newEntry.text);
+    // append the actual image
+    formData.append("imageUpload", newEntry.image);
+    dispatch({ type: "ADD_ENTRY", payload: { formData, tripId, history } });
+
+    // console.log("newEntry", newEntry);
+    // dispatch({
+    //   type: "ADD_ENTRY",
+    //   payload: { newEntry, history, tripId },
+    // });
   };
 
   return (

@@ -61,9 +61,7 @@ export default function TripLog() {
           <Button
             variant="contained"
             onClick={() =>
-              history.push(
-                `/log/entry/add?tripId=${tripLog.tripId}&type=${"note"}`
-              )
+              history.push(`/log/entry/add?tripId=${tripLog.tripId}`)
             }
           >
             Add Note

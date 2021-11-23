@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 
 export default function EntryForm(props) {
-  const { handleChange, handleSubmit, type, tripId, mode, inputValue } = props;
+  const { handleChange, handleSubmit, tripId, mode, inputValue } = props;
   const history = useHistory();
   return (
     <Box component="form" onSubmit={handleSubmit}>
@@ -16,6 +16,14 @@ export default function EntryForm(props) {
       <Button onClick={() => history.push(`/log/main/${tripId}`)}>
         Cancel
       </Button>
+
+      <input
+        type="file"
+        name="image"
+        accept="image/*"
+        onChange={handleChange}
+      />
+
       <FormControl fullWidth margin="normal">
         <TextField
           id="entry-form"

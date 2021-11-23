@@ -8,10 +8,12 @@ import Grid from "@mui/material/Grid";
 // import EditIcon from "@mui/icons-material/Edit";
 
 export default function JournalListItem({ entry }) {
+  const imagePath = `/api/log/entry/uploads/${entry.imagePath}`;
   return (
     <Paper>
       <Grid container justifyContent="space-between">
         <Grid item>
+          <img src={imagePath} />
           <Typography>{entry.text}</Typography>
         </Grid>
         <Grid item>

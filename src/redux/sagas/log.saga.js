@@ -30,10 +30,10 @@ function* fetchLogEntryToEdit(action) {
 
 // POST a new journal entry
 function* addEntry(action) {
-  const { tripId, newEntry, history, type } = action.payload;
+  const { tripId, formData, history } = action.payload;
   console.log(action.payload);
   try {
-    yield axios.post(`/api/log/entry`, { text: newEntry.text, type, tripId });
+    yield axios.post(`/api/log/entry`, formData);
     console.log("log entry POST success");
     // clear the input field
     yield put({ type: "CLEAR_ENTRY_INPUT" });
