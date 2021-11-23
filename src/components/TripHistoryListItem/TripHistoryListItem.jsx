@@ -13,7 +13,7 @@ export default function TripHistoryListItem({ trip }) {
   const history = useHistory();
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={() => history.push(`/history/${trip.id}`)}>
+      <CardActionArea onClick={() => history.push(`/log/${trip.id}`)}>
         <CardMedia
           component="img"
           width="345"

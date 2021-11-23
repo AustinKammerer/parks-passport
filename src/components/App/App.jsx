@@ -24,10 +24,10 @@ import ParkInfo from "../ParkInfo/ParkInfo";
 import TripPlanner from "../TripPlanner/TripPlanner";
 import JournalForm from "../JournalForm/JournalForm";
 import EditEntry from "../EditEntry/EditEntry";
-import CurrentTrip from "../CurrentTrip/CurrentTrip";
 import TripHistory from "../TripHistory/TripHistory";
 import TripHistoryLog from "../TripHistoryLog/TripHistoryLog";
 import GetStarted from "../GetStarted/GetStarted";
+import TripLog from "../TripLog/TripLog";
 import "./App.css";
 
 function App() {
@@ -94,13 +94,13 @@ function App() {
             <TripPlanner />
           </ProtectedRoute>
 
-          {/* Current Trip */}
+          {/* Trip Log */}
           <ProtectedRoute
-            // logged in shows CurrentTrip else shows LoginPage
+            // logged in shows TripLog else shows LoginPage
             exact
-            path="/current"
+            path="/log/:tripId"
           >
-            <CurrentTrip />
+            <TripLog />
           </ProtectedRoute>
 
           {/* Trip History */}

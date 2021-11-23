@@ -23,31 +23,29 @@ export default function EditEntry() {
   console.log(query.get("logId"));
   console.log(query.get("type"));
 
-  const { tripLog } = useSelector((store) => store.log);
+  const { tripLog, editEntry } = useSelector((store) => store.log);
 
-  const entryToEdit = tripLog.entries?.find((entry) => entry.logId === logId);
+  // const entryToEdit = tripLog.entries?.find((entry) => entry.logId === logId);
 
-  const { journalInput } = useSelector((store) => store.log);
+  // const { journalInput } = useSelector((store) => store.log);
 
   React.useEffect(() => {
-    dispatch({ type: "SET_JOURNAL_INPUT", payload: entryToEdit.text });
+    dispatch({ type: "FETCH_ENTRY_TO_EDIT", payload: logId });
   }, []);
 
   const handleChange = (e) => {
-    dispatch({ type: "SET_JOURNAL_INPUT", payload: e.target.value });
+    dispatch({
+      type: "EDIT_ONCHANGE",
+      payload: { property: e.target.name, value: e.target.value },
+    });
   };
 
   const handleEdit = (e) => {
     e.preventDefault();
-    console.log(tripLog);
+    console.log(editEntry);
     dispatch({
       type: "EDIT_ENTRY",
-      payload: {
-        tripId: tripLog.tripId,
-        logId: entryToEdit.logId,
-        journalInput,
-        history,
-      },
+      payload: { editEntry, history },
     });
   };
   return (
@@ -59,9 +57,7 @@ export default function EditEntry() {
         <Button type="submit" variant="contained">
           Submit
         </Button>
-        <Button
-          onClick={() => history.push(`/current?tripId=${tripLog.tripId}`)}
-        >
+        <Button onClick={() => history.push(`/log/${editEntry.tripId}`)}>
           Cancel
         </Button>
         <FormControl fullWidth margin="normal">
@@ -69,7 +65,8 @@ export default function EditEntry() {
             id="journal-edit"
             multiline
             rows={6}
-            value={journalInput}
+            name="text"
+            value={editEntry.text}
             onChange={handleChange}
           />
         </FormControl>
