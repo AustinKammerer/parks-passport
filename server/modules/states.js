@@ -12,16 +12,21 @@ const query = `
         OR "type" = 'National Parks'
         OR "type" = 'National and State Parks'
         GROUP BY "type";
-`;
+  `;
+let states;
 
-let statesList;
+pool
+  .query(query)
+  .then((result) => {
+    // result.rows is an array of objects containing arrays of states
+    // these arrays need to be mapped into a single array and then flattened
+    // but if a park spans multiple parks, the states are combined in a single string (ex: 'CA,NV')
+    // these cases need to be separated into discrete elements (ex: 'CA, 'NV')
 
-const getStates = async () => {
-  try {
-    const result = await pool.query(query);
-    let nestedList = result.rows.map((row) => [...row.states]);
+    // combine each row's array into a single array:
+    let statesList = result.rows.map((row) => [...row.states]);
     // iterate over each subarray and parse multi-state strings
-    const parsedStatesList = nestedList.map((arr) =>
+    const parsedStatesList = statesList.map((arr) =>
       arr.map((el) => (el.includes(",") ? el.split(",") : el))
     );
     // flatten the array of sub-arrays
@@ -29,10 +34,11 @@ const getStates = async () => {
     const flattenedStatesList = parsedStatesList.flat(2);
     // remove duplicate states by spreading the processed list into a new Set, then sort by state
     let filteredStatesList = [...new Set(flattenedStatesList)].sort();
-    // console.log("list for client:", filteredStatesList);
-    statesList = filteredStatesList;
-    console.log(statesList);
-  } catch (error) {
-    console.log("Error getting list of states from database", error);
-  }
-};
+    states = filteredStatesList;
+    console.log("list for client:", filteredStatesList);
+  })
+  .catch((err) => {
+    console.log("Error getting list of states from database", err);
+  });
+
+module.exports = states;

@@ -37,10 +37,20 @@ export default function AddEntry() {
 
   const handleChange = (e) => {
     // dispatch input to newEntry reducer
-    dispatch({
-      type: "NEW_NOTE_ONCHANGE",
-      payload: { property: e.target.name, value: e.target.value },
-    });
+    switch (e.target.name) {
+      case "text":
+        dispatch({
+          type: "NEW_TEXT_ONCHANGE",
+          payload: { property: e.target.name, value: e.target.value },
+        });
+        break;
+      case "image":
+        dispatch({
+          type: "NEW_IMAGE_ONCHANGE",
+          payload: { propertry: e.target.name, value: e.target.files[0] },
+        });
+        break;
+    }
   };
 
   const handleSubmit = (e) => {
