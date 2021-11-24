@@ -1,15 +1,12 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
-
 const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
-
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
-// import multer
 const multer = require("multer");
 const upload = multer({
   dest: "uploads/",
@@ -18,7 +15,6 @@ const upload = multer({
     next(err);
   },
 });
-// import s3 functions
 const { uploadFile, getFileStream } = require("../services/s3.js");
 
 // this function puts a trip's log entries in an array of entry objects
@@ -90,7 +86,7 @@ router.get("/entry/:logId", rejectUnauthenticated, (req, res) => {
       "id" AS "logId",
       "trip_id" AS "tripId",
       "text",
-      "image_path" AS "imagePath",
+      "image_path" AS "imagePath"
     FROM "log" WHERE "id" = $1;
   `;
   pool

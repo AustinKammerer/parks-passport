@@ -18,20 +18,13 @@ export default function TripLog() {
   const { tripId } = useParams();
 
   const { tripLog } = useSelector((store) => store.log);
-  // const { tripHistory } = useSelector((store) => store.trip);
 
-  // useEffect(
-  //   () => dispatch({ type: "FETCH_TRIP_LISTS", payload: tripId }),
-  //   [dispatch]
-  // );
-
+  // if the url has a valid trip id, fetch its log
   tripId !== "null" &&
     useEffect(
       () => dispatch({ type: "FETCH_TRIP_LOG", payload: tripId }),
       [dispatch]
     );
-
-  // const thisTrip = tripHistory?.find((trip) => trip.id === tripId);
 
   // directs user to the park's info page - uses route params
   const getParkInfo = () => {
@@ -39,10 +32,9 @@ export default function TripLog() {
     history.push(`/info/${tripLog.parkCode}`);
   };
 
-  console.log("tripLog:", tripLog);
-
   return (
     <Container component="main">
+      {/* Display the trip's log */}
       {tripId !== "null" ? (
         <Box>
           <img src={tripLog?.coverImage} />
@@ -55,9 +47,9 @@ export default function TripLog() {
             <DeleteButton tripLog={tripLog} />
           )}
           <Button onClick={getParkInfo}>Info</Button>
-          <Button variant="contained" color="secondary">
+          {/* <Button variant="contained" color="secondary">
             Photos
-          </Button>
+          </Button> */}
           <Button
             variant="contained"
             onClick={() =>
