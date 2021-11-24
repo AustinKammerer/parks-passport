@@ -22,7 +22,8 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
 import TripPlanner from "../TripPlanner/TripPlanner";
-import EntryForm from "../EntryForm/EntryForm";
+import AddEntry from "../EntryForm/AddEntry";
+import EditEntry from "../EntryForm/EditEntry";
 import TripHistory from "../TripHistory/TripHistory";
 import GetStarted from "../GetStarted/GetStarted";
 import TripLog from "../TripLog/TripLog";
@@ -92,13 +93,22 @@ function App() {
             <TripPlanner />
           </ProtectedRoute>
 
-          {/* Add/Edit Log Entry */}
+          {/* Add Log Entry */}
           <ProtectedRoute
             // logged in shows EntryForm else shows LoginPage
             exact
-            path="/log/entry"
+            path="/log/entry/add"
           >
-            <EntryForm />
+            <AddEntry />
+          </ProtectedRoute>
+
+          {/* Edit Log Entry */}
+          <ProtectedRoute
+            // logged in shows EntryForm else shows LoginPage
+            exact
+            path="/log/entry/edit"
+          >
+            <EditEntry />
           </ProtectedRoute>
 
           {/* Trip Log */}

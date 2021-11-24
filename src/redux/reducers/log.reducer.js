@@ -13,7 +13,9 @@ const tripLog = (state = {}, action) => {
 // reducer to store user's new entry input
 const newEntry = (state = {}, action) => {
   switch (action.type) {
-    case "NEW_NOTE_ONCHANGE":
+    case "NEW_TEXT_ONCHANGE":
+      return { ...state, [action.payload.property]: action.payload.value };
+    case "NEW_IMAGE_ONCHANGE":
       return { ...state, [action.payload.property]: action.payload.value };
     case "CLEAR_ENTRY_INPUT":
       return {};

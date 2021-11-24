@@ -9,11 +9,7 @@ export default function EditButton(props) {
   const { logId, type } = props.entry;
 
   return (
-    <IconButton
-      onClick={() =>
-        history.push(`/log/entry?logId=${logId}&type=${type}&mode=edit`)
-      }
-    >
+    <IconButton onClick={() => history.push(`/log/entry/edit?logId=${logId}`)}>
       <EditIcon />
     </IconButton>
   );
