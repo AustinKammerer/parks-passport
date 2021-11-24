@@ -13,7 +13,7 @@ export default function JournalListItem({ entry }) {
     <Paper>
       <Grid container justifyContent="space-between">
         <Grid item>
-          <img src={imagePath} />
+          {entry.imagePath && <img src={imagePath} />}
           <Typography>{entry.text}</Typography>
         </Grid>
         <Grid item>

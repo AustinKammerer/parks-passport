@@ -190,8 +190,8 @@ export default function ParkInfo() {
         </AccordionSummary>
         <StyledAccordionDetails>
           <Box>
-            {parkInfo.entranceFees?.map((fee) => (
-              <Box key={fee.description} sx={{ mb: 2 }}>
+            {parkInfo.entranceFees?.map((fee, i) => (
+              <Box key={i} sx={{ mb: 2 }}>
                 <Typography fontWeight="bold">{fee.title}</Typography>
                 <Typography fontStyle="italic">${fee.cost}</Typography>
                 <Typography>{fee.description}</Typography>

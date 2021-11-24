@@ -11,7 +11,13 @@ const {
 } = require("../modules/authentication-middleware");
 // import multer
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({
+  dest: "uploads/",
+  onError: function (err, next) {
+    console.log("error", err);
+    next(err);
+  },
+});
 // import s3 functions
 const { uploadFile, getFileStream } = require("../services/s3.js");
 
@@ -106,6 +112,10 @@ router.get("/entry/uploads/:key", (req, res) => {
   const { key } = req.params;
   // create a read stream for the image in the S3 bucket
   const readStream = getFileStream(key);
+  // handle errors
+  readStream.on("error", (error) => {
+    res.sendStatus(500);
+  });
   // pipe the read stream to the client
   readStream.pipe(res);
 });
@@ -122,25 +132,30 @@ router.post(
     const { tripId, text } = req.body;
     // if the user is uploading a file:
     if (req.file) {
-      // upload the file to S3 and save the response which contains the key needed to render
-      const result = await uploadFile(file, text);
-      // removed the file from the uploads file on the server
-      await unlinkFile(file.path);
-      console.log("result from s3:", result);
-      // save the user's entry data to the database (includes the S3 key)
-      const query = `
+      try {
+        // upload the file to S3 and save the response which contains the key needed to render
+        const result = await uploadFile(file, text);
+        // removed the file from the uploads file on the server
+        await unlinkFile(file.path);
+        console.log("result from s3:", result);
+        // save the user's entry data to the database (includes the S3 key)
+        const query = `
       INSERT INTO "log" ("trip_id", "text", "image_path")
       VALUES ($1, $2, $3);
     `;
-      pool
-        .query(query, [tripId, text, result.Key])
-        .then((result) => {
-          res.sendStatus(201);
-        })
-        .catch((err) => {
-          console.log(`Error posting log with upload:`, err);
-          res.sendStatus(500);
-        });
+        pool
+          .query(query, [tripId, text, result.Key])
+          .then((result) => {
+            res.sendStatus(201);
+          })
+          .catch((err) => {
+            console.log(`Error posting log with upload:`, err);
+            res.sendStatus(500);
+          });
+      } catch (error) {
+        console.log("error uploading", error);
+        res.sendStatus(500);
+      }
     }
     // if the user is not uploading a photo
     else {
