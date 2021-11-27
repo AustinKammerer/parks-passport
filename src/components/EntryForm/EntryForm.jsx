@@ -10,12 +10,12 @@ export default function EntryForm(props) {
   const history = useHistory();
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      <Button type="submit" variant="contained">
+      {/* <Button type="submit" variant="contained">
         Submit
       </Button>
       <Button onClick={() => history.push(`/log/main/${tripId}`)}>
         Cancel
-      </Button>
+      </Button> */}
 
       <input
         type="file"

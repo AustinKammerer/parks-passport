@@ -27,7 +27,12 @@ import EditEntry from "../EntryForm/EditEntry";
 import TripHistory from "../TripHistory/TripHistory";
 import GetStarted from "../GetStarted/GetStarted";
 import TripLog from "../TripLog/TripLog";
+import Header from "../Header/Header";
 import "./App.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,12 +41,13 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
+    dispatch({ type: "FETCH_TRIP_LISTS" });
   }, [dispatch]);
 
   return (
     <Router>
       <div>
-        {user.id && <Nav />}
+        <Header user={user} />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -185,6 +191,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        {user.id && <Nav />}
       </div>
     </Router>
   );

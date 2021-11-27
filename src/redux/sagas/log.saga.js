@@ -37,8 +37,10 @@ function* addEntry(action) {
     console.log("log entry POST success");
     // clear the input field
     yield put({ type: "CLEAR_ENTRY_INPUT" });
-    // redirect back to TripLog
-    yield history.push(`/log/main/${tripId}`);
+    // close the form dialog
+    yield put({ type: "CLOSE_NEW_ENTRY_DIALOG" });
+    // refresh the logs
+    yield put({ type: "FETCH_TRIP_LOG", payload: tripId });
   } catch (error) {
     console.log("error POSTing log entry:", error);
     yield put({ type: "POST_ERROR" });
@@ -67,8 +69,8 @@ function* editEntry(action) {
     console.log("log entry updated successfully");
     // clear the input field
     yield put({ type: "CLEAR_EDIT_ITEM" });
-    // redirect back to TripLog
-    yield history.push(`/log/main/${tripId}`);
+    // close the form dialog
+    yield put({ type: "CLOSE_EDIT_ENTRY_DIALOG" });
   } catch (error) {
     console.log("error updating log entry:", error);
     yield put({ type: "PUT_ERROR" });

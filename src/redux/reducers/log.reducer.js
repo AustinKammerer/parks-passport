@@ -24,6 +24,17 @@ const newEntry = (state = {}, action) => {
   }
 };
 
+const newEntryDialogOpen = (state = false, action) => {
+  switch (action.type) {
+    case "OPEN_NEW_ENTRY_DIALOG":
+      return true;
+    case "CLOSE_NEW_ENTRY_DIALOG":
+      return false;
+    default:
+      return state;
+  }
+};
+
 // payload={property:property, value:value}
 // reducer for storing the entry to be edited and new values from input
 const editEntry = (state = {}, action) => {
@@ -39,8 +50,21 @@ const editEntry = (state = {}, action) => {
   }
 };
 
+const editEntryDialogOpen = (state = false, action) => {
+  switch (action.type) {
+    case "OPEN_EDIT_ENTRY_DIALOG":
+      return true;
+    case "CLOSE_EDIT_ENTRY_DIALOG":
+      return false;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   tripLog,
   newEntry,
   editEntry,
+  newEntryDialogOpen,
+  editEntryDialogOpen,
 });

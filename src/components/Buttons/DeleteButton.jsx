@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -7,6 +8,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export default function DeleteTripButton(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // action differs depending on the button's props from its parent component
   const handleDelete = () => {
@@ -19,6 +21,7 @@ export default function DeleteTripButton(props) {
     else if (props.tripLog) {
       const { tripId } = props.tripLog;
       dispatch({ type: "DELETE_TRIP", payload: tripId });
+      history.push(`/history`);
     }
     // JournalListItem and PhotoItem give it 'entry'
     else if (props.entry) {

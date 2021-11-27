@@ -15,10 +15,10 @@ export default function ParkFinder() {
   }, []);
 
   return (
-    <Container component="main">
-      <Typography component="h1" variant="h3">
+    <Container component="main" sx={{ pt: 9 }}>
+      {/* <Typography component="h1" variant="h3">
         Finder
-      </Typography>
+      </Typography> */}
       <ParkFinderForm />
       <ParkFinderList />
     </Container>

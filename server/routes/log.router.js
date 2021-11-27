@@ -35,6 +35,7 @@ const combineLogs = (logs) => {
             logId: log.logId,
             text: log.text,
             imagePath: log.imagePath,
+            time: log.time,
           }))
         : [],
   };
@@ -58,7 +59,8 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
 		  "is_complete" AS "isComplete",
 		  "log"."id" AS "logId",
       "text",
-      "log"."image_path" AS "imagePath"
+      "log"."image_path" AS "imagePath",
+      "time"
     FROM "trip" LEFT JOIN "log" ON "trip"."id" = "log"."trip_id"
     WHERE "trip"."id" = $1
     ORDER BY "log"."id" DESC;

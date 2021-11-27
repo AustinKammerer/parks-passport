@@ -16,9 +16,9 @@ function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch({ type: "FETCH_TRIP_LISTS" });
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch({ type: "FETCH_TRIP_LISTS" });
+  // }, []);
 
   const user = useSelector((store) => store.user);
   const { tripPlanner, currentTrip } = useSelector((store) => store.trip);

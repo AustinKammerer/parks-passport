@@ -47,7 +47,7 @@ export default function EditEntry() {
   };
 
   return (
-    <Container component="main">
+    <Container component="main" sx={{ pt: 7 }}>
       <Typography component="h1" variant="h5">
         Edit log entry
       </Typography>

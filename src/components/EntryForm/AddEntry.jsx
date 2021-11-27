@@ -11,28 +11,36 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AddEntry() {
+export default function AddEntry({ open, setOpen }) {
   const dispatch = useDispatch();
   const history = useHistory();
   // custom hook to parse the hash router query string
   const query = useQuery();
 
   // get properties from the query string
-  const tripId = query.get("tripId");
-  const logId = query.get("logId");
-  const mode = query.get("mode");
+  // const tripId = query.get("tripId");
+  // const logId = query.get("logId");
+  // const mode = query.get("mode");
 
-  console.log("logId", query.get("logId"));
-  console.log("tripId", query.get("tripId"));
-  console.log("type", query.get("type"));
+  // console.log("logId", query.get("logId"));
+  // console.log("tripId", query.get("tripId"));
+  // console.log("type", query.get("type"));
 
-  const { tripLog, newEntry } = useSelector((store) => store.log);
+  const { tripLog, newEntry, newEntryDialogOpen } = useSelector(
+    (store) => store.log
+  );
+  const { tripId } = tripLog;
 
-  React.useEffect(() => {
-    // get the trip's log (for true tripId)
-    dispatch({ type: "FETCH_TRIP_LOG", payload: tripId });
-  }, []);
+  // React.useEffect(() => {
+  //   // get the trip's log (for true tripId)
+  //   dispatch({ type: "FETCH_TRIP_LOG", payload: tripId });
+  // }, []);
 
   const handleChange = (e) => {
     // dispatch input to newEntry reducer
@@ -70,11 +78,12 @@ export default function AddEntry() {
     // });
   };
 
+  const handleDialogClose = () => {
+    dispatch({ type: "CLOSE_NEW_ENTRY_DIALOG" });
+  };
+
   return (
     <Container component="main">
-      <Typography component="h1" variant="h5">
-        New log entry
-      </Typography>
       {/* <Box component="form" onSubmit={handleSubmit}>
         <Button type="submit" variant="contained">
           Submit
@@ -92,12 +101,20 @@ export default function AddEntry() {
           />
         </FormControl>
       </Box> */}
-      <EntryForm
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        mode={"add"}
-        tripId={tripLog.tripId}
-      />
+      <Dialog open={newEntryDialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>New Log Entry</DialogTitle>
+        <DialogContent>
+          <EntryForm
+            handleChange={handleChange}
+            mode={"add"}
+            tripId={tripLog.tripId}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
