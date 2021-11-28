@@ -29,6 +29,8 @@ const combineLogs = (logs) => {
     coverImage: logs[0].coverImage,
     isCurrent: logs[0].isCurrent,
     isComplete: logs[0].isComplete,
+    startDate: logs[0].startDate,
+    endDate: logs[0].endDate,
     entries:
       logs[0].logId !== null
         ? logs.map((log) => ({
@@ -57,6 +59,8 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
 		  "trip"."image_path" AS "coverImage",
 		  "is_current" AS "isCurrent",
 		  "is_complete" AS "isComplete",
+      "start_date" AS "startDate",
+      "end_date" AS "endDate",
 		  "log"."id" AS "logId",
       "text",
       "log"."image_path" AS "imagePath",
