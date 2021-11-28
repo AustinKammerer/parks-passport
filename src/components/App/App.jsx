@@ -41,13 +41,13 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    dispatch({ type: "FETCH_TRIP_LISTS" });
+    // dispatch({ type: "FETCH_TRIP_LISTS" });
   }, [dispatch]);
 
   return (
     <Router>
       <div>
-        <Header user={user} />
+        <Header />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -99,31 +99,13 @@ function App() {
             <TripPlanner />
           </ProtectedRoute>
 
-          {/* Add Log Entry */}
-          <ProtectedRoute
-            // logged in shows EntryForm else shows LoginPage
-            exact
-            path="/log/entry/add"
-          >
-            <AddEntry />
-          </ProtectedRoute>
-
-          {/* Edit Log Entry */}
-          <ProtectedRoute
-            // logged in shows EntryForm else shows LoginPage
-            exact
-            path="/log/entry/edit"
-          >
-            <EditEntry />
-          </ProtectedRoute>
-
-          {/* Trip Log */}
+          {/* Current Trip Log */}
           <ProtectedRoute
             // logged in shows TripLog else shows LoginPage
             exact
-            path="/log/main/:tripId"
+            path="/current/log/:tripId"
           >
-            <TripLog />
+            <TripLog actionType={"MOVE_TO_CURRENT"} />
           </ProtectedRoute>
 
           {/* Trip History */}
@@ -134,13 +116,15 @@ function App() {
           >
             <TripHistory />
           </ProtectedRoute>
-          {/* <Route
-            // logged in shows TripHistory else shows LoginPage
+
+          {/* History Trip Log */}
+          <ProtectedRoute
+            // logged in shows TripLog else shows LoginPage
             exact
-            path="/history"
+            path="/history/log/:tripId"
           >
-            <TripHistory />
-          </Route> */}
+            <TripLog actionType={"MOVE_TO_HISTORY"} />
+          </ProtectedRoute>
 
           {/* Park Finder */}
           <Route exact path="/finder">
@@ -191,7 +175,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-        {user.id && <Nav />}
+        <Nav />
       </div>
     </Router>
   );

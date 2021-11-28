@@ -1,20 +1,13 @@
 import React from "react";
-import useQuery from "../../hooks/useQuery";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import EntryForm from "./EntryForm";
 
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function AddEntry() {
@@ -62,17 +55,15 @@ export default function AddEntry() {
   };
 
   return (
-    <Container component="main">
-      <Dialog open={newEntryDialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>New Log Entry</DialogTitle>
-        <DialogContent>
-          <EntryForm handleChange={handleChange} mode={"add"} tripId={tripId} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+    <Dialog open={newEntryDialogOpen} onClose={handleDialogClose}>
+      <DialogTitle>New Log Entry</DialogTitle>
+      <DialogContent>
+        <EntryForm handleChange={handleChange} mode={"add"} tripId={tripId} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleDialogClose}>Cancel</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </DialogActions>
+    </Dialog>
   );
 }

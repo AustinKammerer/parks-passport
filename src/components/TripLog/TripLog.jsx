@@ -16,16 +16,19 @@ import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
-export default function TripLog() {
+export default function TripLog({ actionType }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { tripId } = useParams();
 
-  const { tripLog, newEntryDialogOpen } = useSelector((store) => store.log);
+  const { tripLog } = useSelector((store) => store.log);
 
   // if the url has a valid trip id, fetch its log
   tripId !== "null" &&
-    useEffect(() => dispatch({ type: "FETCH_TRIP_LOG", payload: tripId }), []);
+    useEffect(() => {
+      dispatch({ type: actionType });
+      dispatch({ type: "FETCH_TRIP_LOG", payload: tripId });
+    }, []);
 
   // directs user to the park's info page - uses route params
   const getParkInfo = () => {
@@ -34,7 +37,7 @@ export default function TripLog() {
   };
 
   return (
-    <Container component="main" sx={{ px: 0, pt: 9 }}>
+    <Container component="main" sx={{ px: 0, pt: 10 }}>
       {/* Display the trip's log */}
       {tripId !== "null" ? (
         <Box>

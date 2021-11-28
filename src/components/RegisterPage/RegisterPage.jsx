@@ -1,6 +1,7 @@
 import React from "react";
-
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 import Link from "@mui/material/Link";
@@ -9,6 +10,11 @@ import Grid from "@mui/material/Grid";
 
 function RegisterPage() {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch({ type: "MOVE_TO_LOGIN" });
+  });
 
   const [image, setImage] = React.useState("images/half-dome-wallpaper.jpg");
 

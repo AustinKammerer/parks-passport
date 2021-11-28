@@ -16,15 +16,16 @@ function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   dispatch({ type: "FETCH_TRIP_LISTS" });
-  // }, []);
+  React.useEffect(() => {
+    dispatch({ type: "MOVE_TO_USER" });
+    // dispatch({ type: "FETCH_TRIP_LISTS" });
+  }, []);
 
   const user = useSelector((store) => store.user);
   const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" sx={{ pt: 10 }}>
       <Typography component="h2" variant="h4">
         Welcome, {user.username}!
       </Typography>

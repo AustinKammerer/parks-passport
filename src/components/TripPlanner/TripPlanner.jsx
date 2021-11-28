@@ -14,11 +14,12 @@ export default function TripPlanner() {
   const { tripPlanner } = useSelector((store) => store.trip);
 
   React.useEffect(() => {
+    dispatch({ type: "MOVE_TO_PLANNER" });
     dispatch({ type: "FETCH_TRIP_LISTS" });
   }, []);
 
   return (
-    <Container component="main" sx={{ px: 0, pt: 9 }}>
+    <Container component="main" sx={{ px: 0, pt: 10 }}>
       {tripPlanner?.length > 0 ? (
         <Grid container spacing={2} justifyContent="center" mt={0}>
           {tripPlanner.map((trip) => (

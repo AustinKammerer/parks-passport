@@ -11,11 +11,12 @@ export default function ParkFinder() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch({ type: "MOVE_TO_FINDER" });
     dispatch({ type: "FETCH_TRIP_LISTS" });
   }, []);
 
   return (
-    <Container component="main" sx={{ pt: 9 }}>
+    <Container component="main" sx={{ pt: 10 }}>
       {/* <Typography component="h1" variant="h3">
         Finder
       </Typography> */}

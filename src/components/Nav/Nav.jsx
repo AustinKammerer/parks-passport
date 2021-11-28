@@ -29,15 +29,14 @@ const CustomBottomNavAction = styled(BottomNavigationAction)(({ theme }) => ({
 
 function Nav() {
   const dispatch = useDispatch();
+
   const user = useSelector((store) => store.user);
   const { currentTrip } = useSelector((store) => store.trip);
+  const { indicator } = useSelector((store) => store.nav);
 
-  const currentTripPath = `/log/main/${
+  const currentTripPath = `/current/log/${
     currentTrip.length ? currentTrip[0].id : "null"
   }`;
-
-  const [value, setValue] = React.useState(0);
-  console.log(value);
 
   return (
     // <div className="nav">
@@ -91,24 +90,17 @@ function Nav() {
         elevation={15}
       >
         {user.id === null && (
-          <BottomNavigation showLabels>
-            // If there's no user, show login/registration links
-            <BottomNavigationAction
+          <CustomBottomNav showLabels value={indicator}>
+            <CustomBottomNavAction
               component={Link}
               to="/login"
               label="Login / Register"
               icon={<LoginIcon />}
             />
-          </BottomNavigation>
+          </CustomBottomNav>
         )}
         {user.id && (
-          <CustomBottomNav
-            showLabels
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          >
+          <CustomBottomNav showLabels value={indicator}>
             <CustomBottomNavAction
               component={Link}
               to={currentTripPath}
