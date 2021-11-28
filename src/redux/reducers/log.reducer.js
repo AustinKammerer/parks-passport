@@ -13,10 +13,10 @@ const tripLog = (state = {}, action) => {
 // reducer to store user's new entry input
 const newEntry = (state = {}, action) => {
   switch (action.type) {
-    case "NEW_TEXT_ONCHANGE":
+    case "NEW_ENTRY_ONCHANGE":
       return { ...state, [action.payload.property]: action.payload.value };
-    case "NEW_IMAGE_ONCHANGE":
-      return { ...state, [action.payload.property]: action.payload.value };
+    // case "NEW_IMAGE_ONCHANGE":
+    //   return { ...state, [action.payload.property]: action.payload.value };
     case "CLEAR_ENTRY_INPUT":
       return {};
     default:
@@ -41,7 +41,7 @@ const editEntry = (state = {}, action) => {
   switch (action.type) {
     case "SET_EDIT_ITEM":
       return action.payload;
-    case "EDIT_ONCHANGE":
+    case "EDIT_ENTRY_ONCHANGE":
       return { ...state, [action.payload.property]: action.payload.value };
     case "CLEAR_EDIT_ITEM":
       return {};

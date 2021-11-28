@@ -6,6 +6,7 @@ import { EndTripButton, DeleteButton } from "../Buttons";
 import TripLogEntryListItem from "./TripLogEntryListItem";
 import GetStarted from "../GetStarted/GetStarted";
 import AddEntry from "../EntryForm/AddEntry";
+import EditEntry from "../EntryForm/EditEntry";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -75,6 +76,7 @@ export default function TripLog() {
             {<AddIcon />}
           </Fab>
           <AddEntry />
+          <EditEntry />
           {tripLog.entries?.length > 0 && (
             <Grid
               container

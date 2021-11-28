@@ -1,7 +1,5 @@
 import React from "react";
-import useQuery from "../../hooks/useQuery";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import EntryForm from "./EntryForm";
 
@@ -11,71 +9,80 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function EditEntry() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  // custom hook to parse the hash router query string
-  const query = useQuery();
 
-  // get properties from the query string
-  const tripId = query.get("tripId");
-  const logId = query.get("logId");
-  const type = query.get("type");
-
-  const { tripLog, newEntry, editEntry } = useSelector((store) => store.log);
-
-  React.useEffect(() => {
-    // get the individual entry being edited (from 'log' table)
-    dispatch({ type: "FETCH_ENTRY_TO_EDIT", payload: logId });
-  }, []);
+  const { tripLog, editEntry, editEntryDialogOpen } = useSelector(
+    (store) => store.log
+  );
+  const { tripId } = tripLog;
 
   const handleChange = (e) => {
-    dispatch({
-      type: "EDIT_ONCHANGE",
-      payload: { property: e.target.name, value: e.target.value },
-    });
+    // dispatch input to editEntry reducer
+    switch (e.target.name) {
+      case "text":
+        // image and text input data are in different properties on e.target
+        dispatch({
+          type: "EDIT_ENTRY_ONCHANGE",
+          payload: { property: "text", value: e.target.value },
+        });
+        break;
+      // image update not yet implemented
+      // need to find a way to check if the user is updating the image to avoid upload redundency
+      // case "image":
+      //   dispatch({
+      //     type: "EDIT_ENTRY_ONCHANGE",
+      //     payload: { property: "image", value: e.target.files[0] },
+      //   });
+      //   break;
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("editEntry", editEntry);
-    dispatch({
-      type: "EDIT_ENTRY",
-      payload: { editEntry, history },
-    });
+    // const { logId } = editEntry;
+    // const formData = new FormData();
+    // // append any tripId first
+    // formData.append("tripId", tripId);
+    // // then append any text
+    // formData.append("text", editEntry.text);
+    // // append the actual image
+    // formData.append("imageUpload", editEntry.image);
+    dispatch({ type: "EDIT_ENTRY", payload: { editEntry, tripId } });
+    // dispatch({
+    //   type: "EDIT_ENTRY",
+    //   payload: { editEntry, history },
+    // });
+  };
+
+  const handleDialogClose = () => {
+    dispatch({ type: "CLOSE_EDIT_ENTRY_DIALOG" });
   };
 
   return (
     <Container component="main" sx={{ pt: 7 }}>
-      <Typography component="h1" variant="h5">
-        Edit log entry
-      </Typography>
-      {/* <Box component="form" onSubmit={handleSubmit}>
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
-        <Button onClick={() => history.push(`/log/main/${editEntry.tripId}`)}>
-          Cancel
-        </Button>
-        <FormControl fullWidth margin="normal">
-          <TextField
-            id="journal-edit"
-            multiline
-            rows={6}
-            name="text"
-            value={editEntry.text}
-            onChange={handleChange}
+      <Dialog open={editEntryDialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Edit Log Entry</DialogTitle>
+        <DialogContent>
+          <EntryForm
+            handleChange={handleChange}
+            mode={"edit"}
+            tripId={tripId}
+            inputValue={editEntry.text}
           />
-        </FormControl>
-      </Box> */}
-      <EntryForm
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        mode={"edit"}
-        tripId={editEntry.tripId}
-        inputValue={editEntry.text}
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
