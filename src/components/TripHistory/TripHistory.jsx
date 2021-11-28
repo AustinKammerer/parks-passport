@@ -13,13 +13,13 @@ export default function TripHistory() {
 
   const { tripHistory } = useSelector((store) => store.trip);
 
-  useEffect(() => dispatch({ type: "FETCH_TRIP_LISTS" }), [dispatch]);
+  useEffect(() => {
+    dispatch({ type: "FETCH_TRIP_LISTS" });
+    dispatch({ type: "MOVE_TO_HISTORY" });
+  }, [dispatch]);
 
   return (
-    <Container component="main">
-      <Typography component="h1" variant="h3">
-        History
-      </Typography>
+    <Container component="main" sx={{ px: 0, pt: 10 }}>
       {tripHistory?.length > 0 ? (
         <Grid container spacing={2} justifyContent="center" mt={0}>
           {tripHistory.map((trip) => (

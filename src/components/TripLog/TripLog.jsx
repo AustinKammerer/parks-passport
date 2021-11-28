@@ -1,35 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 
 import { EndTripButton, DeleteButton } from "../Buttons";
 import TripLogEntryListItem from "./TripLogEntryListItem";
+import GetStarted from "../GetStarted/GetStarted";
+import AddEntry from "../EntryForm/AddEntry";
+import EditEntry from "../EntryForm/EditEntry";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 
-export default function TripLog() {
+export default function TripLog({ actionType }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { tripId } = useParams();
 
   const { tripLog } = useSelector((store) => store.log);
-  // const { tripHistory } = useSelector((store) => store.trip);
 
-  // useEffect(
-  //   () => dispatch({ type: "FETCH_TRIP_LISTS", payload: tripId }),
-  //   [dispatch]
-  // );
-
-  useEffect(
-    () => dispatch({ type: "FETCH_TRIP_LOG", payload: tripId }),
-    [dispatch]
-  );
-
-  // const thisTrip = tripHistory?.find((trip) => trip.id === tripId);
+  // if the url has a valid trip id, fetch its log
+  tripId !== "null" &&
+    useEffect(() => {
+      dispatch({ type: actionType });
+      dispatch({ type: "FETCH_TRIP_LOG", payload: tripId });
+    }, []);
 
   // directs user to the park's info page - uses route params
   const getParkInfo = () => {
@@ -37,49 +36,68 @@ export default function TripLog() {
     history.push(`/info/${tripLog.parkCode}`);
   };
 
-  console.log("tripLog:", tripLog);
-
   return (
-    <Container component="main">
-      <Box>
-        <img src={tripLog?.coverImage} />
-        <Typography component="h2" variant="h4">
-          {tripLog?.name}
-        </Typography>
-        {tripLog?.isCurrent ? (
-          <EndTripButton tripId={tripLog.tripId} />
-        ) : (
-          <DeleteButton tripLog={tripLog} />
-        )}
-        <Button onClick={getParkInfo}>Info</Button>
-        <Button variant="contained" color="secondary">
-          Photos
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            history.push(
-              `/log/entry?tripId=${tripLog.tripId}&type=${"note"}&mode=${"new"}`
-            )
-          }
-        >
-          Add Note
-        </Button>
-        {tripLog.entries?.length > 0 && (
-          <Grid
-            container
-            flexDirection="column"
-            spacing={2}
-            justifyContent="center"
+    <Container component="main" sx={{ px: 0, pt: 10 }}>
+      {/* Display the trip's log */}
+      {tripId !== "null" ? (
+        <Box>
+          <img src={tripLog?.coverImage} />
+          <Typography component="h2" variant="h4">
+            {tripLog?.name}
+          </Typography>
+          {tripLog?.isCurrent ? (
+            <EndTripButton tripId={tripLog.tripId} />
+          ) : (
+            <DeleteButton tripLog={tripLog} />
+          )}
+          <Button onClick={getParkInfo}>Info</Button>
+          {/* <Button variant="contained" color="secondary">
+            Photos
+          </Button> */}
+          {/* <Button
+            variant="contained"
+            onClick={() =>
+              history.push(`/log/entry/add?tripId=${tripLog.tripId}`)
+            }
           >
-            {tripLog.entries?.map((entry) => (
-              <Grid item key={entry.logId}>
-                <TripLogEntryListItem entry={entry} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Box>
+            Add Note
+          </Button> */}
+          <Fab
+            sx={{
+              position: "fixed",
+              bottom: 88,
+              right: 16,
+              zIndex: 2,
+              bgcolor: "#e65100",
+              "&:hover": {
+                bgcolor: "#e65100",
+              },
+            }}
+            color="inherit"
+            onClick={() => dispatch({ type: "OPEN_NEW_ENTRY_DIALOG" })}
+          >
+            {<AddIcon />}
+          </Fab>
+          <AddEntry />
+          <EditEntry />
+          {tripLog.entries?.length > 0 && (
+            <Grid
+              container
+              flexDirection="column"
+              spacing={2}
+              justifyContent="center"
+            >
+              {tripLog.entries?.map((entry) => (
+                <Grid item key={entry.logId}>
+                  <TripLogEntryListItem entry={entry} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Box>
+      ) : (
+        <GetStarted currentTripEmpty={true} />
+      )}
     </Container>
   );
 }
