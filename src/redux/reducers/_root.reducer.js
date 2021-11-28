@@ -4,6 +4,7 @@ import user from "./user.reducer";
 import park from "./park.reducer";
 import trip from "./trip.reducer";
 import log from "./log.reducer";
+import nav from "./nav.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   park, // contains park info from NPS API
   trip, // contains user's trip lists (TripPlanner, currentTrip, tripHistory)
   log, // contains user's trip logs for all trips (images, journal entries)
+  nav, // controls the visual indication of the nav bar
 });
 
 export default rootReducer;

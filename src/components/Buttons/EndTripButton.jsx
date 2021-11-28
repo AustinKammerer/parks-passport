@@ -4,13 +4,12 @@ import { useHistory } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
-export default function EndTripButton({ trip }) {
+export default function EndTripButton({ tripId }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleEnd = () => {
-    const { id } = trip;
-    dispatch({ type: "END_TRIP", payload: { tripId: id, history } });
+    dispatch({ type: "END_TRIP", payload: { tripId, history } });
   };
 
   return (

@@ -35,6 +35,7 @@ const combineLogs = (logs) => {
             logId: log.logId,
             text: log.text,
             imagePath: log.imagePath,
+            time: log.time,
           }))
         : [],
   };
@@ -58,7 +59,8 @@ router.get("/:tripId", rejectUnauthenticated, (req, res) => {
 		  "is_complete" AS "isComplete",
 		  "log"."id" AS "logId",
       "text",
-      "log"."image_path" AS "imagePath"
+      "log"."image_path" AS "imagePath",
+      "time"
     FROM "trip" LEFT JOIN "log" ON "trip"."id" = "log"."trip_id"
     WHERE "trip"."id" = $1
     ORDER BY "log"."id" DESC;
@@ -192,19 +194,20 @@ router.delete("/entry/:logId", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// PUT route for updating log entry
+// PUT route for updating log entry (currently only text may be updated)
 router.put("/entry/:logId", rejectUnauthenticated, (req, res) => {
   console.log("put:", req.body);
   console.log(req.params);
   const { logId } = req.params;
-  const { text, imagePath } = req.body;
+  // req.body is editEntry
+  const { text } = req.body;
 
   const query = `
-    UPDATE "log" SET "text" = $1, "image_path" = $2 WHERE "id" = $3
+    UPDATE "log" SET "text" = $1 WHERE "id" = $2
   `;
 
   pool
-    .query(query, [text, imagePath, logId])
+    .query(query, [text, logId])
     .then((result) => {
       res.sendStatus(201);
     })

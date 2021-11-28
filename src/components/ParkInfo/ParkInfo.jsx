@@ -50,7 +50,7 @@ export default function ParkInfo() {
   )[0];
 
   return (
-    <Container component="main">
+    <Container component="main" sx={{ pt: 10 }}>
       <BackButton />
 
       <Typography component="h1" variant="h4">

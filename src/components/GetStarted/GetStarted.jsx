@@ -22,6 +22,10 @@ export default function GetStarted(props) {
     destination = "Planner";
     fragment = "an active trip";
     path = "/planner";
+  } else {
+    destination = "Finder";
+    fragment = "any trips";
+    path = "/finder";
   }
 
   return (
