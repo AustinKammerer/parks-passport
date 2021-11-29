@@ -12,7 +12,7 @@ export default function GetStarted(props) {
 
   const currentTrip = useSelector((store) => store.trip);
   const currentTripPath = `/current/log/${
-    currentTrip.length ? currentTrip[0].id : "null"
+    currentTrip.length ? currentTrip[0].id : "0"
   }`;
 
   // conditionally render the messages as well as button action
@@ -20,7 +20,7 @@ export default function GetStarted(props) {
   let message;
   let path;
   if (props.currentTripEmpty && !props.tripPlannerEmpty) {
-    destination = "Planner";
+    destination = "Use the Park Planner to get started!";
     message = "It doesn't look like you have an active trip yet...";
     path = "/planner";
   } else if (props.tripPlannerEmpty) {
@@ -35,7 +35,7 @@ export default function GetStarted(props) {
   console.log(currentTrip[0]);
   return (
     <Box pt={3}>
-      <Typography component="h3" variant="h5" mt={2}>
+      <Typography component="h3" variant="h5" mt={2} textAlign="center">
         {message}
       </Typography>
       <Typography component="h4" variant="h6" mt={2} textAlign="center">

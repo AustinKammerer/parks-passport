@@ -38,7 +38,7 @@ function UserPage() {
           sx={{ height: 80, width: 200, borderRadius: 10 }}
           onClick={() =>
             history.push(
-              `/current/log/${currentTrip.length ? currentTrip[0].id : "null"}`
+              `/current/log/${currentTrip.length ? currentTrip[0].id : "0"}`
             )
           }
         >

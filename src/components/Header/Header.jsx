@@ -34,50 +34,54 @@ export default function Header() {
   }
 
   console.log(location);
-  return (
-    location.pathname !== "/login" &&
-    location.pathname !== "/registration" && (
-      <Paper
-        square
-        sx={{
-          position: "fixed",
-          top: 0,
-          width: "100%",
-          zIndex: 2,
-          bgcolor: theme.palette.primary.main,
-          color: "#fff",
-        }}
+  return location.pathname !== "/login" &&
+    location.pathname !== "/registration" &&
+    user.id ? (
+    <Paper
+      square
+      sx={{
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        zIndex: 2,
+        bgcolor: theme.palette.primary.main,
+        color: "#fff",
+      }}
+    >
+      <Typography
+        align={"right"}
+        variant="body1"
+        pr={1}
+        lineHeight={0}
+        bgcolor={theme.palette.primary.dark}
+        onClick={() => history.push("/user")}
       >
+        <PersonIcon sx={{ verticalAlign: "sub" }} />
+        {user.username}
+      </Typography>
+      <Box display="flex">
+        {location.pathname !== "/login" &&
+          location.pathname !== "/registration" && (
+            <IconButton
+              fontSize="large"
+              sx={{ color: "white" }}
+              onClick={() => history.goBack()}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          )}
         <Typography
-          align={"right"}
-          variant="body1"
-          pr={1}
-          lineHeight={0}
-          bgcolor={theme.palette.primary.dark}
-          onClick={() => history.push("/user")}
+          component="h1"
+          variant="h3"
+          align="center"
+          fontWeight="lighter"
+          // py={1}
         >
-          <PersonIcon sx={{ verticalAlign: "sub" }} />
-          {user.username}
+          {title}
         </Typography>
-        <Box display="flex">
-          <IconButton
-            fontSize="large"
-            sx={{ color: "white" }}
-            onClick={() => history.goBack()}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h3"
-            align="center"
-            fontWeight="lighter"
-            // py={1}
-          >
-            {title}
-          </Typography>
-        </Box>
-      </Paper>
-    )
+      </Box>
+    </Paper>
+  ) : (
+    ""
   );
 }

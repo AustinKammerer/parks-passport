@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import LoginForm from "../LoginForm/LoginForm";
@@ -50,6 +50,7 @@ function LoginPage() {
           </Link>
         </Grid>
       </Grid>
+      <Redirect from="/user" to="/login" />
     </div>
   );
 }

@@ -35,7 +35,7 @@ function Nav() {
   const { indicator } = useSelector((store) => store.nav);
 
   const currentTripPath = `/current/log/${
-    currentTrip.length ? currentTrip[0].id : "null"
+    currentTrip.length ? currentTrip[0].id : "0"
   }`;
 
   return (
