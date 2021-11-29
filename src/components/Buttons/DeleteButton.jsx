@@ -29,21 +29,23 @@ export default function DeleteTripButton(props) {
       dispatch({ type: "DELETE_ENTRY", payload: logId });
     }
   };
+  // console.log(props.sx);
 
   return (
     <>
       {props.entry ? (
-        <IconButton size="large" color="error" onClick={handleDelete}>
+        <IconButton size="large" color="danger" onClick={handleDelete}>
           {<DeleteForeverIcon />}
         </IconButton>
       ) : (
         <Button
           size={props.trip && "large"}
-          color="error"
-          variant="contained"
+          color="danger"
+          variant="outlined"
           onClick={handleDelete}
+          sx={props.sx}
         >
-          {props.trip ? <DeleteForeverIcon /> : "Delete"}
+          {props.trip ? <DeleteForeverIcon /> : "Delete Trip Log"}
         </Button>
       )}
     </>

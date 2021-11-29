@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-// import GetStarted from "../GetStarted/GetStarted";
+import GetStarted from "../GetStarted/GetStarted";
 // import TripPlanner from "../TripPlanner/TripPlanner";
 
 import Typography from "@mui/material/Typography";
@@ -26,44 +26,61 @@ function UserPage() {
 
   return (
     <Container component="main" maxWidth="sm" sx={{ pt: 10 }}>
-      <Typography component="h2" variant="h4">
+      <Typography component="h2" variant="h4" mt={3}>
         Welcome, {user.username}!
       </Typography>
-      <Stack spacing={2}>
+      {/* <GetStarted hasCurrentTrip={true} /> */}
+      <Stack spacing={2} mt={2} alignItems="center">
         <Button
-          size="large"
           variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ height: 80, width: 200, borderRadius: 10 }}
           onClick={() =>
             history.push(
-              `/log/main/${currentTrip.length ? currentTrip[0].id : "null"}`
+              `/current/log/${currentTrip.length ? currentTrip[0].id : "null"}`
             )
           }
         >
           Current Trip
         </Button>
         <Button
-          size="large"
           variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ height: 80, width: 200, borderRadius: 10 }}
           onClick={() => history.push("/planner")}
         >
           Planner
         </Button>
         <Button
-          size="large"
           variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ height: 80, width: 200, borderRadius: 10 }}
           onClick={() => history.push("/finder")}
         >
           Finder
         </Button>
         <Button
-          size="large"
           variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ height: 80, width: 200, borderRadius: 10 }}
           onClick={() => history.push("/history")}
         >
           History
         </Button>
       </Stack>
-
+      <Button
+        onClick={() => dispatch({ type: "LOGOUT" })}
+        variant="contained"
+        color="danger"
+        sx={{ borderRadius: 10, mt: 15, width: "100%" }}
+      >
+        {" "}
+        Log Out
+      </Button>
       {/* <LogOutButton className="btn" /> */}
     </Container>
   );

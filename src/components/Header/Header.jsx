@@ -2,12 +2,17 @@ import { useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import PersonIcon from "@mui/icons-material/Person";
+import { useTheme } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Header() {
   const location = useLocation();
   const history = useHistory();
+  const theme = useTheme();
   const user = useSelector((store) => store.user);
 
   // change the header text depending on the pathname of the current page
@@ -23,7 +28,7 @@ export default function Header() {
   } else if (location.pathname.includes("/history/log/")) {
     title = "Previous Log";
   } else if (location.pathname === "/user") {
-    title = "User";
+    title = "Parks Passport";
   } else if (location.pathname.includes("/info")) {
     title = "Park Info";
   }
@@ -39,7 +44,7 @@ export default function Header() {
           top: 0,
           width: "100%",
           zIndex: 2,
-          bgcolor: "#1b5e20",
+          bgcolor: theme.palette.primary.main,
           color: "#fff",
         }}
       >
@@ -48,15 +53,30 @@ export default function Header() {
           variant="body1"
           pr={1}
           lineHeight={0}
-          bgcolor="#003300"
+          bgcolor={theme.palette.primary.dark}
           onClick={() => history.push("/user")}
         >
           <PersonIcon sx={{ verticalAlign: "sub" }} />
           {user.username}
         </Typography>
-        <Typography component="h1" variant="h3">
-          {title}
-        </Typography>
+        <Box display="flex">
+          <IconButton
+            fontSize="large"
+            sx={{ color: "white" }}
+            onClick={() => history.goBack()}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h3"
+            align="center"
+            fontWeight="lighter"
+            // py={1}
+          >
+            {title}
+          </Typography>
+        </Box>
       </Paper>
     )
   );
