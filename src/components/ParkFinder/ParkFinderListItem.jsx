@@ -30,7 +30,7 @@ export default function ParkFinderListItem({ result }) {
           image={result.images[0].url}
           alt={result.fullName}
         />
-        <CardContent>
+        <CardContent sx={{ p: 1 }}>
           <Typography variant="h5" component="div">
             {result.name}
           </Typography>

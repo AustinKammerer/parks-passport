@@ -101,15 +101,15 @@ export default function StartTripButton(props) {
         <DialogActions>
           <Button
             variant="outlined"
-            color="error"
+            color="danger"
             onClick={() => setOpen(false)}
           >
             No, Thanks
           </Button>
           <Button
             variant="outlined"
-            color="success"
-            onClick={() => history.push(`/log/main/${currentTrip[0].id}`)}
+            color="primary"
+            onClick={() => history.push(`/current/log/${currentTrip[0].id}`)}
           >
             Yes, Please
           </Button>

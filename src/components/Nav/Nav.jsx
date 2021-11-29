@@ -16,14 +16,14 @@ import LoginIcon from "@mui/icons-material/Login";
 import { styled } from "@mui/material/styles";
 
 const CustomBottomNav = styled(BottomNavigation)(({ theme }) => ({
-  backgroundColor: "#1b5e20",
+  backgroundColor: theme.palette.primary.main,
   padding: "0.5em 0",
 }));
 
 const CustomBottomNavAction = styled(BottomNavigationAction)(({ theme }) => ({
   color: "#fff",
   "&.MuiBottomNavigationAction-root.Mui-selected": {
-    color: "#ff833a",
+    color: theme.palette.secondary.light,
   },
 }));
 
@@ -89,7 +89,7 @@ function Nav() {
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1 }}
         elevation={15}
       >
-        {user.id === null && (
+        {!user.id && (
           <CustomBottomNav showLabels value={indicator}>
             <CustomBottomNavAction
               component={Link}

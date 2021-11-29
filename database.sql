@@ -19,8 +19,8 @@ CREATE TABLE "trip" (
     "is_current" BOOLEAN NOT NULL DEFAULT FALSE,
     "is_complete" BOOLEAN NOT NULL DEFAULT FALSE,
     "image_path" VARCHAR (510),
-    "started_at" TIMESTAMPTZ,
-    "ended_at" TIMESTAMPTZ
+    "start_date" TIMESTAMPTZ,
+    "end_date" TIMESTAMPTZ
 );
 
 -- table to hold the actual log entries users make for each trip

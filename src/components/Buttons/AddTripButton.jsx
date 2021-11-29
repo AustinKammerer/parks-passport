@@ -53,7 +53,7 @@ export default function AddTripButton({ park }) {
   return (
     <Button
       size="large"
-      color="primary"
+      color="secondary"
       variant="contained"
       onClick={handleAdd}
       disabled={isFoundPlanner || isFoundCurrentTrip}

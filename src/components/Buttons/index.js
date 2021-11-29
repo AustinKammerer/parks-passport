@@ -4,6 +4,7 @@ import BackButton from "./BackButton";
 import EndTripButton from "./EndTripButton";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
+import AddEntryButton from "./AddEntryButton";
 
 export {
   AddTripButton,
@@ -12,4 +13,5 @@ export {
   EndTripButton,
   DeleteButton,
   EditButton,
+  AddEntryButton,
 };

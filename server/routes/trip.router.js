@@ -38,7 +38,9 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         "states",
         "image_path" AS "imagePath", 
         "is_current" AS "isCurrent", 
-        "is_complete" AS "isComplete" 
+        "is_complete" AS "isComplete",
+        "start_date" AS "startDate", 
+        "end_date" AS "endDate"
         FROM "trip"
         WHERE "user_id" = $1
         ORDER BY "states";
