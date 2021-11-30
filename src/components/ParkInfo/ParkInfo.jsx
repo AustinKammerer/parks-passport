@@ -66,7 +66,7 @@ export default function ParkInfo() {
       <AddTripButton park={parkInfo} /> */}
 
       {/* Alerts */}
-      <Accordion>
+      <Accordion elvation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel10a-header">
           <Typography>Alerts</Typography>
         </AccordionSummary>
@@ -83,7 +83,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Description */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
           <Typography>Description</Typography>
         </AccordionSummary>
@@ -93,7 +93,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Images */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel2a-header">
           <Typography>Images</Typography>
         </AccordionSummary>
@@ -115,7 +115,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Activities */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel3a-header">
           <Typography>Activities Available</Typography>
         </AccordionSummary>
@@ -131,7 +131,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Weather (not a forcast) */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel4a-header">
           <Typography>General Weather Info</Typography>
         </AccordionSummary>
@@ -141,7 +141,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Location */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel5a-header">
           <Typography>Location</Typography>
         </AccordionSummary>
@@ -167,7 +167,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Directions (general, no turn-by-turn) */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel6a-header">
           <Typography>Directions</Typography>
         </AccordionSummary>
@@ -177,7 +177,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Hours of operation */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel7a-header">
           <Typography>Hours of Operation</Typography>
         </AccordionSummary>
@@ -187,7 +187,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Contact */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel8a-header">
           <Typography>Contact</Typography>
         </AccordionSummary>
@@ -202,7 +202,7 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Fees */}
-      <Accordion>
+      <Accordion elevation={3}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel9a-header">
           <Typography>Fees</Typography>
         </AccordionSummary>
