@@ -64,19 +64,13 @@ export default function Header() {
           location.pathname !== "/registration" && (
             <IconButton
               fontSize="large"
-              sx={{ color: "white" }}
+              sx={{ color: "white", mr: 2 }}
               onClick={() => history.goBack()}
             >
               <ArrowBackIcon />
             </IconButton>
           )}
-        <Typography
-          component="h1"
-          variant="h3"
-          align="center"
-          fontWeight="lighter"
-          // py={1}
-        >
+        <Typography variant="h4" align="center" fontWeight="lighter" py={1}>
           {title}
         </Typography>
       </Box>

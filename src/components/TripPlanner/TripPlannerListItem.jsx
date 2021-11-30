@@ -22,7 +22,7 @@ export default function TripPlannerListItem({ trip }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} elevation={3}>
       <CardActionArea onClick={getParkInfo}>
         <CardMedia
           component="img"
@@ -30,7 +30,7 @@ export default function TripPlannerListItem({ trip }) {
           image={trip.imagePath}
           alt={trip.parkCode}
         />
-        <CardContent>
+        <CardContent sx={{ p: 1 }}>
           <Typography variant="h5" component="div">
             {trip.name}
           </Typography>

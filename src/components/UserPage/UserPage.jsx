@@ -72,15 +72,18 @@ function UserPage() {
           History
         </Button>
       </Stack>
-      <Button
-        onClick={() => dispatch({ type: "LOGOUT" })}
-        variant="contained"
-        color="danger"
-        sx={{ borderRadius: 10, mt: 15, width: "100%" }}
-      >
-        {" "}
-        Log Out
-      </Button>
+      <Stack alignItems="center" mt={15}>
+        <Button
+          onClick={() => dispatch({ type: "LOGOUT" })}
+          variant="contained"
+          color="danger"
+          sx={{ borderRadius: 10, width: 200, height: 45, mx: "auto" }}
+        >
+          {" "}
+          Log Out
+        </Button>
+      </Stack>
+
       {/* <LogOutButton className="btn" /> */}
     </Container>
   );

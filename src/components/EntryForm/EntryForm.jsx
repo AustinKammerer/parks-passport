@@ -18,12 +18,6 @@ export default function EntryForm(props) {
   // const history = useHistory();
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      {/* <Button type="submit" variant="contained">
-        Submit
-      </Button>
-      <Button onClick={() => history.push(`/log/main/${tripId}`)}>
-        Cancel
-      </Button> */}
       {mode === "add" && (
         <label htmlFor="contained-upload-button">
           <Input

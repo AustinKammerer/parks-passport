@@ -49,7 +49,7 @@ function* startTrip(action) {
     console.log("trip started");
     // refresh the user's lists
     // yield put({ type: "FETCH_TRIP_LISTS" });
-    history.push(`/log/main/${tripId}`);
+    history.push(`/current/log/${tripId}`);
   } catch (error) {
     console.log("error starting trip:", error);
     yield put({ type: "PUT_ERROR" });

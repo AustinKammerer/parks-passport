@@ -21,7 +21,7 @@ export default function TripHistoryListItem({ trip }) {
   );
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} elevation={3}>
       <CardActionArea onClick={() => history.push(`/history/log/${trip.id}`)}>
         <CardMedia
           component="img"
