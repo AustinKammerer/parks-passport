@@ -46,7 +46,7 @@ export default function TripLog({ actionType }) {
   };
 
   return (
-    <Container component="main" sx={{ px: 0, pt: 10 }}>
+    <Container component="main" sx={{ px: 0, py: 10 }}>
       {/* Display the trip's log */}
       {tripId !== "0" ? (
         <Box>

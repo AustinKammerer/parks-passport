@@ -7,6 +7,7 @@ const {
 } = require("../modules/authentication-middleware");
 
 const npsBaseUrl = `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}`;
+const npsAlertsUrl = `https://developer.nps.gov/api/v1/alerts/?api_key=${process.env.NPS_API_KEY}`;
 
 // GET route for searching parks API by state
 router.get("/finder", (req, res) => {
@@ -49,6 +50,21 @@ router.get("/info", (req, res) => {
     })
     .catch((err) => {
       console.log("Error getting park info from NPS API", err);
+    });
+});
+
+// GET route for getting alerts for a specific park from the NPS API
+router.get("/alerts", (req, res) => {
+  // grab the parkCode from the client's query string so it may be used in the request to the NPS API
+  const { parkCode } = req.query;
+  // send GET request to NPS API for a specific park's data
+  axios
+    .get(`${npsAlertsUrl}&parkCode=${parkCode}`)
+    .then((result) => {
+      res.send(result.data);
+    })
+    .catch((err) => {
+      console.log("Error getting park alerts from NPS API", err);
     });
 });
 

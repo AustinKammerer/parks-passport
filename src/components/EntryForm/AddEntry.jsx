@@ -52,10 +52,11 @@ export default function AddEntry() {
 
   const handleDialogClose = () => {
     dispatch({ type: "CLOSE_NEW_ENTRY_DIALOG" });
+    dispatch({ type: "CLEAR_ENTRY_INPUT" });
   };
 
   return (
-    <Dialog open={newEntryDialogOpen} onClose={handleDialogClose}>
+    <Dialog open={newEntryDialogOpen} onClose={handleDialogClose} fullWidth>
       <DialogTitle>New Log Entry</DialogTitle>
       <DialogContent>
         <EntryForm handleChange={handleChange} mode={"add"} tripId={tripId} />

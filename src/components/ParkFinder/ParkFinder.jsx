@@ -16,7 +16,7 @@ export default function ParkFinder() {
   }, []);
 
   return (
-    <Container component="main" sx={{ pt: 10 }}>
+    <Container component="main" sx={{ py: 10 }}>
       {/* <Typography component="h1" variant="h3">
         Finder
       </Typography> */}

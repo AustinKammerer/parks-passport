@@ -50,7 +50,7 @@ function LoginPage() {
           </Link>
         </Grid>
       </Grid>
-      <Redirect from="/user" to="/login" />
+      {/* <Redirect from="/user" to="/login" /> */}
     </div>
   );
 }

@@ -42,9 +42,20 @@ const parkInfo = (state = {}, action) => {
   }
 };
 
+// stores any alerts for the ParkInfo view
+const parkAlerts = (state = [], action) => {
+  switch (action.type) {
+    case "SET_PARK_ALERTS":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   searchResults,
   searchTerm,
   parkStates,
   parkInfo,
+  parkAlerts,
 });

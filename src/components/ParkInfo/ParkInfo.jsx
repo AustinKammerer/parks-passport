@@ -34,10 +34,11 @@ export default function ParkInfo() {
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_PARK_INFO", payload: parkCode });
+    dispatch({ type: "FETCH_PARK_ALERTS", payload: parkCode });
   }, []);
 
   // get the stored park info from redux
-  const { parkInfo } = useSelector((store) => store.park);
+  const { parkInfo, parkAlerts } = useSelector((store) => store.park);
 
   // drill into the addresses property and filter for the physical address
   const physicalAddress = parkInfo.addresses?.filter(
@@ -50,10 +51,10 @@ export default function ParkInfo() {
   )[0];
 
   return (
-    <Container component="main" sx={{ pt: 10 }}>
-      <BackButton />
+    <Container component="main" sx={{ py: 10 }}>
+      {/* <BackButton /> */}
 
-      <Typography component="h1" variant="h4">
+      <Typography component="h1" variant="h4" mt={2}>
         {parkInfo.name}
       </Typography>
       {/* <StartTripButton
@@ -63,6 +64,23 @@ export default function ParkInfo() {
         parkInfo={parkInfo}
       />
       <AddTripButton park={parkInfo} /> */}
+
+      {/* Alerts */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel10a-header">
+          <Typography>Alerts</Typography>
+        </AccordionSummary>
+        <StyledAccordionDetails>
+          <Box>
+            {parkAlerts?.map((alert) => (
+              <Box key={alert.id} sx={{ mb: 2 }}>
+                <Typography fontWeight="bold">{alert.title}</Typography>
+                <Typography>{alert.description}</Typography>
+              </Box>
+            ))}
+          </Box>
+        </StyledAccordionDetails>
+      </Accordion>
 
       {/* Description */}
       <Accordion>

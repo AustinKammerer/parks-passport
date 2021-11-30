@@ -30,7 +30,7 @@ function UserPage() {
         Welcome, {user.username}!
       </Typography>
       {/* <GetStarted hasCurrentTrip={true} /> */}
-      <Stack spacing={2} mt={2} alignItems="center">
+      <Stack spacing={3} mt={2} alignItems="center">
         <Button
           variant="contained"
           color="secondary"

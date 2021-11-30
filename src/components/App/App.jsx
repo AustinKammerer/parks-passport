@@ -26,6 +26,7 @@ import TripHistory from "../TripHistory/TripHistory";
 import GetStarted from "../GetStarted/GetStarted";
 import TripLog from "../TripLog/TripLog";
 import Header from "../Header/Header";
+import ScrollToTop from "../ScrollToTop/ScrollToTop";
 import "./App.css";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -68,6 +69,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <ThemeProvider theme={theme}>
         <div>
           <Header />

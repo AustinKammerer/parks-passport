@@ -17,6 +17,7 @@ const AddFab = styled(Fab)(({ theme }) => ({
 }));
 
 export default function AddEntryButton() {
+  const dispatch = useDispatch();
   return (
     <AddFab onClick={() => dispatch({ type: "OPEN_NEW_ENTRY_DIALOG" })}>
       {<AddIcon />}

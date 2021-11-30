@@ -43,7 +43,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         "end_date" AS "endDate"
         FROM "trip"
         WHERE "user_id" = $1
-        ORDER BY "start_date" DESC, "states";
+        ORDER BY "start_date" DESC, "id" DESC;
   `;
 
   pool

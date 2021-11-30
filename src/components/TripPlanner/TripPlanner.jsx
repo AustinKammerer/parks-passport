@@ -19,7 +19,7 @@ export default function TripPlanner() {
   }, []);
 
   return (
-    <Container component="main" sx={{ px: 2, pt: 10 }}>
+    <Container component="main" sx={{ px: 2, py: 10 }}>
       {tripPlanner?.length > 0 ? (
         <Grid container spacing={2} justifyContent="center" mt={0}>
           {tripPlanner.map((trip) => (

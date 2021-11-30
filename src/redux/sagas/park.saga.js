@@ -52,11 +52,31 @@ function* fetchParkInfo(action) {
   }
 }
 
+// GET alerts from the NPS API for a specific park
+function* fetchParkAlerts(action) {
+  // action brings the parkCode with it
+  const parkCode = action.payload;
+  try {
+    // client GET triggers a server GET to the NPS API
+    // capture the response from NPS
+    const parkAlerts = yield axios.get(`/api/park/alerts?parkCode=${parkCode}`);
+    // pull the object we want out of the data.data array and send it to the redux store
+    yield put({
+      type: "SET_PARK_ALERTS",
+      payload: parkAlerts.data.data,
+    });
+  } catch (error) {
+    console.log("error getting park alerts:", error);
+    yield put({ type: "GET_ERROR" });
+  }
+}
+
 // watcher saga
 function* parkSaga() {
   yield takeLatest("FETCH_SEARCH_RESULTS", fetchSearchResults);
   yield takeLatest("FETCH_STATES", fetchStates);
   yield takeLatest("FETCH_PARK_INFO", fetchParkInfo);
+  yield takeLatest("FETCH_PARK_ALERTS", fetchParkAlerts);
 }
 
 export default parkSaga;

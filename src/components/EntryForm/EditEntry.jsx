@@ -62,7 +62,7 @@ export default function EditEntry() {
   };
 
   return (
-    <Dialog open={editEntryDialogOpen} onClose={handleDialogClose}>
+    <Dialog open={editEntryDialogOpen} onClose={handleDialogClose} fullWidth>
       <DialogTitle>Edit Log Entry</DialogTitle>
       <DialogContent>
         <EntryForm
