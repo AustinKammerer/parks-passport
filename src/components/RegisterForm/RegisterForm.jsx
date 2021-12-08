@@ -27,7 +27,7 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" fixed maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center">
         <Paper sx={{ p: 2 }}>
           <Box component="form" onSubmit={registerUser}>

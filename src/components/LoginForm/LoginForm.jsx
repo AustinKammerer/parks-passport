@@ -32,42 +32,7 @@ function LoginForm() {
   }; // end login
 
   return (
-    // <form className="formPanel" onSubmit={login}>
-    //   <h2>Login</h2>
-    //   {errors.loginMessage && (
-    //     <h3 className="alert" role="alert">
-    //       {errors.loginMessage}
-    //     </h3>
-    //   )}
-    //   <div>
-    //     <label htmlFor="username">
-    //       Username:
-    //       <input
-    //         type="text"
-    //         name="username"
-    //         required
-    //         value={username}
-    //         onChange={(event) => setUsername(event.target.value)}
-    //       />
-    //     </label>
-    //   </div>
-    //   <div>
-    //     <label htmlFor="password">
-    //       Password:
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         required
-    //         value={password}
-    //         onChange={(event) => setPassword(event.target.value)}
-    //       />
-    //     </label>
-    //   </div>
-    //   <div>
-    //     <input className="btn" type="submit" name="submit" value="Log In" />
-    //   </div>
-    // </form>
-    <Container component="main" maxWidth="xs">
+    <Container component="main" fixed maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center">
         <Paper sx={{ p: 2 }}>
           <Box component="form" onSubmit={login}>

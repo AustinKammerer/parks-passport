@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import RegisterForm from "../RegisterForm/RegisterForm";
+import LoginImage from "../LoginImage/LoginImage";
 
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -16,11 +17,9 @@ function RegisterPage() {
     dispatch({ type: "MOVE_TO_LOGIN" });
   });
 
-  const [image, setImage] = React.useState("images/half-dome-wallpaper.jpg");
-
   return (
     <div>
-      <img src={image} />
+      <LoginImage />
       <RegisterForm />
 
       <Grid container columnSpacing={2} justifyContent="center" mt={3}>

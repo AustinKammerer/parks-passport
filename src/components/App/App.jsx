@@ -9,19 +9,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import Nav from "../Nav/Nav";
-import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import ParkFinder from "../ParkFinder/ParkFinder";
 import ParkInfo from "../ParkInfo/ParkInfo";
 import TripPlanner from "../TripPlanner/TripPlanner";
-import AddEntry from "../EntryForm/AddEntry";
-import EditEntry from "../EntryForm/EditEntry";
 import TripHistory from "../TripHistory/TripHistory";
 import GetStarted from "../GetStarted/GetStarted";
 import TripLog from "../TripLog/TripLog";
@@ -75,7 +70,7 @@ function App() {
           <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/login" />
 
             {/* Visiting localhost:3000/about will show the about page. */}
             <Route
