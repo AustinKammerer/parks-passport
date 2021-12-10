@@ -53,6 +53,7 @@ export default function ParkFinderForm() {
               value={searchTerm}
               label="State/Territory"
               onChange={handleChange}
+              sx={{ maxHeight: 400 }}
             >
               {parkStates.map((state) => (
                 <MenuItem key={state} value={state}>

@@ -24,6 +24,7 @@ const CustomBottomNavAction = styled(BottomNavigationAction)(({ theme }) => ({
   color: "#fff",
   "&.MuiBottomNavigationAction-root.Mui-selected": {
     color: theme.palette.secondary.light,
+    fontWeight: "bold",
   },
 }));
 

@@ -22,7 +22,10 @@ export default function ParkFinderListItem({ result }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, mx: "auto" }} elevation={3}>
+    <Card
+      sx={{ maxWidth: 345, mx: "auto", backgroundColor: "#ededed" }}
+      elevation={3}
+    >
       <CardActionArea onClick={getParkInfo}>
         <CardMedia
           component="img"

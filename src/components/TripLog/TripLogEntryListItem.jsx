@@ -23,7 +23,10 @@ export default function JournalListItem({ entry }) {
   );
 
   return (
-    <Paper sx={{ maxWidth: 360, mx: "auto" }} elevation={4}>
+    <Paper
+      sx={{ maxWidth: 360, mx: "auto", backgroundColor: "#ededed" }}
+      elevation={4}
+    >
       <Grid container justifyContent="space-between">
         {entry.imagePath && (
           <Grid item xs={12}>

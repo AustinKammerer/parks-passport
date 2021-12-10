@@ -9,7 +9,7 @@ const AddFab = styled(Fab)(({ theme }) => ({
   bottom: 88,
   right: 16,
   zIndex: 2,
-  // color: "#fff",
+  color: "#fff",
   backgroundColor: theme.palette.secondary.main,
   "&:hover": {
     backgroundColor: theme.palette.secondary.main,

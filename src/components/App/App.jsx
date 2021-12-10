@@ -23,12 +23,19 @@ import TripLog from "../TripLog/TripLog";
 import Header from "../Header/Header";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
 import "./App.css";
+import backgroundImg from "../../assets/images/half-dome-hairpin.jpg";
 
+import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import CssBaseline from "@mui/material/CssBaseline";
+// import "@fontsource/roboto/300.css";
+// import "@fontsource/roboto/400.css";
+// import "@fontsource/roboto/500.css";
+// import "@fontsource/roboto/700.css";
+import "@fontsource/eb-garamond/400.css";
+import "@fontsource/eb-garamond/500.css";
+import "@fontsource/eb-garamond/600.css";
+import "@fontsource/eb-garamond/700.css";
 
 const theme = createTheme({
   palette: {
@@ -46,6 +53,21 @@ const theme = createTheme({
       light: "#ff833a",
       dark: "#ac1900",
     },
+  },
+  typography: {
+    fontFamily: [
+      "EB Garamond",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
 });
 
@@ -66,7 +88,17 @@ function App() {
     <Router>
       <ScrollToTop />
       <ThemeProvider theme={theme}>
-        <div>
+        <CssBaseline />
+        <Box
+        // sx={{
+        //   backgroundImage: `url(${backgroundImg})`,
+        //   backgroundPostion: "center",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundSize: "cover",
+        //   backgroundAttachment: "fixed",
+        //   height: "100%",
+        // }}
+        >
           <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -188,7 +220,7 @@ function App() {
           </Switch>
           {/* <Footer /> */}
           <Nav />
-        </div>
+        </Box>
       </ThemeProvider>
     </Router>
   );
