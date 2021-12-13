@@ -26,6 +26,11 @@ const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   overflow: "scroll",
 }));
 
+const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
+  backgroundColor: "#ededed",
+  color: theme.palette.primary.main,
+}));
+
 export default function ParkInfo() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,6 +45,13 @@ export default function ParkInfo() {
   // get the stored park info from redux
   const { parkInfo, parkAlerts } = useSelector((store) => store.park);
 
+  // local state for controlling accordian expansion (only one at a time)
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   // drill into the addresses property and filter for the physical address
   const physicalAddress = parkInfo.addresses?.filter(
     (address) => address.type === "Physical"
@@ -51,10 +63,10 @@ export default function ParkInfo() {
   )[0];
 
   return (
-    <Container component="main" sx={{ py: 10 }}>
+    <Container className="background" component="main" sx={{ py: 10 }}>
       {/* <BackButton /> */}
 
-      <Typography component="h1" variant="h4" mt={2}>
+      <Typography component="h1" variant="h4" my={2}>
         {parkInfo.name}
       </Typography>
       {/* <StartTripButton
@@ -66,7 +78,11 @@ export default function ParkInfo() {
       <AddTripButton park={parkInfo} /> */}
 
       {/* Alerts */}
-      <Accordion elvation={3}>
+      <Accordion
+        elvation={3}
+        expanded={expanded === "panel10"}
+        onChange={handleChange("panel10")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel10a-header">
           <Typography>Alerts</Typography>
         </AccordionSummary>
@@ -74,7 +90,7 @@ export default function ParkInfo() {
           <Box>
             {parkAlerts?.map((alert) => (
               <Box key={alert.id} sx={{ mb: 2 }}>
-                <Typography fontWeight="bold">{alert.title}</Typography>
+                <Typography fontWeight={600}>{alert.title}</Typography>
                 <Typography>{alert.description}</Typography>
               </Box>
             ))}
@@ -83,7 +99,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Description */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel1"}
+        onChange={handleChange("panel1")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
           <Typography>Description</Typography>
         </AccordionSummary>
@@ -93,7 +113,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Images */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel2"}
+        onChange={handleChange("panel2")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel2a-header">
           <Typography>Images</Typography>
         </AccordionSummary>
@@ -115,7 +139,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Activities */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel3a-header">
           <Typography>Activities Available</Typography>
         </AccordionSummary>
@@ -131,7 +159,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Weather (not a forcast) */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel4a-header">
           <Typography>General Weather Info</Typography>
         </AccordionSummary>
@@ -141,7 +173,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Location */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel5"}
+        onChange={handleChange("panel5")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel5a-header">
           <Typography>Location</Typography>
         </AccordionSummary>
@@ -167,7 +203,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Directions (general, no turn-by-turn) */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel6a-header">
           <Typography>Directions</Typography>
         </AccordionSummary>
@@ -177,7 +217,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Hours of operation */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel7a-header">
           <Typography>Hours of Operation</Typography>
         </AccordionSummary>
@@ -187,7 +231,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Contact */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel8"}
+        onChange={handleChange("panel8")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel8a-header">
           <Typography>Contact</Typography>
         </AccordionSummary>
@@ -202,7 +250,11 @@ export default function ParkInfo() {
       </Accordion>
 
       {/* Fees */}
-      <Accordion elevation={3}>
+      <Accordion
+        elevation={3}
+        expanded={expanded === "panel9"}
+        onChange={handleChange("panel9")}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel9a-header">
           <Typography>Fees</Typography>
         </AccordionSummary>

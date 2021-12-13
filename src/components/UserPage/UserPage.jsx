@@ -25,7 +25,12 @@ function UserPage() {
   const { tripPlanner, currentTrip } = useSelector((store) => store.trip);
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ pt: 10 }}>
+    <Container
+      className="background"
+      component="main"
+      maxWidth="sm"
+      sx={{ pt: 10 }}
+    >
       <Typography component="h2" variant="h4" mt={3}>
         Welcome, {user.username}!
       </Typography>

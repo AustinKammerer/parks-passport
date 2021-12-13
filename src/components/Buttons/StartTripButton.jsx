@@ -80,7 +80,6 @@ export default function StartTripButton(props) {
   return (
     <>
       <Button
-        size="large"
         color="success"
         variant="contained"
         onClick={handleStart}

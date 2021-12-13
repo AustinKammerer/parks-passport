@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LogOutButton from "../LogOutButton/LogOutButton";
-import "./Nav.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import Paper from "@mui/material/Paper";
@@ -17,13 +15,18 @@ import { styled } from "@mui/material/styles";
 
 const CustomBottomNav = styled(BottomNavigation)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
-  padding: "0.5em 0",
+  padding: "0.25rem 0",
+  boxSizing: "content-box",
 }));
 
 const CustomBottomNavAction = styled(BottomNavigationAction)(({ theme }) => ({
   color: "#fff",
   "&.MuiBottomNavigationAction-root.Mui-selected": {
     color: theme.palette.secondary.light,
+    fontWeight: "bold",
+  },
+  "&.MuiBottomNavigationAction-root": {
+    fontWeight: "bold",
   },
 }));
 
@@ -39,51 +42,6 @@ function Nav() {
   }`;
 
   return (
-    // <div className="nav">
-    //   <Link to="/home">
-    //     <h2 className="nav-title">Prime Solo Project</h2>
-    //   </Link>
-    //   <div>
-    //     {/* If no user is logged in, show these links */}
-    //     {user.id === null && (
-    //       // If there's no user, show login/registration links
-    //       <Link className="navLink" to="/login">
-    //         Login / Register
-    //       </Link>
-    //     )}
-
-    //     {/* If a user is logged in, show these links */}
-    //     {user.id && (
-    //       <>
-    //         <Link className="navLink" to="/user">
-    //           Home
-    //         </Link>
-
-    //         <Link className="navLink" to="/placeholder">
-    //           Blank
-    //         </Link>
-
-    //         <Link className="navLink" to="/planner">
-    //           Planner
-    //         </Link>
-
-    //         <Link className="navLink" to="/finder">
-    //           Finder
-    //         </Link>
-
-    //         <Link className="navLink" to="/history">
-    //           History
-    //         </Link>
-
-    //         <LogOutButton className="navLink" />
-    //       </>
-    //     )}
-
-    //     <Link className="navLink" to="/about">
-    //       About
-    //     </Link>
-    //   </div>
-    // </div>
     <Box sx={{ pb: 7 }}>
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1 }}

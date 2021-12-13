@@ -19,7 +19,7 @@ export default function TripHistory() {
   }, [dispatch]);
 
   return (
-    <Container component="main" sx={{ px: 0, py: 10 }}>
+    <Container className="background" component="main" sx={{ px: 0, py: 10 }}>
       {tripHistory?.length > 0 ? (
         <Grid container spacing={2} justifyContent="center" mt={0}>
           {tripHistory.map((trip) => (

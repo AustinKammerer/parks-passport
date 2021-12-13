@@ -55,6 +55,7 @@ export default function Header() {
         lineHeight={0}
         bgcolor={theme.palette.primary.dark}
         onClick={() => history.push("/user")}
+        fontWeight="bold"
       >
         <PersonIcon sx={{ verticalAlign: "sub" }} />
         {user.username}
