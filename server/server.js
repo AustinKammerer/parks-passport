@@ -1,14 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-require('dotenv').config();
+const express = require("express");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const axios = require("axios");
+const pool = require("./modules/pool");
 
 const app = express();
 
-const sessionMiddleware = require('./modules/session-middleware');
-const passport = require('./strategies/user.strategy');
+const sessionMiddleware = require("./modules/session-middleware");
+const passport = require("./strategies/user.strategy");
 
 // Route includes
-const userRouter = require('./routes/user.router');
+const userRouter = require("./routes/user.router");
+const parkRouter = require("./routes/park.router");
+const tripRouter = require("./routes/trip.router");
+const logRouter = require("./routes/log.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -22,10 +27,33 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-app.use('/api/user', userRouter);
+app.use("/api/user", userRouter);
+app.use("/api/park", parkRouter); // for accessing the NPS API
+app.use("/api/trip", tripRouter); // for accessing "trip" in the database
+app.use("/api/log", logRouter); // for accessing "log" in the database
 
 // Serve static files
-app.use(express.static('build'));
+app.use(express.static("build"));
+
+// axios
+//   .get(
+//     `https://developer.nps.gov/api/v1/parks/?api_key=${process.env.NPS_API_KEY}&limit=470`
+//   )
+//   .then((response) => {
+//     const results = response.data.data;
+//     let query = `INSERT INTO "designations" ("type", "state") VALUES `;
+//     for (let i = 0; i < results.length; i++) {
+//       query += ` ('${results[i].designation}', '${results[i].states}')`;
+//       if (i === results.length - 1) {
+//         // if last iteration, add semicolon
+//         query += `;`;
+//       } else {
+//         // otherwise, add comma
+//         query += `,`;
+//       }
+//     }
+//     pool.query(query);
+//   });
 
 // App Set //
 const PORT = process.env.PORT || 5000;
