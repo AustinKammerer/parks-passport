@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import TripPlannerListItem from "./TripPlannerListItem";
 import GetStarted from "../GetStarted/GetStarted";
 
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 

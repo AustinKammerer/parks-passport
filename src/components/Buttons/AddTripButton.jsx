@@ -17,7 +17,6 @@ export default function AddTripButton({ park }) {
   const isInPlanner = (park) => {
     // the button has access to the component's park search result via prop
     // this function checks if that park is present in the user's planner
-    console.log("checking planner");
     const found = tripPlanner.find((trip) => trip.parkCode === park.parkCode);
     found !== undefined && setIsFoundPlanner(true);
   };
@@ -25,7 +24,6 @@ export default function AddTripButton({ park }) {
   const isCurrentTrip = (park) => {
     // the button has access to the component's park search result via prop
     // this function checks if that park is the user's currentTrip
-    console.log("checking currentTrip");
     const found = currentTrip.find((trip) => trip.parkCode === park.parkCode);
     found !== undefined && setIsFoundCurrentTrip(true);
   };

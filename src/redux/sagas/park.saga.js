@@ -11,7 +11,6 @@ function* fetchSearchResults(action) {
     const searchResults = yield axios.get(
       `/api/park/finder?stateCode=${state}`
     );
-    console.log("search results:", searchResults.data);
     // send the response to the searchResults reducer
     yield put({ type: "SET_RESULTS", payload: searchResults.data });
   } catch (error) {

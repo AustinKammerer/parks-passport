@@ -5,13 +5,6 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-/**
- * GET route template
- */
-// router.get("/", (req, res) => {
-//   // GET route code here
-// });
-
 // function to sort the user's trips into an object containing three lists: tripPlanner, currentTrip, tripHistory
 // note: a trip may only be on one list at a given time
 const sortTrips = (trips) => {
@@ -58,13 +51,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
-
-/**
- * POST route template
- */
-// router.post("/", (req, res) => {
-//   // POST route code here
-// });
 
 // POST route for adding a trip to the database
 router.post("/", rejectUnauthenticated, (req, res) => {

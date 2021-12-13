@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import ParkFinderListItem from "./ParkFinderListItem";
 
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";

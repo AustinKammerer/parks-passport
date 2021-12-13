@@ -25,7 +25,6 @@ export default function StartTripButton(props) {
   const isCurrentTrip = (park) => {
     // the button has access to the component's park search result via prop
     // this function checks if that park is present in the user's tripPlanner
-    console.log("checking currentTrip");
     const found = currentTrip.find((trip) => trip.parkCode === park.parkCode);
     found !== undefined && setIsFound(true);
   };
@@ -40,7 +39,6 @@ export default function StartTripButton(props) {
     // determine behavior by checking the props passed to the button
     // from ParkFinder (parent passes 'result'):
     if (props.result) {
-      console.log("clicked in Finder");
       if (currentTrip?.length === 0) {
         // if there is no current trip, add a new trip and activate it
         const { parkCode, name, states } = props.result;
@@ -64,7 +62,6 @@ export default function StartTripButton(props) {
     }
     // from tripPlanner (parent passes 'trip')
     else if (props.trip) {
-      console.log("clicked in planner");
       if (currentTrip?.length === 0) {
         // get the trip's id for the PUT request to activate the trip
         const { id } = props.trip;

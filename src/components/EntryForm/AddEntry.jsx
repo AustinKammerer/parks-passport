@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import EntryForm from "./EntryForm";
 
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";

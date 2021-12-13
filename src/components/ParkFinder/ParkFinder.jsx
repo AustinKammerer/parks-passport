@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import ParkFinderForm from "./ParkFinderForm";
 import ParkFinderList from "./ParkFinderList";
 
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 export default function ParkFinder() {
@@ -23,9 +22,6 @@ export default function ParkFinder() {
         py: 10,
       }}
     >
-      {/* <Typography component="h1" variant="h3">
-        Finder
-      </Typography> */}
       <ParkFinderForm />
       <ParkFinderList />
     </Container>

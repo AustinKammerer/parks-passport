@@ -29,7 +29,6 @@ function* addTrip(action) {
       states,
       isCurrent,
     });
-    console.log("POST success");
     // refresh the user's list
     yield put({ type: "FETCH_TRIP_LISTS" });
     // if the trip being added is also being activated, direct to it
@@ -47,7 +46,6 @@ function* startTrip(action) {
   try {
     // PUT request
     yield axios.put(`/api/trip/start/${tripId}`);
-    console.log("trip started");
     // refresh the user's lists
     // yield put({ type: "FETCH_TRIP_LISTS" });
     history.push(`/current/log/${tripId}`);
@@ -64,7 +62,6 @@ function* endTrip(action) {
   try {
     // PUT request
     yield axios.put(`/api/trip/end/${tripId}`);
-    console.log("trip ended");
     // refresh the user's lists
     // yield put({ type: "FETCH_TRIP_LISTS" });
     // directs the user back to UserPage
@@ -82,7 +79,6 @@ function* deleteTrip(action) {
   try {
     // DELETE request
     yield axios.delete(`/api/trip/${tripId}`);
-    console.log("trip deleted");
     // refresh user's lists
     yield put({ type: "FETCH_TRIP_LISTS" });
   } catch (error) {

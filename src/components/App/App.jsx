@@ -23,15 +23,10 @@ import TripLog from "../TripLog/TripLog";
 import Header from "../Header/Header";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
 import "./App.css";
-import backgroundImg from "../../assets/images/half-dome-hairpin.jpg";
 
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-// import "@fontsource/roboto/300.css";
-// import "@fontsource/roboto/400.css";
-// import "@fontsource/roboto/500.css";
-// import "@fontsource/roboto/700.css";
 import "@fontsource/eb-garamond/400.css";
 import "@fontsource/eb-garamond/500.css";
 import "@fontsource/eb-garamond/600.css";
@@ -89,16 +84,7 @@ function App() {
       <ScrollToTop />
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box
-        // sx={{
-        //   backgroundImage: `url(${backgroundImg})`,
-        //   backgroundPostion: "center",
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundSize: "cover",
-        //   backgroundAttachment: "fixed",
-        //   height: "100%",
-        // }}
-        >
+        <Box>
           <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

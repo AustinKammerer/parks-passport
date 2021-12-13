@@ -14,8 +14,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 
 export default function TripLog({ actionType }) {
   const dispatch = useDispatch();
@@ -41,7 +39,6 @@ export default function TripLog({ actionType }) {
 
   // directs user to the park's info page - uses route params
   const getParkInfo = () => {
-    console.log(tripLog.parkCode);
     history.push(`/info/${tripLog.parkCode}`);
   };
 

@@ -31,10 +31,8 @@ function* fetchLogEntryToEdit(action) {
 // POST a new journal entry
 function* addEntry(action) {
   const { tripId, formData } = action.payload;
-  console.log(action.payload);
   try {
     yield axios.post(`/api/log/entry`, formData);
-    console.log("log entry POST success");
     // clear the input field
     yield put({ type: "CLEAR_ENTRY_INPUT" });
     // close the form dialog
@@ -52,7 +50,6 @@ function* deleteEntry(action) {
   const logId = action.payload;
   try {
     const response = yield axios.delete(`/api/log/entry/${logId}`);
-    console.log("log deleted successfully from trip", response.data);
     yield put({ type: "FETCH_TRIP_LOG", payload: response.data[0].tripId });
   } catch (error) {
     console.log("error deleting log entry:", error);
@@ -66,7 +63,6 @@ function* editEntry(action) {
   const { editEntry, tripId } = action.payload;
   try {
     yield axios.put(`/api/log/entry/${editEntry.logId}`, editEntry);
-    console.log("log entry updated successfully");
     // clear the input field
     yield put({ type: "CLEAR_EDIT_ITEM" });
     // close the form dialog

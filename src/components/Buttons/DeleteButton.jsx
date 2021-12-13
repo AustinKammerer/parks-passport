@@ -29,7 +29,6 @@ export default function DeleteTripButton(props) {
       dispatch({ type: "DELETE_ENTRY", payload: logId });
     }
   };
-  // console.log(props.sx);
 
   return (
     <>

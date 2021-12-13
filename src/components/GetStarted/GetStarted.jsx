@@ -1,5 +1,4 @@
 import React from "react";
-// import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -33,7 +32,7 @@ export default function GetStarted(props) {
     message = "It doesn't look like you have any trips planned yet...";
     path = "/finder";
   }
-  console.log(currentTrip[0]);
+
   return (
     <Container
       className={props.tripPlannerEmpty ? "" : "background"}

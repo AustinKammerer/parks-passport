@@ -33,7 +33,6 @@ export default function Header() {
     title = "Park Info";
   }
 
-  console.log(location);
   return location.pathname !== "/login" &&
     location.pathname !== "/registration" &&
     user.id ? (

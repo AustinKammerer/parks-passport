@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import ParkInfoHours from "./ParkInfoHours";
-import { BackButton } from "../Buttons";
 
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -18,7 +17,6 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-// import Button from "@mui/material/Button";
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   maxHeight: 400,

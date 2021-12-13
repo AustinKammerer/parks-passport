@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import EntryForm from "./EntryForm";
 
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -41,7 +40,6 @@ export default function EditEntry() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("editEntry", editEntry);
     // const { logId } = editEntry;
     // const formData = new FormData();
     // // append any tripId first
