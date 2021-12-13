@@ -35,7 +35,11 @@ export default function GetStarted(props) {
   }
   console.log(currentTrip[0]);
   return (
-    <Container className="background" component="main" sx={{ py: 10 }}>
+    <Container
+      className={props.tripPlannerEmpty ? "" : "background"}
+      component="div"
+      sx={{ py: 10 }}
+    >
       <Box>
         <Typography component="h3" variant="h5" mt={2} textAlign="center">
           {message}

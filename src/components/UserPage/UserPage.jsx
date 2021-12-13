@@ -36,48 +36,53 @@ function UserPage() {
       </Typography>
       {/* <GetStarted hasCurrentTrip={true} /> */}
       <Stack spacing={3} mt={2} alignItems="center">
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          sx={{ height: 80, width: 200, borderRadius: 10 }}
-          onClick={() =>
-            history.push(
-              `/current/log/${currentTrip.length ? currentTrip[0].id : "0"}`
-            )
-          }
-        >
-          Current Trip
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          sx={{ height: 80, width: 200, borderRadius: 10 }}
-          onClick={() => history.push("/planner")}
-        >
-          Planner
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          sx={{ height: 80, width: 200, borderRadius: 10 }}
-          onClick={() => history.push("/finder")}
-        >
-          Finder
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          sx={{ height: 80, width: 200, borderRadius: 10 }}
-          onClick={() => history.push("/history")}
-        >
-          History
-        </Button>
+        <Stack spacing={2} direction="row">
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            sx={{ height: 60, width: 150, borderRadius: 10 }}
+            onClick={() =>
+              history.push(
+                `/current/log/${currentTrip.length ? currentTrip[0].id : "0"}`
+              )
+            }
+          >
+            Current
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            sx={{ height: 60, width: 150, borderRadius: 10 }}
+            onClick={() => history.push("/finder")}
+          >
+            Finder
+          </Button>
+        </Stack>
+        <Stack spacing={2} direction="row">
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            sx={{ height: 60, width: 150, borderRadius: 10 }}
+            onClick={() => history.push("/planner")}
+          >
+            Planner
+          </Button>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            sx={{ height: 60, width: 150, borderRadius: 10 }}
+            onClick={() => history.push("/history")}
+          >
+            History
+          </Button>
+        </Stack>
       </Stack>
-      <Stack alignItems="center" mt={15}>
+      <Stack alignItems="center" mt={50}>
         <Button
           onClick={() => dispatch({ type: "LOGOUT" })}
           variant="contained"

@@ -56,13 +56,21 @@ export default function ParkInfoHoursTable({ entry }) {
           )}
           {entry.exceptions.length > 0 &&
             entry.exceptions.map((period) => (
-              <TableRow key={period.name}>
+              <TableRow key={period.startDate}>
                 <TableCell>
                   {period.startDate === period.endDate
                     ? period.name
                     : period.startDate + " - " + period.endDate}
                 </TableCell>
-                <TableCell>{period.exceptionHours.sunday}</TableCell>
+                <TableCell>
+                  {period.exceptionHours.monday ||
+                    period.exceptionHours.tuesday ||
+                    period.exceptionHours.wednesday ||
+                    period.exceptionHours.thursday ||
+                    period.exceptionHours.friday ||
+                    period.exceptionHours.saturday ||
+                    period.exceptionHours.sunday}
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
