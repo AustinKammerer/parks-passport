@@ -31,7 +31,7 @@ export default function TripHistoryListItem({ trip }) {
         />
         <CardContent sx={{ p: 1 }}>
           <Typography variant="h5" component="h3">
-            {trip.name}
+            {trip.fullName ? trip.fullName : trip.name}
           </Typography>
           <Typography variant="body1" componenet="p">
             {startDate} - {endDate}

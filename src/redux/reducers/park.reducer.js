@@ -12,6 +12,17 @@ const searchResults = (state = [], action) => {
   }
 };
 
+const filterSwitch = (state = false, action) => {
+  switch (action.type) {
+    case "TOGGLE_SWITCH":
+      return action.payload;
+    case "SET_UNCHECKED":
+      return false;
+    default:
+      return state;
+  }
+};
+
 // stores the user's search term
 const searchTerm = (state = "", action) => {
   switch (action.type) {
@@ -54,6 +65,7 @@ const parkAlerts = (state = [], action) => {
 
 export default combineReducers({
   searchResults,
+  filterSwitch,
   searchTerm,
   parkStates,
   parkInfo,

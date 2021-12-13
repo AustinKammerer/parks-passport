@@ -32,11 +32,11 @@ export default function TripPlannerListItem({ trip }) {
         />
         <CardContent sx={{ p: 1 }}>
           <Typography variant="h5" component="div">
-            {trip.name}
+            {trip.fullName ? trip.fullName : trip.name}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ justifyContent: "flex-end" }}>
+      <CardActions sx={{ justifyContent: "flex-end", pt: 0 }}>
         <DeleteButton trip={trip} />
         <StartTripButton trip={trip} />
       </CardActions>
