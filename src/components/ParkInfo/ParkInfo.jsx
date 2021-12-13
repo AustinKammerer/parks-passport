@@ -63,10 +63,10 @@ export default function ParkInfo() {
   )[0];
 
   return (
-    <Container component="main" sx={{ py: 10 }}>
+    <Container className="background" component="main" sx={{ py: 10 }}>
       {/* <BackButton /> */}
 
-      <Typography component="h1" variant="h4" mt={2}>
+      <Typography component="h1" variant="h4" my={2}>
         {parkInfo.name}
       </Typography>
       {/* <StartTripButton

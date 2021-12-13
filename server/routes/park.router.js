@@ -21,16 +21,16 @@ router.get("/finder", (req, res) => {
       const list = result.data.data;
       // filter results to only return National Parks
       // there are many other designations on the API in addition to National Parks
-      const filtered = list.filter(
-        (item) =>
-          item.designation === "National Park" ||
-          item.designation === "National Parks" ||
-          item.designation === "National Park & Preserve" ||
-          item.designation === "National Park and Preserve" ||
-          item.designation === "National and State Parks"
-      );
+      // const filtered = list.filter(
+      //   (item) =>
+      //     item.designation === "National Park" ||
+      //     item.designation === "National Parks" ||
+      //     item.designation === "National Park & Preserve" ||
+      //     item.designation === "National Park and Preserve" ||
+      //     item.designation === "National and State Parks"
+      // );
       // console.log(filtered);
-      res.send(filtered);
+      res.send(list);
     })
     .catch((err) => {
       console.log("Error getting parks from NPS API", err);
@@ -72,17 +72,19 @@ router.get("/alerts", (req, res) => {
 // this list is used for the search options in ParkFinder
 router.get("/states", (req, res) => {
   // select the states for every park with particular disignation types
-  const query = `
-    SELECT JSON_AGG("state") AS "states" FROM "designations"
-        WHERE "type" = 'National Park'
-        OR "type" = 'National Park and Preserve'
-        OR "type" = 'National Park & Preserve'
-        OR "type" = 'National Parks'
-        OR "type" = 'National and State Parks'
-        GROUP BY "type";
-  `;
+  // const query = `
+  //   SELECT JSON_AGG("state") AS "states" FROM "designations"
+  //       WHERE "type" = 'National Park'
+  //       OR "type" = 'National Park and Preserve'
+  //       OR "type" = 'National Park & Preserve'
+  //       OR "type" = 'National Parks'
+  //       OR "type" = 'National and State Parks'
+  //       GROUP BY "type";
+  // `;
+
+  const queryForAll = `SELECT JSON_AGG("state") AS "states" FROM "designations";`;
   pool
-    .query(query)
+    .query(queryForAll)
     .then((result) => {
       // result.rows is an array of objects containing arrays of states
       // these arrays need to be mapped into a single array and then flattened

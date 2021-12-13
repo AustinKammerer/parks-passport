@@ -35,7 +35,7 @@ export default function ParkFinderListItem({ result }) {
         />
         <CardContent sx={{ p: 1 }}>
           <Typography variant="h5" component="div">
-            {result.name}
+            {result.fullName}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -6,12 +6,25 @@ body,
 
 body {
   margin: 0px;
-  min-height: 100%;
-  background-image: url(../../assets/images/half-dome-hairpin.jpg);
+}
+
+main.background {
+  /* position: relative; */
+  /* min-height: 100%; */
+  background-image: url(../../assets/images/half-dome-trans.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 img {

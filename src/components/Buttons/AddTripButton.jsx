@@ -52,7 +52,6 @@ export default function AddTripButton({ park }) {
 
   return (
     <Button
-      size="large"
       color="secondary"
       variant="contained"
       onClick={handleAdd}

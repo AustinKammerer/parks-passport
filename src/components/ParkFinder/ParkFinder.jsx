@@ -17,6 +17,7 @@ export default function ParkFinder() {
 
   return (
     <Container
+      className="background"
       component="main"
       sx={{
         py: 10,
