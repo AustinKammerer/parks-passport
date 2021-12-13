@@ -21,18 +21,17 @@ export default function ParkFinderForm() {
     dispatch({ type: "FETCH_STATES" });
     dispatch({ type: "SET_SEARCH_TERM", payload: state ? state : "" });
   }, []);
-  // const [state, setState] = React.useState("");
 
-  // searchTerm (a US state) will be stored in redux
   const { searchTerm, parkStates } = useSelector((store) => store.park);
 
-  const handleChange = (e) => {
-    console.dir(e.target);
+  // handle dropdown selection
+  const handleSelect = (e) => {
     history.push(`/finder?state=${e.target.value}`);
     // dispatch the input's value to redux
     dispatch({ type: "SET_SEARCH_TERM", payload: e.target.value });
   };
 
+  // handle submission
   const handleSearch = () => {
     // history.push(`/finder?state=${searchTerm}`);
     // dispatch the searchTerm to Saga that queries the NPS API
@@ -52,7 +51,7 @@ export default function ParkFinderForm() {
               defaultValue=""
               value={searchTerm}
               label="State/Territory"
-              onChange={handleChange}
+              onChange={handleSelect}
               sx={{ maxHeight: 400 }}
             >
               {parkStates.map((state) => (
@@ -67,7 +66,6 @@ export default function ParkFinderForm() {
               variant="contained"
               onClick={handleSearch}
               color="secondary"
-              size="large"
               sx={{ borderRadius: 10 }}
             >
               Search

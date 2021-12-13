@@ -41,12 +41,19 @@ export default function AddTripButton({ park }) {
   }, [currentTrip]);
 
   const handleAdd = () => {
-    const { parkCode, name, states } = park;
+    const { parkCode, name, fullName, states } = park;
     const imagePath = park.images[0].url;
     // send the park to the saga to insert to database
     dispatch({
       type: "ADD_TRIP",
-      payload: { parkCode, imagePath, name, states, isCurrent: false },
+      payload: {
+        parkCode,
+        imagePath,
+        name,
+        fullName,
+        states,
+        isCurrent: false,
+      },
     });
   };
 

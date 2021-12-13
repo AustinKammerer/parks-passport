@@ -39,7 +39,7 @@ export default function ParkFinderListItem({ result }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ justifyContent: "flex-end" }}>
+      <CardActions sx={{ justifyContent: "flex-end", pt: 0 }}>
         <StartTripButton result={result} />
         {/* <Button
           size="large"

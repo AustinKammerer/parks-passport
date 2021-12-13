@@ -17,7 +17,7 @@ function* fetchTripLists() {
 // POST a park to the "trip" table in database
 function* addTrip(action) {
   // payload contains parkCode and default imagePath
-  const { parkCode, imagePath, name, states, isCurrent, history } =
+  const { parkCode, imagePath, name, fullName, states, isCurrent, history } =
     action.payload;
   try {
     // POST request
@@ -25,6 +25,7 @@ function* addTrip(action) {
       parkCode,
       imagePath,
       name,
+      fullName,
       states,
       isCurrent,
     });
