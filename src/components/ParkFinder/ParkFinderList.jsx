@@ -10,7 +10,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 
 export default function ParkFinderList() {
-  const { searchResults } = useSelector((store) => store.park);
+  const dispatch = useDispatch();
+  const { searchResults, filterSwitch } = useSelector((store) => store.park);
 
   const [results, setResults] = React.useState(searchResults);
 
@@ -18,6 +19,7 @@ export default function ParkFinderList() {
 
   // handle switch toggle
   const handleSwitch = (e) => {
+    dispatch({ type: "TOGGLE_SWITCH", payload: e.target.checked });
     switch (e.target.checked) {
       case true:
         const filteredResults = searchResults.filter(
@@ -52,7 +54,9 @@ export default function ParkFinderList() {
         <Grid item mt={-2}>
           <FormControl>
             <FormControlLabel
-              control={<Switch onChange={handleSwitch} />}
+              control={
+                <Switch checked={filterSwitch} onChange={handleSwitch} />
+              }
               label="National Parks only"
             />
           </FormControl>
