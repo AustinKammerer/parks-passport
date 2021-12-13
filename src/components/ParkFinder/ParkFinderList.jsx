@@ -41,7 +41,6 @@ export default function ParkFinderList() {
     }
   };
 
-  console.log(results);
   return (
     <Grid
       // display="flex"
