@@ -21,7 +21,7 @@ Parks Passport is a mobile-styled React app for planning and recording trips to 
 
 The app allows users to search for National Parks by state and view select information about them for planning purposes. Parks may then be added to their Planner to start a list of parks the user wishes to visit. During visits, users may then upload photos and text entries in their Trip Log. Users may also look back on their past trips to view any photos text entries made at a particular park.
 
-The deployed version of the app may be found [here](https://sheltered-retreat-52105.herokuapp.com/)
+The deployed version of the app may be found [here](https://parks-passport-prime.herokuapp.com/)
 
 TODO:
 
