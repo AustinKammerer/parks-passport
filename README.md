@@ -24,10 +24,10 @@ The app allows users to search for National Parks by state and view select infor
 The deployed version of the app may be found [here](https://sheltered-retreat-52105.herokuapp.com/)
 
 TODO:
-[] Responsive Layout
-[] Add personal travel and visitation statistics to User page
-[] Implement profile pictures
-[] Allows users to view other users' current and past Trip Logs
+[ ] Responsive Layout
+[ ] Add personal travel and visitation statistics to User page
+[ ] Implement profile pictures
+[ ] Allows users to view other users' current and past Trip Logs
 
 ## Screenshots
 
@@ -51,7 +51,7 @@ In order to replicate the project, you will need an [AWS account](https://aws.am
 
 ### Installation
 
-1. Create a database named `prime_app`,
+1. Create a database named `prime_app`
 2. The queries in the `database.sql` file are set up to create the necessary tables, functions and triggers. [Postico](https://eggerapps.at/postico/) is recommended as that was used to create the queries
 3. Open up your editor of choice and run `npm install`
 4. Create a file named `.env` with the following variables (values are examples): <br/>
