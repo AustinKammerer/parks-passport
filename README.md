@@ -44,10 +44,10 @@ In order to replicate the project, you will need an [AWS account](https://aws.am
 
 ### Prerequisites
 
-Node.js
-PostgreSQL
-AWS S3 bucket
-NPS API key
+- Node.js
+- PostgreSQL
+- AWS S3 bucket
+- NPS API key
 
 ### Installation
 
