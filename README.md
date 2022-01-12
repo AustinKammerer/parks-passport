@@ -54,12 +54,12 @@ NPS API key
 1. Create a database named `prime_app`,
 2. The queries in the `database.sql` file are set up to create the necessary tables, functions and triggers. [Postico](https://eggerapps.at/postico/) is recommended as that was used to create the queries
 3. Open up your editor of choice and run `npm install`
-4. Create a file named `.env` with the following variables (values are examples):
-   `SERVER_SESSION_SECRET = SUPERSECRETUNIQESTRING`
-   `NPS_API_KEY = asdf22sf34hbYOURNPSAPIKEY`
-   `AWS_BUCKET_NAME="name-of-your-bucket"`
-   `AWS_BUCKET_REGION="bucket-region"`
-   `AWS_ACCESS_KEY="ADKSIEO12JNC9HEXAMPLE"`
+4. Create a file named `.env` with the following variables (values are examples): <br/>
+   `SERVER_SESSION_SECRET = SUPERSECRETUNIQESTRING` <br/>
+   `NPS_API_KEY = asdf22sf34hbYOURNPSAPIKEY` <br/>
+   `AWS_BUCKET_NAME="name-of-your-bucket"` <br/>
+   `AWS_BUCKET_REGION="bucket-region"` <br/>
+   `AWS_ACCESS_KEY="ADKSIEO12JNC9HEXAMPLE"` <br/>
    `AWS_SECRET_KEY="abcdefghijklmnopqrstuvwxyz/123456EXAMPLE"`
 5. Run `npm run server` in your terminal to start the server with `nodemon`
 6. Run `npm run client` in your terminal to open the client in your browser
