@@ -24,10 +24,11 @@ The app allows users to search for National Parks by state and view select infor
 The deployed version of the app may be found [here](https://sheltered-retreat-52105.herokuapp.com/)
 
 TODO:
-[ ] Responsive Layout
-[ ] Add personal travel and visitation statistics to User page
-[ ] Implement profile pictures
-[ ] Allows users to view other users' current and past Trip Logs
+
+- [ ] Responsive Layout
+- [ ] Add personal travel and visitation statistics to User page
+- [ ] Implement profile pictures
+- [ ] Allows users to view other users' current and past Trip Logs
 
 ## Screenshots
 
